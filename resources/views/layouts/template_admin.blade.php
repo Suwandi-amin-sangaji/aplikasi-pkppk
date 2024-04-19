@@ -161,10 +161,10 @@
                     </li>
 
                     {{-- Komponen --}}
-                    <li class="menu-item ">
-                        <a href="" class="menu-link">
+                    <li class="menu-item {{ Route::is('kegiatan.*') ? 'active' : '' }}">
+                        <a href="{{ route('kegiatan.index') }}" class="menu-link">
                             <i class='menu-icon  tf-icons bx bx-book-content'></i>
-                            <div data-i18n="Analytics">komponen Kegiatan</div>
+                            <div data-i18n="Analytics">komponen</div>
                         </a>
                     </li>
 

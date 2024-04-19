@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\BerandaAdminController;
+use App\Http\Controllers\admin\KegiatanController;
 use App\Http\Controllers\admin\KendaraanController;
 use App\Http\Controllers\admin\PetugasController;
 use App\Http\Controllers\petugas\BerandaPetugasController;
@@ -30,6 +31,7 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
     Route::get('beranda', [BerandaAdminController::class, 'index'])->name('admin.beranda');
     Route::resource('petugas', PetugasController::class);
     Route::resource('kendaraan', KendaraanController::class);
+    Route::resource('kegiatan', KegiatanController::class);
 });
 
 Route::prefix('pimpinan')->middleware(['auth', 'auth.pimpinan'])->group(function () {

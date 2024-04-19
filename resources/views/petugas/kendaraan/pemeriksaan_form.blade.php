@@ -23,28 +23,31 @@
                             </div>
 
                             <div class="form-group mt-3">
-                                <label for="plat">Jenis Kendaraan</label>
-                                {!! Form::text('plat', null, ['class' => 'form-control']) !!}
-                                <span class="text-danger">{{ $errors->first('plat') }}</span>
+                                <label for="role">Jenis Kendaraan</label>
+                                {!! Form::select('jenis_kendaraan', $jenis_kendaraan, null, [
+                                    'class' => 'form-control',
+                                ]) !!}
+                                <span class="text-danger">{{ $errors->first('jenis_kendaraan') }}</span>
                             </div>
+
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="merk">Waktu Pelaksanaan</label>
-                                {!! Form::text('merk', null, ['class' => 'form-control']) !!}
-                                <span class="text-danger">{{ $errors->first('merk') }}</span>
+                                <label for="waktu">Waktu Pelaksanaan</label>
+                                {!! Form::time('waktu', now()->format('H:i'), ['class' => 'form-control']) !!}
+                                <span class="text-danger">{{ $errors->first('waktu') }}</span>
                             </div>
 
                             <div class="form-group mt-3">
-                                <label for="jumlah">Hari Dan Tanggal</label>
-                                {!! Form::text('jumlah', null, ['class' => 'form-control']) !!}
-                                <span class="text-danger">{{ $errors->first('jumlah') }}</span>
+                                <label for="tanggal">Tanggal</label>
+                                {!! Form::date('tanggal', now()->format('Y-m-d'), ['class' => 'form-control']) !!}
+                                <span class="text-danger">{{ $errors->first('tanggal') }}</span>
                             </div>
 
                             <div class="form-group mt-3">
-                                <label for="jumlah">Mengetahui</label>
-                                {!! Form::text('jumlah', null, ['class' => 'form-control']) !!}
-                                <span class="text-danger">{{ $errors->first('jumlah') }}</span>
+                                <label for="mengetahui">Mengetahui</label>
+                                {!! Form::text('mengetahui', null, ['class' => 'form-control']) !!}
+                                <span class="text-danger">{{ $errors->first('mengetahui') }}</span>
                             </div>
                         </div>
                     </div>
@@ -58,37 +61,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        Testing
-                                    </td>
-                                    <td>
-                                        <div class="form-check">
-                                            {{ Form::radio('active', 'true', true, ['class' => 'form-check-input']) }}
-                                            {{ Form::label('active', 'Yes', ['class' => 'form-check-label']) }}
-                                            {{ Form::radio('active', 'false', ['class' => 'form-check-input']) }}
-                                            {{ Form::label('active', 'No', ['class' => 'form-check-label']) }}
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Testing
-                                    </td>
-                                    <td>
-                                        <div class="form-check">
-                                            {{ Form::radio('active', 'true', true, ['class' => 'form-check-input']) }}
-                                            {{ Form::label('active', 'Yes', ['class' => 'form-check-label']) }}
-                                            {{ Form::radio('active', 'false', ['class' => 'form-check-input']) }}
-                                            {{ Form::label('active', 'No', ['class' => 'form-check-label']) }}
-                                        </div>
-                                    </td>
-                                </tr>
+                                @foreach ($kegiatan as $kg)
+                                    <tr>
+                                        <td>{{ $kg->name }}</td>
+                                        <td>
+                                            <div class="form-check form-check-inline">
+                                                {{ Form::radio('active_' . $kg->id, 'true', false, ['class' => 'form-check-input']) }}
+                                                {{ Form::label('active_' . $kg->id . '_true', 'Yes', ['class' => 'form-check-label yes-label']) }}
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                {{ Form::radio('active_' . $kg->id, 'false', false, ['class' => 'form-check-input']) }}
+                                                {{ Form::label('active_' . $kg->id . '_false', 'No', ['class' => 'form-check-label no-label']) }}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
-
-
                     {!! Form::submit($button, ['class' => 'btn btn-primary mt-3']) !!}
                     {!! Form::close() !!}
                 </div>

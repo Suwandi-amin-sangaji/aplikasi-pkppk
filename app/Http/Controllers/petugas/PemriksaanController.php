@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\petugas;
 
 use App\Http\Controllers\Controller;
-use App\Models\admin\Kendaraan;
-use App\Models\petugas\Pemeriksaan;
+use App\Models\Kegiatan;
+use App\Models\Kendaraan;
+use App\Models\Pemeriksaan;
 use Illuminate\Http\Request;
 
 class PemriksaanController extends Controller
@@ -13,14 +14,15 @@ class PemriksaanController extends Controller
     private $viewCreate = 'kendaraan.pemeriksaan_form';
     private $viewedit = 'kendaraan.kendaraan_form';
     private $viewShow = 'kendaraan.kendaraan_show';
-    private $routePrefix = 'kendaraan';
+    private $routePrefix = 'pemeriksaan';
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        $pemeriksaan = Pemeriksaan::with('kendaraan')->latest()->paginate(5);
         return view('petugas.' . $this->viewIndex, [
-            'kendaraan' => Pemeriksaan::latest()->paginate(5),
+            'pemeriksaan' => $pemeriksaan,
             'routePrefix' => $this->routePrefix,
             'title' => 'Pemeriksaan kendaraan'
         ]);
@@ -31,16 +33,23 @@ class PemriksaanController extends Controller
      */
     public function create()
     {
+        $jenis_kendaraan = Kendaraan::distinct()->pluck('jenis_kendaraan');
+        $kegiatan = Kegiatan::all(); // Mengambil semua data kegiatan
+
         $data = [
-            'model' => new Kendaraan(),
+            'model' => new Pemeriksaan(),
             'method' => 'POST',
             'route' => $this->routePrefix . '.store',
             'button' => 'Simpan',
-            'title' => 'Kendaraan'
+            'title' => 'Kendaraan',
+            'jenis_kendaraan' => $jenis_kendaraan,
+            'kegiatan' => $kegiatan, // Menambahkan data kegiatan ke dalam array $data
         ];
 
         return view('petugas.' . $this->viewCreate, $data);
     }
+
+
 
     /**
      * Store a newly created resource in storage.

@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Models\petugas;
+namespace App\Models;
 
-use App\Models\admin\Kendaraan;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,9 +12,13 @@ class Pemeriksaan extends Model
 
     protected $guarded = [];
 
-
     public function kendaraan()
     {
-        return $this->hasMany(Kendaraan::class);
+        return $this->belongsTo(Kendaraan::class, 'id_kendaraan', 'id');
+    }
+
+    public function kegiatan()
+    {
+        return $this->belongsTo(Kegiatan::class, 'id_kegiatan', 'id');
     }
 }

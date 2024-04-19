@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Models\admin;
+namespace App\Models;
 
-use App\Models\petugas\Pemeriksaan;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,6 +14,6 @@ class Kendaraan extends Model
 
     public function pemeriksaan()
     {
-        return $this->belongsTo(Pemeriksaan::class);
+        return $this->hasMany(Pemeriksaan::class, 'id_kendaraan', 'id');
     }
 }

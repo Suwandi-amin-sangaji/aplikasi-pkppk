@@ -3,20 +3,16 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Kendaraan;
-use App\Models\User;
+use App\Models\Kegiatan;
 use Illuminate\Http\Request;
 
-class KendaraanController extends Controller
+class KegiatanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    private $viewIndex = 'kendaraan.kendaraan_index';
-    private $viewCreate = 'kendaraan.kendaraan_form';
-    private $viewedit = 'kendaraan.kendaraan_form';
-    private $viewShow = 'kendaraan.kendaraan_show';
-    private $routePrefix = 'kendaraan';
+    private $viewIndex = 'kegiatan.kegiatan_index';
+    private $viewCreate = 'kegiatan.kegiatan_form';
+    private $viewedit = 'kegiatan.kegiatan_form';
+    private $viewShow = 'kegiatan.kegiatan_show';
+    private $routePrefix = 'kegiatan';
 
     /**
      * Display a listing of the resource.
@@ -24,9 +20,9 @@ class KendaraanController extends Controller
     public function index()
     {
         return view('admin.' . $this->viewIndex, [
-            'kendaraan' => Kendaraan::latest()->paginate(5),
+            'kegiatan' => Kegiatan::latest()->paginate(10),
             'routePrefix' => $this->routePrefix,
-            'title' => 'Data kendaraan'
+            'title' => 'Komponen Kegiatan'
         ]);
     }
 
@@ -36,11 +32,11 @@ class KendaraanController extends Controller
     public function create()
     {
         $data = [
-            'model' => new User(),
+            'model' => new Kegiatan(),
             'method' => 'POST',
             'route' => $this->routePrefix . '.store',
             'button' => 'Simpan',
-            'title' => 'Kendaraan'
+            'title' => 'Komponen Kegiatan'
         ];
 
         return view('admin.' . $this->viewCreate, $data);
@@ -52,14 +48,11 @@ class KendaraanController extends Controller
     public function store(Request $request)
     {
         $requesData = $request->validate([
-            'jenis_kendaraan' => 'required',
-            'plat' => 'required',
-            'merk' => 'required',
-            'jumlah' => 'required',
+            'name' => 'required'
         ]);
-        Kendaraan::create($requesData);
-        flash()->addSuccess('Data Knedaraan Berhasil DiTambahkan');
-        return redirect()->route('kendaraan.index');
+        Kegiatan::create($requesData);
+        flash()->addSuccess('Data Komponen Kegiatan Berhasil DiTambahkan');
+        return redirect()->route('kegiatan.index');
     }
 
     /**
@@ -67,8 +60,7 @@ class KendaraanController extends Controller
      */
     public function show(string $id)
     {
-        $model = User::findOrFail($id);
-        // return view('admin.' . $this->viewShow, compact('model'));
+        //
     }
 
     /**
@@ -77,11 +69,11 @@ class KendaraanController extends Controller
     public function edit(string $id)
     {
         $data = [
-            'model' => Kendaraan::findOrFail($id),
+            'model' => Kegiatan::findOrFail($id),
             'method' => 'PUT',
             'route' => [$this->routePrefix . '.update', $id],
             'button' => 'Update',
-            'title' => 'Kendaraan'
+            'title' => 'Komponen Kegiatan'
 
         ];
 
@@ -94,15 +86,12 @@ class KendaraanController extends Controller
     public function update(Request $request, string $id)
     {
         $requesData = $request->validate([
-            'jenis_kendaraan' => 'required',
-            'plat' => 'required',
-            'merk' => 'required',
-            'jumlah' => 'required',
+            'name' => 'required',
         ]);
-        $users = Kendaraan::findOrFail($id);
+        $users = Kegiatan::findOrFail($id);
         $users->fill($requesData)->save();
-        flash()->addSuccess('Data Petugas Berhasil Dirubah');
-        return redirect()->route('kendaraan.index');
+        flash()->addSuccess('Data Komponen Kegiatan Berhasil Dirubah');
+        return redirect()->route('kegiatan.index');
     }
 
     /**
@@ -110,7 +99,7 @@ class KendaraanController extends Controller
      */
     public function destroy(string $id)
     {
-        $model = Kendaraan::findOrFail($id);
+        $model = Kegiatan::findOrFail($id);
         $model->delete();
         flash()->addSuccess('Data Petugas Berhasil Dihapus');
         return back();
