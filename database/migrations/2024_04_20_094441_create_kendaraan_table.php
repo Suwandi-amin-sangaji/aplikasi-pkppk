@@ -11,14 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kendaraans', function (Blueprint $table) {
-            $table->ulid('id')->primary();
+        Schema::disableForeignKeyConstraints();
+
+        Schema::create('kendaraan', function (Blueprint $table) {
+            $table->id();
             $table->string('jenis_kendaraan');
             $table->string('plat');
             $table->string('merk');
-            $table->string('jumlah');
-            $table->timestamps();
+            $table->integer('jumlah');
         });
+
+        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kendaraans');
+        Schema::dropIfExists('kendaraan');
     }
 };

@@ -24,7 +24,7 @@
 
                             <div class="form-group mt-3">
                                 <label for="role">Jenis Kendaraan</label>
-                                {!! Form::select('jenis_kendaraan', $jenis_kendaraan, null, [
+                                {!! Form::select('kendaraan', $kendaraan, null, [
                                     'class' => 'form-control',
                                 ]) !!}
                                 <span class="text-danger">{{ $errors->first('jenis_kendaraan') }}</span>
