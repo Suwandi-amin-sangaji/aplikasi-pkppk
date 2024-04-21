@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\petugas;
 
 use App\Http\Controllers\Controller;
+use App\Models\HasilPemeriksaan;
 use App\Models\Kegiatan;
 use App\Models\Kendaraan;
 use App\Models\Komponen;
-use App\Models\Pemeriksaan;
+use App\Models\PemeriksaanKendaraan;
 use Illuminate\Http\Request;
 
 class PemriksaanController extends Controller
@@ -21,7 +22,7 @@ class PemriksaanController extends Controller
      */
     public function index()
     {
-        $pemeriksaan = Pemeriksaan::with('kendaraan')->latest()->paginate(5);
+        $pemeriksaan = PemeriksaanKendaraan::with('kendaraan')->latest()->paginate(5);
         return view('petugas.' . $this->viewIndex, [
             'pemeriksaan' => $pemeriksaan,
             'routePrefix' => $this->routePrefix,
@@ -35,12 +36,12 @@ class PemriksaanController extends Controller
     public function create()
     {
         $data = [
-            'model' => new Pemeriksaan(),
+            'model' => new PemeriksaanKendaraan(),
             'method' => 'POST',
             'route' => $this->routePrefix . '.store',
             'button' => 'Simpan',
             'title' => 'Kendaraan',
-            'kendaraan' => Kendaraan::pluck('jenis_kendaraan'),
+            'kendaraan' => Kendaraan::pluck('jenis'),
             'kegiatan' => Kegiatan::all(), // Menambahkan data kegiatan ke dalam array $data
         ];
 
@@ -54,40 +55,47 @@ class PemriksaanController extends Controller
      */
     public function store(Request $request)
     {
-        // Validasi input
+        // Validate the form data
         $request->validate([
-            'nama_operator' => 'required|string|max:255',
-            'plat' => 'required|string|max:255',
-            'kendaraan' => 'required|string|max:255',
-            'waktu' => 'required|date_format:H:i',
-            'tanggal' => 'required|date',
-            'mengetahui' => 'required|string|max:255',
-            'komponen' => 'required|array',
-            'komponen.*.checklist' => 'nullable|boolean',
+            // Add your validation rules here
         ]);
 
+        // Find the inspection by its ID
+        $pemeriksaan = PemeriksaanKendaraan::find($request->id_pemeriksaan);
 
-        // Buat objek pemeriksaan baru
-        $pemeriksaan = new Pemeriksaan();
-        $pemeriksaan->nama_operator = $request->nama_operator;
-        $pemeriksaan->plat = $request->plat;
-        $pemeriksaan->jenis_kendaraan = $request->kendaraan;
-        $pemeriksaan->waktu_pemeriksaan = $request->waktu;
-        $pemeriksaan->tanggal = $request->tanggal;
-        $pemeriksaan->mengetahui = $request->mengetahui;
-        dd($pemeriksaan);
-        $pemeriksaan->save();
-
-
-
-        // Simpan detail checklist
-        foreach ($request->komponen as $kegiatan_id => $detail) {
-            $pemeriksaan->komponen()->attach($kegiatan_id, ['checklist' => $detail['checklist'] ?? false]);
+        if (!$pemeriksaan) {
+            return back()->withErrors(['message' => 'Pemeriksaan tidak ditemukan']);
         }
 
-        // Redirect ke halaman yang sesuai atau tampilkan pesan sukses
-        return redirect()->route('pemeriksaan.index')->with('success', 'Data pemeriksaan berhasil disimpan.');
+        // Iterate through each inspection to get its ID
+        foreach ($pemeriksaan as $item) {
+            $pemeriksaanId = $item->id;
+        }
+
+        // Find the activity by its ID
+        $kegiatan = Kegiatan::find($request->id_kegiatan);
+
+        if (!$kegiatan) {
+            return back()->withErrors(['message' => 'Kegiatan tidak ditemukan']);
+        }
+
+        // Create a new instance of HasilPemeriksaan
+        $hasilPemeriksaan = new HasilPemeriksaan();
+        $hasilPemeriksaan->nama_operator = $pemeriksaan->nama_operator;
+        $hasilPemeriksaan->nama_asisten = $pemeriksaan->nama_asisten;
+        $hasilPemeriksaan->waktu = $pemeriksaan->waktu;
+        $hasilPemeriksaan->tanggal = $pemeriksaan->tanggal;
+        $hasilPemeriksaan->id_pemeriksaan = $pemeriksaanId;
+        $hasilPemeriksaan->id_kegiatan = $kegiatan->id;
+        $hasilPemeriksaan->checklist = $request->checklist; // Assuming you have a single checklist result for each inspection
+
+        // Save the HasilPemeriksaan instance
+        $hasilPemeriksaan->save();
+
+        // flash()->addSuccess('Berhasil menyimpan Data');
+        // return redirect()->route('pemeriksaan.index');
     }
+
 
 
 

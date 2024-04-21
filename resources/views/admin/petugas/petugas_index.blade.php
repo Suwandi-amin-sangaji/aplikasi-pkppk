@@ -8,8 +8,8 @@
 
                 <div class="card-body">
                     <a href="{{ route('petugas.create') }}" class="btn btn-primary btn-sm mb-4">Tambah Data</a>
-                    <div class="table-responsive table-bordered">
-                        <table class="table">
+                    <div class="table-responsive">
+                        <table class="table  table-bordered">
                             <thead>
                                 <tr>
                                     <th>No</th>

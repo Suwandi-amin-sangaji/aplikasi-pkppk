@@ -24,7 +24,7 @@
                                 @foreach ($kendaraan as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->jenis_kendaraan }}</td>
+                                        <td>{{ $item->jenis }}</td>
                                         <td>{{ $item->plat }}</td>
                                         <td>{{ $item->merk }}</td>
                                         <td>{{ $item->jumlah }}</td>

@@ -9,9 +9,9 @@
                 <div class="card-body">
                     {!! Form::model($model, ['route' => $route, 'method' => $method]) !!}
                     <div class="form-group">
-                        <label for="jenis_kendaraan">Jenis Kendaraan</label>
-                        {!! Form::text('jenis_kendaraan', null, ['class' => 'form-control', 'autofocus']) !!}
-                        <span class="text-danger">{{ $errors->first('jenis_kendaraan') }}</span>
+                        <label for="jenis">Jenis Kendaraan</label>
+                        {!! Form::text('jenis', null, ['class' => 'form-control', 'autofocus']) !!}
+                        <span class="text-danger">{{ $errors->first('jenis') }}</span>
                     </div>
 
                     <div class="form-group mt-3">

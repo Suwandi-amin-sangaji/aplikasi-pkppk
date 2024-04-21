@@ -8,6 +8,7 @@
 
                 <div class="card-body">
                     {!! Form::model($model, ['route' => $route, 'method' => $method]) !!}
+                    @csrf
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -17,9 +18,9 @@
                             </div>
 
                             <div class="form-group mt-3">
-                                <label for="plat">Asisten</label>
-                                {!! Form::text('plat', null, ['class' => 'form-control']) !!}
-                                <span class="text-danger">{{ $errors->first('plat') }}</span>
+                                <label for="nama_asisten">Asisten</label>
+                                {!! Form::text('nama_asisten', null, ['class' => 'form-control']) !!}
+                                <span class="text-danger">{{ $errors->first('nama_asisten') }}</span>
                             </div>
 
                             <div class="form-group mt-3">
@@ -27,7 +28,7 @@
                                 {!! Form::select('kendaraan', $kendaraan, null, [
                                     'class' => 'form-control',
                                 ]) !!}
-                                <span class="text-danger">{{ $errors->first('jenis_kendaraan') }}</span>
+                                <span class="text-danger">{{ $errors->first('jenis') }}</span>
                             </div>
 
                         </div>
@@ -63,15 +64,15 @@
                             <tbody>
                                 @foreach ($kegiatan as $kg)
                                     <tr>
-                                        <td>{{ $kg->name }}</td>
+                                        <td>{{ $kg->nama }}</td>
                                         <td>
                                             <div class="form-check form-check-inline">
-                                                {{ Form::radio('active_' . $kg->id, 'true', false, ['class' => 'form-check-input']) }}
-                                                {{ Form::label('active_' . $kg->id . '_true', 'Yes', ['class' => 'form-check-label yes-label']) }}
+                                                {{ Form::radio($kg->id, 'Yes', false, ['class' => 'form-check-input']) }}
+                                                {{ Form::label($kg->id . '_yes', 'Yes', ['class' => 'form-check-label yes-label']) }}
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                {{ Form::radio('active_' . $kg->id, 'false', false, ['class' => 'form-check-input']) }}
-                                                {{ Form::label('active_' . $kg->id . '_false', 'No', ['class' => 'form-check-label no-label']) }}
+                                                {{ Form::radio($kg->id, 'No', false, ['class' => 'form-check-input']) }}
+                                                {{ Form::label($kg->id . '_no', 'No', ['class' => 'form-check-label no-label']) }}
                                             </div>
                                         </td>
                                     </tr>

@@ -52,7 +52,7 @@ class KendaraanController extends Controller
     public function store(Request $request)
     {
         $requesData = $request->validate([
-            'jenis_kendaraan' => 'required',
+            'jenis' => 'required',
             'plat' => 'required',
             'merk' => 'required',
             'jumlah' => 'required',
@@ -94,7 +94,7 @@ class KendaraanController extends Controller
     public function update(Request $request, string $id)
     {
         $requesData = $request->validate([
-            'jenis_kendaraan' => 'required',
+            'jenis' => 'required',
             'plat' => 'required',
             'merk' => 'required',
             'jumlah' => 'required',

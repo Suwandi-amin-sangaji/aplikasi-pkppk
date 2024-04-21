@@ -9,9 +9,9 @@
                 <div class="card-body">
                     {!! Form::model($model, ['route' => $route, 'method' => $method]) !!}
                     <div class="form-group">
-                        <label for="name">Nama Komponen</label>
-                        {!! Form::text('name', null, ['class' => 'form-control', 'autofocus']) !!}
-                        <span class="text-danger">{{ $errors->first('name') }}</span>
+                        <label for="nama">Nama Komponen</label>
+                        {!! Form::text('nama', null, ['class' => 'form-control', 'autofocus']) !!}
+                        <span class="text-danger">{{ $errors->first('nama') }}</span>
                     </div>
 
                     {!! Form::submit($button, ['class' => 'btn btn-primary mt-3']) !!}

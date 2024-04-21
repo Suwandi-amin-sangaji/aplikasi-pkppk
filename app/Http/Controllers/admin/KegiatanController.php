@@ -48,7 +48,7 @@ class KegiatanController extends Controller
     public function store(Request $request)
     {
         $requesData = $request->validate([
-            'name' => 'required'
+            'nama' => 'required'
         ]);
         Kegiatan::create($requesData);
         flash()->addSuccess('Data Komponen Kegiatan Berhasil DiTambahkan');
@@ -86,7 +86,7 @@ class KegiatanController extends Controller
     public function update(Request $request, string $id)
     {
         $requesData = $request->validate([
-            'name' => 'required',
+            'nama' => 'required',
         ]);
         $users = Kegiatan::findOrFail($id);
         $users->fill($requesData)->save();
