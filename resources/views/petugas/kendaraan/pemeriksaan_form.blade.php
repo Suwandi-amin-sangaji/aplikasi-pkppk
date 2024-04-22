@@ -59,7 +59,7 @@
                             <thead>
                                 <tr>
                                     <th>Nama Kegiatan</th>
-                                    <th></th>
+                                    <th>Checklist</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -80,6 +80,69 @@
                                 @endforeach
                             </tbody>
                         </table>
+                    </div>
+
+
+                    <div class="row mt-3">
+                        <label class="form-label" for="basic-default-message">BA SET</label>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="no_back_plate">No Back Plate</label>
+                                {!! Form::text('no_back_plate', null, ['class' => 'form-control']) !!}
+                                <span class="text-danger">{{ $errors->first('no_back_plate') }}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="no_cylinder">No Cylinder</label>
+                                {!! Form::text('no_cylinder',null, ['class' => 'form-control']) !!}
+                                <span class="text-danger">{{ $errors->first('no_cylinder') }}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="visual">Visual</label>
+                                {!! Form::text('visual', null,['class' => 'form-control']) !!}
+                                <span class="text-danger">{{ $errors->first('visual') }}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="fungsi">Fungsi</label>
+                                {!! Form::text('fungsi',null, ['class' => 'form-control']) !!}
+                                <span class="text-danger">{{ $errors->first('fungsi') }}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="tekanan">Tekanan</label>
+                                {!! Form::text('tekanan',null, ['class' => 'form-control']) !!}
+                                <span class="text-danger">{{ $errors->first('tekanan') }}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="operator">Operator</label>
+                                {!! Form::text('operator',null, ['class' => 'form-control']) !!}
+                                <span class="text-danger">{{ $errors->first('operator') }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                       <div class="col-md-12">
+                            <label class="form-label" for="basic-default-message">Catatan Hasil Laporan</label>
+                            <textarea
+                              id="basic-default-message"
+                              class="form-control"
+                            ></textarea>
+                          </div>
+                       </div>
                     </div>
                     {!! Form::submit($button, ['class' => 'btn btn-primary mt-3']) !!}
                     {!! Form::close() !!}

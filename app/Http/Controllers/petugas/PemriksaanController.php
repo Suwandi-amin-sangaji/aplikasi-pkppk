@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\petugas;
 
 use App\Http\Controllers\Controller;
+use App\Models\BeSet;
 use App\Models\HasilPemeriksaan;
 use App\Models\Kegiatan;
 use App\Models\Kendaraan;
@@ -43,6 +44,7 @@ class PemriksaanController extends Controller
             'title' => 'Kendaraan',
             'kendaraan' => Kendaraan::pluck('jenis', 'id'), // Mengambil nama dan id kendaraan
             'kegiatan' => Kegiatan::all(),
+            'beSet' => BeSet::all()
         ];
 
         return view('petugas.' . $this->viewCreate, $data);

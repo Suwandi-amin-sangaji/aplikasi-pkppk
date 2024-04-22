@@ -17,6 +17,7 @@
                                     <th>Asisten</th>
                                     <th>Waktu</th>
                                     <th>Tanggal</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -28,10 +29,13 @@
                                         <td>{{ $item->nama_asisten }}</td>
                                         <td>{{ $item->waktu }}</td>
                                         <td>{{ $item->tanggal }}</td>
+                                        @if ($item->status)
+                                            <td><span class="badge bg-label-warning me-1">{{ $item->status }}</span></td>
+                                        @else
+                                        @endif
                                         <td>
-                                            <a href="{{ route('kendaraan.show', $item->id) }}"
+                                            <a href="{{ route('pemeriksaan.show', $item->id) }}"
                                                 class="btn btn-secondary btn-sm"><i class="fa fa-eye"> </i></a>
-                                            {!! Form::close() !!}
                                         </td>
                                     </tr>
                                     @empty($item)
