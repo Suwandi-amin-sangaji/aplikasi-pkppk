@@ -9,7 +9,6 @@ class BeSet extends Model
 {
     use HasFactory;
     protected $table = 'ba_sets';
-
     protected $fillable = [
         'no_back_plate',
         'no_cylinder',
