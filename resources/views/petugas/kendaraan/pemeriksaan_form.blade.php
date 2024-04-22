@@ -24,12 +24,13 @@
                             </div>
 
                             <div class="form-group mt-3">
-                                <label for="role">Jenis Kendaraan</label>
-                                {!! Form::select('kendaraan', $kendaraan, null, [
+                                <label for="id_kendaraan">Jenis Kendaraan</label>
+                                {!! Form::select('id_kendaraan', $kendaraan, null, [
                                     'class' => 'form-control',
                                 ]) !!}
-                                <span class="text-danger">{{ $errors->first('jenis') }}</span>
+                                <span class="text-danger">{{ $errors->first('id_kendaraan') }}</span>
                             </div>
+
 
                         </div>
                         <div class="col-md-6">

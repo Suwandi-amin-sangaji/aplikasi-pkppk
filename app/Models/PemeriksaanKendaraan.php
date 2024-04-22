@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class PemeriksaanKendaraan extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUlids;
 
-    protected $guearded = [];
+    protected $guarded = [];
 
     public function kendaraan()
     {
@@ -19,5 +20,10 @@ class PemeriksaanKendaraan extends Model
     public function kegiatan()
     {
         return $this->belongsTo(Kegiatan::class, 'id_kegiatan', 'id');
+    }
+
+    public function hasilPemeriksaan()
+    {
+        return $this->hasMany(HasilPemeriksaan::class, 'id_pemeriksaan', 'id');
     }
 }

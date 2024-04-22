@@ -13,32 +13,24 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Jenis Kendaraan</th>
-                                    <th>Plat Nomor</th>
-                                    <th>Merek</th>
-                                    <th>Jumlah</th>
+                                    <th>Nama Operator</th>
+                                    <th>Asisten</th>
+                                    <th>Waktu</th>
+                                    <th>Tanggal</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($kendaraan as $item)
+                                @foreach ($pemeriksaan as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->jenis_kendaraan }}</td>
-                                        <td>{{ $item->plat }}</td>
-                                        <td>{{ $item->merk }}</td>
-                                        <td>{{ $item->jumlah }}</td>
+                                        <td>{{ $item->nama_operator }}</td>
+                                        <td>{{ $item->nama_asisten }}</td>
+                                        <td>{{ $item->waktu }}</td>
+                                        <td>{{ $item->tanggal }}</td>
                                         <td>
-                                            {!! Form::open([
-                                                'route' => ['kendaraan.destroy', $item->id],
-                                                'method' => 'DELETE',
-                                                'onsubmit' => 'return confirm("Apakah anda yakin ingin menghapus data ini?")',
-                                            ]) !!}
-                                            <a href="{{ route('kendaraan.edit', $item->id) }}"
-                                                class="btn btn-success btn-sm"><i class="fa fa-edit"> </i></a>
-
-                                            <button type="submit" class="btn btn-danger btn-sm"> <i class="fa fa-trash">
-                                                </i></button>
+                                            <a href="{{ route('kendaraan.show', $item->id) }}"
+                                                class="btn btn-secondary btn-sm"><i class="fa fa-eye"> </i></a>
                                             {!! Form::close() !!}
                                         </td>
                                     </tr>
@@ -47,11 +39,11 @@
                                             <td colspan="5">Data Kendaraan tidak ditemukan</td>
                                         </tr>
                                     @endempty
-                                @endforeach --}}
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
-                    {{-- {!! $kendaraan->links() !!} --}}
+                    {!! $pemeriksaan->links() !!}
                 </div>
             </div>
         </div>

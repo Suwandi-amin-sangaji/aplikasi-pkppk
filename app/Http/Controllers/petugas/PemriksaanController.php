@@ -41,8 +41,8 @@ class PemriksaanController extends Controller
             'route' => $this->routePrefix . '.store',
             'button' => 'Simpan',
             'title' => 'Kendaraan',
-            'kendaraan' => Kendaraan::pluck('jenis'),
-            'kegiatan' => Kegiatan::all(), // Menambahkan data kegiatan ke dalam array $data
+            'kendaraan' => Kendaraan::pluck('jenis', 'id'), // Mengambil nama dan id kendaraan
+            'kegiatan' => Kegiatan::all(),
         ];
 
         return view('petugas.' . $this->viewCreate, $data);
@@ -50,53 +50,42 @@ class PemriksaanController extends Controller
 
 
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
-        // Validate the form data
-        $request->validate([
-            // Add your validation rules here
+        // Validasi data dari request
+        $validatedData = $request->validate([
+            'nama_operator' => 'required|string|max:255',
+            'nama_asisten' => 'nullable|string|max:255',
+            'id_kendaraan' => 'required|exists:kendaraans,id',
+            'waktu' => 'required|date_format:H:i',
+            'tanggal' => 'required|date',
+            'mengetahui' => 'nullable|string|max:255',
         ]);
 
-        // Find the inspection by its ID
-        $pemeriksaan = PemeriksaanKendaraan::find($request->id_pemeriksaan);
+        // Simpan data pemeriksaan ke dalam tabel pemeriksaan_kendaraans
+        $pemeriksaan = PemeriksaanKendaraan::create([
+            'id_kendaraan' => $validatedData['id_kendaraan'],
+            'nama_operator' => $validatedData['nama_operator'],
+            'nama_asisten' => $validatedData['nama_asisten'],
+            'waktu' => $validatedData['waktu'],
+            'tanggal' => $validatedData['tanggal'],
+            'mengetahui' => $validatedData['mengetahui'],
+            'status' => 'baru',
+        ]);
 
-        if (!$pemeriksaan) {
-            return back()->withErrors(['message' => 'Pemeriksaan tidak ditemukan']);
+        // Simpan hasil pemeriksaan ke dalam tabel hasil_pemeriksaan
+        foreach ($request->except('_token', 'nama_operator', 'nama_asisten', 'id_kendaraan', 'waktu', 'tanggal', 'mengetahui') as $kegiatan_id => $hasil) {
+            HasilPemeriksaan::create([
+                'id_pemeriksaan' => $pemeriksaan->id,
+                'id_kegiatan' => $kegiatan_id,
+                'hasil' => $hasil
+            ]);
         }
 
-        // Iterate through each inspection to get its ID
-        foreach ($pemeriksaan as $item) {
-            $pemeriksaanId = $item->id;
-        }
-
-        // Find the activity by its ID
-        $kegiatan = Kegiatan::find($request->id_kegiatan);
-
-        if (!$kegiatan) {
-            return back()->withErrors(['message' => 'Kegiatan tidak ditemukan']);
-        }
-
-        // Create a new instance of HasilPemeriksaan
-        $hasilPemeriksaan = new HasilPemeriksaan();
-        $hasilPemeriksaan->nama_operator = $pemeriksaan->nama_operator;
-        $hasilPemeriksaan->nama_asisten = $pemeriksaan->nama_asisten;
-        $hasilPemeriksaan->waktu = $pemeriksaan->waktu;
-        $hasilPemeriksaan->tanggal = $pemeriksaan->tanggal;
-        $hasilPemeriksaan->id_pemeriksaan = $pemeriksaanId;
-        $hasilPemeriksaan->id_kegiatan = $kegiatan->id;
-        $hasilPemeriksaan->checklist = $request->checklist; // Assuming you have a single checklist result for each inspection
-
-        // Save the HasilPemeriksaan instance
-        $hasilPemeriksaan->save();
-
-        // flash()->addSuccess('Berhasil menyimpan Data');
-        // return redirect()->route('pemeriksaan.index');
+        flash()->addSuccess('Berhasil Menambah Data');
+        return redirect()->route('pemeriksaan.index');
     }
-
-
 
 
 

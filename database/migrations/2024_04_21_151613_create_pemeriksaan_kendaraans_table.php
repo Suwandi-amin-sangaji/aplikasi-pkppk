@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('pemeriksaan_kendaraans', function (Blueprint $table) {
             $table->ulid('id')->primary();
             $table->ulid('id_kendaraan');
-            $table->ulid('id_kegiatan');
             $table->string('nama_operator');
             $table->string('nama_asisten');
             $table->time('waktu');
             $table->date('tanggal');
-            $table->enum('status', ['baru', 'selesai']);
+            $table->text('mengetahui');
+            $table->enum('status', ['baru', 'selesai'])->default('baru');
             $table->timestamps();
         });
     }

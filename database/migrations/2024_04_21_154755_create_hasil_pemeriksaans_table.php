@@ -13,14 +13,9 @@ return new class extends Migration
     {
         Schema::create('hasil_pemeriksaans', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->string('nama_operator');
-            $table->string('nama_asisten');
-            $table->time('waktu');
-            $table->date('tanggal');
-            $table->enum('status', ['baru', 'selesai'])->default('baru');
             $table->ulid('id_kegiatan');
             $table->ulid('id_pemeriksaan');
-            $table->enum('checklist',['Yes', 'No']);
+            $table->enum('hasil', ['Yes', 'No'])->nullable;
             $table->timestamps();
         });
     }

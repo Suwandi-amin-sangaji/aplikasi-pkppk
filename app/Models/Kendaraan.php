@@ -12,8 +12,8 @@ class Kendaraan extends Model
     use HasFactory, HasUlids;
     protected $guarded = [];
 
-    // public function pemeriksaan()
-    // {
-    //     return $this->hasMany(PemeriksaanKendaraan::class, 'id_kendaraan', 'id');
-    // }
+    public function pemeriksaan()
+    {
+        return $this->hasMany(PemeriksaanKendaraan::class, 'id_kendaraan', 'id');
+    }
 }

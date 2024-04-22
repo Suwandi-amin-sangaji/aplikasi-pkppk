@@ -8,6 +8,7 @@
 
                 <div class="card-body">
                     {!! Form::model($model, ['route' => $route, 'method' => $method]) !!}
+                    @csrf
                     <div class="form-group">
                         <label for="nama">Nama Komponen</label>
                         {!! Form::text('nama', null, ['class' => 'form-control', 'autofocus']) !!}
