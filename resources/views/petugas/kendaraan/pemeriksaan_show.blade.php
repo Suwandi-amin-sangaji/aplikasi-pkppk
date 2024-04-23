@@ -73,26 +73,110 @@
                         </table>
                     </div>
 
-                    {{-- resources/views/petugas/kendaraan/pemeriksaan_show.blade.php --}}
-                    <h3>Data BaSet1</h3>
-                    <ul>
-                        <li>No Back Plate: {{ $baSet1->no_back_plate1 }}</li>
-                        <li>No Cylinder: {{ $baSet1->no_cylinder1 }}</li>
-                        <li>Visual: {{ $baSet1->visual1 }}</li>
-                        <li>Fungsi: {{ $baSet1->fungsi1 }}</li>
-                        <li>Tekanan: {{ $baSet1->tekanan1 }}</li>
-                        <li>Operator: {{ $baSet1->operator1 }}</li>
-                    </ul>
 
-                    <h3>Data BaSet2</h3>
-                    <ul>
-                        <li>No Back Plate: {{ $baSet2->no_back_plate2 }}</li>
-                        <li>No Cylinder: {{ $baSet2->no_cylinder2 }}</li>
-                        <li>Visual: {{ $baSet2->visual2 }}</li>
-                        <li>Fungsi: {{ $baSet2->fungsi2 }}</li>
-                        <li>Tekanan: {{ $baSet2->tekanan2 }}</li>
-                        <li>Operator: {{ $baSet2->operator2 }}</li>
-                    </ul>
+                    <div class="row mt-3">
+                        <label class="form-label" for="basic-default-message">BA SET</label>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="no_back_plate">No Back Plate</label>
+                                {!! Form::text('no_back_plate', $model->baset1->no_back_plate1, ['class' => 'form-control']) !!}
+                                <span class="text-danger">{{ $errors->first('no_back_plate') }}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="no_cylinder">No Cylinder</label>
+                                {!! Form::text('no_cylinder', $model->baSet1->no_cylinder1, ['class' => 'form-control']) !!}
+                                <span class="text-danger">{{ $errors->first('no_cylinder') }}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="visual">Visual</label>
+                                {!! Form::text('visual', $model->baSet1->visual1, ['class' => 'form-control']) !!}
+                                <span class="text-danger">{{ $errors->first('visual') }}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="fungsi">Fungsi</label>
+                                {!! Form::text('fungsi', $model->baset1->fungsi1, ['class' => 'form-control']) !!}
+                                <span class="text-danger">{{ $errors->first('fungsi') }}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="tekanan">Tekanan</label>
+                                {!! Form::text('tekanan', $model->baset1->tekanan1, ['class' => 'form-control']) !!}
+                                <span class="text-danger">{{ $errors->first('tekanan') }}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="operator">Operator</label>
+                                {!! Form::text('operator', $model->baset1->operator1, ['class' => 'form-control']) !!}
+                                <span class="text-danger">{{ $errors->first('operator') }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-2">
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+
+                                {!! Form::text('no_back_plate', $model->baset2->no_back_plate2, ['class' => 'form-control']) !!}
+                                <span class="text-danger">{{ $errors->first('no_back_plate') }}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+
+                                {!! Form::text('no_cylinder', $model->baSet2->no_cylinder2, ['class' => 'form-control']) !!}
+                                <span class="text-danger">{{ $errors->first('no_cylinder') }}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+
+                                {!! Form::text('visual', $model->baSet2->visual2, ['class' => 'form-control']) !!}
+                                <span class="text-danger">{{ $errors->first('visual') }}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+
+                                {!! Form::text('fungsi', $model->baset2->fungsi2, ['class' => 'form-control']) !!}
+                                <span class="text-danger">{{ $errors->first('fungsi') }}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+
+                                {!! Form::text('tekanan', $model->baset2->tekanan2, ['class' => 'form-control']) !!}
+                                <span class="text-danger">{{ $errors->first('tekanan') }}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+
+                                {!! Form::text('operator', $model->baset2->operator2, ['class' => 'form-control']) !!}
+                                <span class="text-danger">{{ $errors->first('operator') }}</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Catatan Hasil Laporan -->
                     <div class="row mt-3">
                         <div class="col-md-12">
