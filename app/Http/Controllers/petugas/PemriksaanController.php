@@ -9,7 +9,9 @@ use App\Models\HasilPemeriksaan;
 use App\Models\Kegiatan;
 use App\Models\Kendaraan;
 use App\Models\PemeriksaanKendaraan;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PemriksaanController extends Controller
 {
@@ -21,15 +23,22 @@ class PemriksaanController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
-        $pemeriksaan = PemeriksaanKendaraan::with('kendaraan')->latest()->paginate(5);
+        // Mengambil ID user yang sedang login
+        $userId = Auth::id(); // Menggunakan Auth::id() untuk mendapatkan ID user yang sedang login
+        $pemeriksaan = PemeriksaanKendaraan::with('kendaraan')
+            ->where('id_user', $userId) // Filter berdasarkan user_id
+            ->latest()
+            ->paginate(10);
         return view('petugas.' . $this->viewIndex, [
             'pemeriksaan' => $pemeriksaan,
             'routePrefix' => $this->routePrefix,
             'title' => 'Pemeriksaan kendaraan'
         ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -61,48 +70,38 @@ class PemriksaanController extends Controller
             'tanggal' => 'required|date',
             'mengetahui' => 'nullable|string|max:255',
             'catatan' => 'nullable|string|max:255',
-
-            // Validation rules for other fields...
-            'no_back_plate_1' => 'nullable|string|max:255',
-            'no_cylinder_1' => 'nullable|string|max:255',
-            'visual_1' => 'nullable|string|max:255',
-            'fungsi_1' => 'nullable|string|max:255',
-            'tekanan_1' => 'nullable|string|max:255',
-            'operator_1' => 'nullable|string|max:255',
-            // Add validation rules for other fields as needed
-
-            // Validation rules for other fields...
-            'no_back_plate_2' => 'nullable|string|max:255',
-            'no_cylinder_2' => 'nullable|string|max:255',
-            'visual_2' => 'nullable|string|max:255',
-            'fungsi_2' => 'nullable|string|max:255',
-            'tekanan_2' => 'nullable|string|max:255',
-            'operator_2' => 'nullable|string|max:255',
-            // Add validation rules for other fields as needed
+            'no_back_plate' => 'nullable|string|max:255',
+            'no_cylinder' => 'nullable|string|max:255',
+            'visual' => 'nullable|string|max:255',
+            'fungsi' => 'nullable|string|max:255',
+            'tekanan' => 'nullable|string|max:255',
+            'operator' => 'nullable|string|max:255',
         ]);
 
+        $validatedData['id_user'] = Auth()->id();
         // Simpan data BA SET
         $baSet1 = BaSet1::create([
-            'no_back_plate1' => $validatedData['no_back_plate_1'],
-            'no_cylinder1' => $validatedData['no_cylinder_1'],
-            'visual1' => $validatedData['visual_1'],
-            'fungsi1' => $validatedData['fungsi_1'],
-            'tekanan1' => $validatedData['tekanan_1'],
-            'operator1' => $validatedData['operator_1'],
+            'no_back_plate1' => $validatedData['no_back_plate'],
+            'no_cylinder1' => $validatedData['no_cylinder'],
+            'visual1' => $validatedData['visual'],
+            'fungsi1' => $validatedData['fungsi'],
+            'tekanan1' => $validatedData['tekanan'],
+            'operator1' => $validatedData['operator'],
         ]);
 
         $baSet2 = BaSet2::create([
-            'no_back_plate2' => $validatedData['no_back_plate_2'],
-            'no_cylinder2' => $validatedData['no_cylinder_2'],
-            'visual2' => $validatedData['visual_2'],
-            'fungsi2' => $validatedData['fungsi_2'],
-            'tekanan2' => $validatedData['tekanan_2'],
-            'operator2' => $validatedData['operator_2'],
+            'no_back_plate2' => $validatedData['no_back_plate'],
+            'no_cylinder2' => $validatedData['no_cylinder'],
+            'visual2' => $validatedData['visual'],
+            'fungsi2' => $validatedData['fungsi'],
+            'tekanan2' => $validatedData['tekanan'],
+            'operator2' => $validatedData['operator'],
         ]);
 
         // Simpan data pemeriksaan ke dalam tabel pemeriksaan_kendaraans
         $pemeriksaan = PemeriksaanKendaraan::create([
             'id_kendaraan' => $validatedData['id_kendaraan'],
+            'id_user' => $validatedData['id_user'],
             'nama_operator' => $validatedData['nama_operator'],
             'nama_asisten' => $validatedData['nama_asisten'],
             'waktu' => $validatedData['waktu'],
@@ -115,7 +114,7 @@ class PemriksaanController extends Controller
         ]);
 
         // Simpan hasil pemeriksaan ke dalam tabel hasil_pemeriksaan
-        foreach ($request->except('_token', 'nama_operator', 'nama_asisten', 'id_kendaraan', 'waktu', 'tanggal', 'mengetahui', 'status', 'catatan', 'no_back_plate_1', 'no_cylinder_1', 'visual_1', 'fungsi_1', 'tekanan_1', 'operator_1', 'no_back_plate_2', 'no_cylinder_2', 'visual_2', 'fungsi_2', 'tekanan_2', 'operator_2') as $kegiatan_id => $hasil) {
+        foreach ($request->except('_token', 'nama_operator', 'nama_asisten', 'id_kendaraan', 'waktu', 'tanggal', 'mengetahui', 'status', 'catatan', 'no_back_plate', 'no_cylinder', 'visual', 'fungsi', 'tekanan', 'operator', 'no_back_plate', 'no_cylinder', 'visual', 'fungsi', 'tekanan', 'operator') as $kegiatan_id => $hasil) {
             HasilPemeriksaan::create([
                 'id_pemeriksaan' => $pemeriksaan->id,
                 'id_kegiatan' => $kegiatan_id,
@@ -133,11 +132,22 @@ class PemriksaanController extends Controller
      */
     public function show(string $id)
     {
-        $data = [
-            "pemeriksaan" => PemeriksaanKendaraan::findOrFail($id),
-        ];
-        return view('petugas.' . $this->viewShow);
+        $model = PemeriksaanKendaraan::with(['baSet1', 'baSet2'])->findOrFail($id);
+        $kendaraan = Kendaraan::pluck('jenis', 'id');
+        $hasilPemeriksaan = $model->hasilPemeriksaan()->get()->keyBy('id_kegiatan'); // Asumsi ada relasi hasilPemeriksaan yang mengembalikan semua hasil terkait
+
+        return view('petugas.' . $this->viewShow, [
+            'title' => 'Detail Pemeriksaan Kendaraan',
+            'model' => $model,
+            'kendaraan' => $kendaraan,
+            'hasilPemeriksaan' => $hasilPemeriksaan,
+            'kegiatan' => Kegiatan::all(),
+            'baSet1' => $model->baSet1,
+            'baSet2' => $model->baSet2,
+        ]);
     }
+
+
 
     /**
      * Show the form for editing the specified resource.

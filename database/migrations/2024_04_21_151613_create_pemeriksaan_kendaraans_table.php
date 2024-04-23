@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('pemeriksaan_kendaraans', function (Blueprint $table) {
             $table->ulid('id')->primary(); // ULID
             $table->ulid('id_kendaraan')->constrained('kendaraans');
+            $table->ulid('id_user');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->string('nama_operator');
             $table->string('nama_asisten')->nullable();
             $table->time('waktu');

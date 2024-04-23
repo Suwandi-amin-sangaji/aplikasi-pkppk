@@ -14,6 +14,7 @@ class PemeriksaanKendaraan extends Model
 
     protected $fillable = [
         'id_kendaraan',
+        'id_user',
         'id_baset_1',
         'id_baset_2',
         'nama_operator',
@@ -40,13 +41,18 @@ class PemeriksaanKendaraan extends Model
         return $this->hasMany(HasilPemeriksaan::class, 'id_pemeriksaan', 'id');
     }
 
-    public function beset1()
+    public function baset1()
     {
         return $this->belongsTo(BaSet1::class, 'id_baset_1', 'id');
     }
 
-    public function beset2()
+    public function baset2()
     {
         return $this->belongsTo(BaSet2::class, 'id_baset_2', 'id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user');
     }
 }

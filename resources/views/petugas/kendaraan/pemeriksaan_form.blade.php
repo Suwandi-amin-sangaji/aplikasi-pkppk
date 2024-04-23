@@ -36,10 +36,9 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="waktu">Waktu Pelaksanaan</label>
-                                {!! Form::time('waktu', now()->format('H:i'), ['class' => 'form-control']) !!}
+                                {!! Form::time('waktu', now()->timezone('Asia/jayapura')->format('H:i'), ['class' => 'form-control']) !!}
                                 <span class="text-danger">{{ $errors->first('waktu') }}</span>
                             </div>
-
                             <div class="form-group mt-3">
                                 <label for="tanggal">Tanggal</label>
                                 {!! Form::date('tanggal', now()->format('Y-m-d'), ['class' => 'form-control']) !!}
@@ -85,7 +84,7 @@
                     <!-- Input BA SET 1 -->
                     <div class="row mt-3">
                         <label class="form-label" for="basic-default-message">BA SET</label>
-                        @foreach (['no_back_plate_1', 'no_cylinder_1', 'visual_1', 'fungsi_1', 'tekanan_1', 'operator_1'] as $field)
+                        @foreach (['no_back_plate', 'no_cylinder', 'visual', 'fungsi', 'tekanan', 'operator'] as $field)
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="{{ $field }}">{{ ucfirst(str_replace('_', ' ', $field)) }}</label>
@@ -97,7 +96,7 @@
                     </div>
                     <!-- Input BA SET 2 -->
                     <div class="row mt-3">
-                        @foreach (['no_back_plate_2', 'no_cylinder_2', 'visual_2', 'fungsi_2', 'tekanan_2', 'operator_2'] as $field)
+                        @foreach (['no_back_plate', 'no_cylinder', 'visual', 'fungsi', 'tekanan', 'operator'] as $field)
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="{{ $field }}">{{ ucfirst(str_replace('_', ' ', $field)) }}</label>
