@@ -29,39 +29,39 @@ class KegiatanSeeder extends Seeder
 
         ]);
 
-        Kegiatan::create([
-            "nama" => "Melakukan Pengecekan fungsi Lampu-lampu pada Kendaraan(lampu, depan, rotary, dll)",
+        // Kegiatan::create([
+        //     "nama" => "Melakukan Pengecekan fungsi Lampu-lampu pada Kendaraan(lampu, depan, rotary, dll)",
 
-        ]);
+        // ]);
 
-        Kegiatan::create([
-            "nama" => "Melakukan Pengecekan Layar-layar monitor yang ada pada kendaraan(pengoperasian Pompa Pemdam, Gps, Dll)",
+        // Kegiatan::create([
+        //     "nama" => "Melakukan Pengecekan Layar-layar monitor yang ada pada kendaraan(pengoperasian Pompa Pemdam, Gps, Dll)",
 
-        ]);
+        // ]);
 
-        Kegiatan::create([
-            "nama" => "Melakukan Pengecekan fungsi wiper,Klakson, dll",
+        // Kegiatan::create([
+        //     "nama" => "Melakukan Pengecekan fungsi wiper,Klakson, dll",
 
-        ]);
+        // ]);
 
-        Kegiatan::create([
-            "nama" => "Melakukan Pengecekan Perlatan Pada Masing-masing Compartment, Kendaraan",
+        // Kegiatan::create([
+        //     "nama" => "Melakukan Pengecekan Perlatan Pada Masing-masing Compartment, Kendaraan",
 
-        ]);
+        // ]);
 
-        Kegiatan::create([
-            "nama" => "Melakukan Pengecekan fungsi pada Bagian Luar Kendaraan(Kebersihan,Tekanan ban, Dll)",
+        // Kegiatan::create([
+        //     "nama" => "Melakukan Pengecekan fungsi pada Bagian Luar Kendaraan(Kebersihan,Tekanan ban, Dll)",
 
-        ]);
+        // ]);
 
-        Kegiatan::create([
-            "nama" => "Melakukan Prosedur Untuk Mematikan Kendaraan",
+        // Kegiatan::create([
+        //     "nama" => "Melakukan Prosedur Untuk Mematikan Kendaraan",
 
-        ]);
+        // ]);
 
-        Kegiatan::create([
-            "nama" => "Melakukan Pengecekan fungsi Peralatan Pemadam(Turret,Hose,reel,Dll)",
+        // Kegiatan::create([
+        //     "nama" => "Melakukan Pengecekan fungsi Peralatan Pemadam(Turret,Hose,reel,Dll)",
 
-        ]);
+        // ]);
     }
 }

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->ulid('id')->primary();
             $table->ulid('id_kegiatan');
             $table->ulid('id_pemeriksaan');
-            $table->enum('hasil', ['Yes', 'No'])->nullable;
+            $table->enum('hasil', ['Yes', 'No']);
             $table->timestamps();
         });
     }

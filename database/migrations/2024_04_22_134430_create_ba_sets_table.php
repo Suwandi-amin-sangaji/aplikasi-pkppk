@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ba_sets', function (Blueprint $table) {
-            $table->ulid();
-            $table->string('no_back_plate')->nullable();
-            $table->string('no_cylinder')->nullable();
-            $table->string('visual')->nullable();
-            $table->string('fungsi')->nullable();
-            $table->string('tekanan')->nullable();
-            $table->string('opertaor')->nullable();
+        Schema::create('ba_sets_1', function (Blueprint $table) {
+            $table->ulid('id')->primary();
+            $table->string('no_back_plate1')->nullable();
+            $table->string('no_cylinder1')->nullable();
+            $table->string('visual1')->nullable();
+            $table->string('fungsi1')->nullable();
+            $table->string('tekanan1')->nullable();
+            $table->string('operator1')->nullable();
             $table->timestamps();
         });
     }

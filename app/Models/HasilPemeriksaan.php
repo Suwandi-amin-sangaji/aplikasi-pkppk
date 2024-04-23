@@ -9,5 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 class HasilPemeriksaan extends Model
 {
     use HasFactory, HasUlids;
-    protected $guarded = [];
+    protected $table = "hasil_pemeriksaans";
+
+    protected $fillable = [
+        "id_pemeriksaan",
+        "id_kegiatan",
+        "hasil"
+    ];
 }

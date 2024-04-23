@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kendaraans', function (Blueprint $table) {
+        Schema::create('ba_sets_2', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->string('jenis')->nullable();
-            $table->string('plat')->nullable();
-            $table->string('merk')->nullable();
-            $table->string('tahun')->nullable();
-            $table->string('jumlah')->nullable();
+            $table->string('no_back_plate2')->nullable();
+            $table->string('no_cylinder2')->nullable();
+            $table->string('visual2')->nullable();
+            $table->string('fungsi2')->nullable();
+            $table->string('tekanan2')->nullable();
+            $table->string('operator2')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kendaraans');
+        Schema::dropIfExists('ba_sets');
     }
 };

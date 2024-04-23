@@ -12,14 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pemeriksaan_kendaraans', function (Blueprint $table) {
-            $table->ulid('id')->primary();
-            $table->ulid('id_kendaraan');
+            $table->ulid('id')->primary(); // ULID
+            $table->ulid('id_kendaraan')->constrained('kendaraans');
             $table->string('nama_operator');
-            $table->string('nama_asisten');
+            $table->string('nama_asisten')->nullable();
             $table->time('waktu');
             $table->date('tanggal');
-            $table->text('mengetahui');
-            $table->enum('status', ['baru', 'selesai'])->default('baru');
+            $table->string('mengetahui')->nullable();
+            $table->string('status')->default('baru');
+            $table->text('catatan')->nullable();
+            $table->ulid('id_baset_1'); // ULID
+            $table->ulid('id_baset_2');
             $table->timestamps();
         });
     }

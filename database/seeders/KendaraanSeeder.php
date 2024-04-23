@@ -17,6 +17,7 @@ class KendaraanSeeder extends Seeder
             "jenis" => "Ambulance",
             "plat" => "1111",
             "merk" => "Toyota",
+            "tahun" => 2023,
             "jumlah" => 1
         ]);
     }
