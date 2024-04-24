@@ -67,7 +67,7 @@ class PemriksaanController extends Controller
             'nama_asisten' => 'nullable|string|max:255',
             'id_kendaraan' => 'required|exists:kendaraans,id',
             'waktu' => 'required|date_format:H:i',
-            'tanggal' => 'required|date',
+            'tanggal' => 'required',
             'mengetahui' => 'nullable|string|max:255',
             'catatan' => 'nullable|string|max:255',
             'no_back_plate' => 'nullable|string|max:255',
@@ -134,7 +134,7 @@ class PemriksaanController extends Controller
     {
         $model = PemeriksaanKendaraan::with(['baSet1', 'baSet2'])->findOrFail($id);
         $kendaraan = Kendaraan::pluck('jenis', 'id');
-        $hasilPemeriksaan = $model->hasilPemeriksaan()->get()->keyBy('id_kegiatan'); // Asumsi ada relasi hasilPemeriksaan yang mengembalikan semua hasil terkait
+        $hasilPemeriksaan = $model->hasilPemeriksaan()->get()->keyBy('id_kegiatan');
 
         return view('petugas.' . $this->viewShow, [
             'title' => 'Detail Pemeriksaan Kendaraan',

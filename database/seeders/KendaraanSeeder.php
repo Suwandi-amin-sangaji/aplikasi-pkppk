@@ -20,5 +20,13 @@ class KendaraanSeeder extends Seeder
             "tahun" => 2023,
             "jumlah" => 1
         ]);
+
+        Kendaraan::create([
+            "jenis" => "Pemadam Kebakaran",
+            "plat" => "2222",
+            "merk" => "Toyota",
+            "tahun" => 2023,
+            "jumlah" => 1
+        ]);
     }
 }

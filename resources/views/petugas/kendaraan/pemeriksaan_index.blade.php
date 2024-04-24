@@ -9,7 +9,7 @@
                 <div class="card-body">
                     <a href="{{ route('pemeriksaan.create') }}" class="btn btn-primary btn-sm mb-4">Tambah Data</a>
                     <div class="table-responsive">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
                                     <th>No</th>

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('nama_operator');
             $table->string('nama_asisten')->nullable();
             $table->time('waktu');
-            $table->date('tanggal');
+            $table->string('tanggal');
             $table->string('mengetahui')->nullable();
             $table->string('status')->default('baru');
             $table->text('catatan')->nullable();

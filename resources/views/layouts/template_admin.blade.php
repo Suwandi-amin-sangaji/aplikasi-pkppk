@@ -152,8 +152,8 @@
                     </li>
 
                     {{-- Kendaraan --}}
-                    <li class="menu-item ">
-                        <a href="#" class="menu-link">
+                    <li class="menu-item {{ Route::is('peralatan.*') ? 'active' : '' }}">
+                        <a href="{{ Route('peralatan.index') }}" class="menu-link">
                             {{-- <i class='menu-icon  tf-icons bx bxs-car'></i> --}}
                             <i class="menu-icon  tf-icons fa fa-cogs" aria-hidden="true"></i>
                             <div data-i18n="Analytics">Data Peralatan</div>

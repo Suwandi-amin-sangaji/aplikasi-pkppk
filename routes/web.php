@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\BerandaAdminController;
 use App\Http\Controllers\admin\KegiatanController;
 use App\Http\Controllers\admin\KendaraanController;
+use App\Http\Controllers\admin\PeralatanController;
 use App\Http\Controllers\admin\PetugasController;
 use App\Http\Controllers\petugas\BerandaPetugasController;
 use App\Http\Controllers\petugas\PemriksaanController;
@@ -32,6 +33,7 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
     Route::resource('petugas', PetugasController::class);
     Route::resource('kendaraan', KendaraanController::class);
     Route::resource('kegiatan', KegiatanController::class);
+    Route::resource('peralatan', PeralatanController::class);
 });
 
 Route::prefix('pimpinan')->middleware(['auth', 'auth.pimpinan'])->group(function () {

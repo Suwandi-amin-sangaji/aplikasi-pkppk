@@ -40,8 +40,11 @@
                                 <span class="text-danger">{{ $errors->first('waktu') }}</span>
                             </div>
                             <div class="form-group mt-3">
-                                <label for="tanggal">Tanggal</label>
-                                {!! Form::date('tanggal', now()->format('Y-m-d'), ['class' => 'form-control']) !!}
+                                <label for="tanggal">Hari Dan Tanggal</label>
+                                {!! Form::text('tanggal', now()->locale('id')->isoFormat('dddd, D MMMM Y'), [
+                                    'class' => 'form-control',
+                                    'readonly',
+                                ]) !!}
                                 <span class="text-danger">{{ $errors->first('tanggal') }}</span>
                             </div>
 
@@ -67,11 +70,11 @@
                                         <td>{{ $kg->nama }}</td>
                                         <td>
                                             <div class="form-check form-check-inline">
-                                                {{ Form::radio($kg->id, 'Yes', false, ['class' => 'form-check-input']) }}
+                                                {{ Form::checkbox($kg->id, 'Yes', false, ['class' => 'form-check-input']) }}
                                                 {{ Form::label($kg->id . '_yes', 'Yes', ['class' => 'form-check-label yes-label']) }}
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                {{ Form::radio($kg->id, 'No', false, ['class' => 'form-check-input']) }}
+                                                {{ Form::checkbox($kg->id, 'No', false, ['class' => 'form-check-input']) }}
                                                 {{ Form::label($kg->id . '_no', 'No', ['class' => 'form-check-label no-label']) }}
                                             </div>
                                         </td>
