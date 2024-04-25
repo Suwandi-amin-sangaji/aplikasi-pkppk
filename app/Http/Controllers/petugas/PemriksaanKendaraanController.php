@@ -13,7 +13,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class PemriksaanController extends Controller
+class PemriksaanKendaraanController extends Controller
 {
     private $viewIndex = 'kendaraan.pemeriksaan_index';
     private $viewCreate = 'kendaraan.pemeriksaan_form';
@@ -27,7 +27,7 @@ class PemriksaanController extends Controller
     public function index()
     {
         // Mengambil ID user yang sedang login
-        $userId = Auth::id(); // Menggunakan Auth::id() untuk mendapatkan ID user yang sedang login
+        $userId = Auth::id();
         $pemeriksaan = PemeriksaanKendaraan::with('kendaraan')
             ->where('id_user', $userId) // Filter berdasarkan user_id
             ->latest()
@@ -145,31 +145,5 @@ class PemriksaanController extends Controller
             'baSet1' => $model->baSet1,
             'baSet2' => $model->baSet2,
         ]);
-    }
-
-
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

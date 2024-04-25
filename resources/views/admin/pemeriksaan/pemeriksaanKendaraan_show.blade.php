@@ -1,4 +1,4 @@
-@extends('layouts.template_petugas')
+@extends('layouts.template_admin')
 
 @section('content')
     <div class="row justify-content-center">
@@ -38,7 +38,7 @@
                             </div>
                             <div class="form-group mt-3">
                                 <label for="tanggal">Tanggal</label>
-                                {!! Form::text('tanggal', $model->tanggal, ['class' => 'form-control', 'disabled']) !!}
+                                {!! Form::date('tanggal', $model->tanggal, ['class' => 'form-control', 'disabled']) !!}
                                 <span class="text-danger">{{ $errors->first('tanggal') }}</span>
                             </div>
 

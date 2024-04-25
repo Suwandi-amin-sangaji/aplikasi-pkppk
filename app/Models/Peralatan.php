@@ -12,8 +12,14 @@ class Peralatan extends Model
 
     protected $tabel = 'peralatans';
     protected $fillable = [
-        "nama_alat",
-        "komponen",
+        "id_compartment",
+        'item',
+        "description",
         "jumlah"
     ];
+
+    public function compartment()
+    {
+        return $this->belongsTo(Compartment::class, 'id_compartment');
+    }
 }

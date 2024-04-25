@@ -13,37 +13,44 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Alat</th>
-                                    <th>Component</th>
+                                    <th>Compartment</th>
+                                    <th>Nama Item</th>
                                     <th>Jumlah</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($kegiatan as $item)
+                                @foreach ($peralatan as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->nama }}</td>
+                                        <td>{{ $item->compartment->name }}</td>
+                                        <td>{{ $item->item }}</td>
+                                        <td>{{ $item->jumlah }}</td>
+
                                         <td>
                                             {!! Form::open([
-                                                'route' => ['kegiatan.destroy', $item->id],
+                                                'route' => ['peralatan.destroy', $item->id], // Perbaikan disini
                                                 'method' => 'DELETE',
                                                 'onsubmit' => 'return confirm("Apakah anda yakin ingin menghapus data ini?")',
                                             ]) !!}
-                                            <a href="{{ route('kegiatan.edit', $item->id) }}"
-                                                class="btn btn-success btn-sm"><i class="fa fa-edit"> </i></a>
+                                            <a href="{{ route('peralatan.edit', $item->id) }}"
+                                                class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
+                                            <!-- Perbaikan disini -->
 
-                                            <button type="submit" class="btn btn-danger btn-sm"> <i class="fa fa-trash">
-                                                </i></button>
+                                            <button type="submit" class="btn btn-danger btn-sm"><i
+                                                    class="fa fa-trash"></i></button>
                                             {!! Form::close() !!}
                                         </td>
                                     </tr>
-                                    @empty($item)
-                                        <tr>
-                                            <td colspan="5">Data komponen kegiatan tidak ditemukan</td>
-                                        </tr>
-                                    @endempty
-                                @endforeach --}}
+                                @endforeach
+
+                                @if ($peralatan->isEmpty())
+                                    <!-- Menggunakan isEmpty() untuk mengecek apakah koleksi kosong -->
+                                    <tr>
+                                        <td colspan="5">Data komponen peralatan tidak ditemukan</td>
+                                    </tr>
+                                @endif
+
                             </tbody>
                         </table>
                     </div>

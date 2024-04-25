@@ -5,15 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
 
-class Kendaraan extends Model
+class Compartment extends Model
 {
     use HasFactory, HasUlids;
-    protected $guarded = [];
 
-    public function pemeriksaan()
+    protected $table = "compartments";
+    protected $fillable = [
+        "name",
+    ];
+
+    public function compartment()
     {
-        return $this->hasMany(PemeriksaanKendaraan::class, 'id_kendaraan', 'id');
+        return $this->belongsTo(Compartment::class);
     }
 }

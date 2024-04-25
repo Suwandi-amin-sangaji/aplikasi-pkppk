@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('peralatans', function (Blueprint $table) {
+        Schema::create('compartments', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->ulid('id_compartment');
-            $table->string('item');
-            $table->string('description');
-            $table->string('jumlah');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('peralatans');
+        Schema::dropIfExists('compartments');
     }
 };

@@ -3,10 +3,12 @@
 use App\Http\Controllers\admin\BerandaAdminController;
 use App\Http\Controllers\admin\KegiatanController;
 use App\Http\Controllers\admin\KendaraanController;
+use App\Http\Controllers\admin\PemeriksaanKendaraanController;
 use App\Http\Controllers\admin\PeralatanController;
 use App\Http\Controllers\admin\PetugasController;
 use App\Http\Controllers\petugas\BerandaPetugasController;
 use App\Http\Controllers\petugas\PemriksaanController;
+use App\Http\Controllers\petugas\PemriksaanKendaraanController;
 use App\Http\Controllers\pimpinan\BerandaPimpinanController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +36,7 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
     Route::resource('kendaraan', KendaraanController::class);
     Route::resource('kegiatan', KegiatanController::class);
     Route::resource('peralatan', PeralatanController::class);
+    Route::resource('pemeriksaan-kendaraan', PemeriksaanKendaraanController::class);
 });
 
 Route::prefix('pimpinan')->middleware(['auth', 'auth.pimpinan'])->group(function () {
@@ -42,7 +45,7 @@ Route::prefix('pimpinan')->middleware(['auth', 'auth.pimpinan'])->group(function
 
 Route::prefix('petugas')->middleware(['auth', 'auth.petugas'])->group(function () {
     Route::get('beranda', [BerandaPetugasController::class, 'index'])->name('petugas.beranda');
-    Route::resource('pemeriksaan', PemriksaanController::class);
+    Route::resource('pemeriksaan', PemriksaanKendaraanController::class);
 });
 
 Route::get('logout', function () {

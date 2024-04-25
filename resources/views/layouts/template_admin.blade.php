@@ -130,9 +130,9 @@
                             <div data-i18n="pemeriksaan">Data Pemeriksaan</div>
                         </a>
                         <ul class="menu-sub">
-                            <li class="menu-item {{ Route::is('pemeriksaan.*') ? 'active' : '' }}">
-                                <a href="{{ route('pemeriksaan.index') }}" class="menu-link">
-                                    <div data-i18n="kendaraan">Kendaraan</div>
+                            <li class="menu-item {{ Route::is('pemeriksaan-kendaraan.*') ? 'active' : '' }}">
+                                <a href="{{ route('pemeriksaan-kendaraan.index') }}" class="menu-link">
+                                    <div data-i18n="pemeriksaan-kendaraan">Kendaraan</div>
                                 </a>
                             </li>
                             <li class="menu-item">
@@ -164,7 +164,7 @@
                     <li class="menu-item {{ Route::is('kegiatan.*') ? 'active' : '' }}">
                         <a href="{{ route('kegiatan.index') }}" class="menu-link">
                             <i class='menu-icon  tf-icons bx bx-book-content'></i>
-                            <div data-i18n="Analytics">komponen</div>
+                            <div data-i18n="Analytics">Data komponen</div>
                         </a>
                     </li>
 

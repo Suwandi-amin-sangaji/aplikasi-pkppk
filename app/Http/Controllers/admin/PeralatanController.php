@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Compartment;
 use App\Models\Peralatan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PeralatanController extends Controller
 {
@@ -20,7 +22,8 @@ class PeralatanController extends Controller
     public function index()
     {
         return view('admin.' . $this->viewIndex, [
-            'peralatan' => Peralatan::latest()->paginate(10),
+            'peralatan' => Peralatan::with('compartment')
+                ->latest()->paginate(10),
             'routePrefix' => $this->routePrefix,
             'title' => 'Komponen Peralatan'
         ]);
@@ -36,7 +39,8 @@ class PeralatanController extends Controller
             'method' => 'POST',
             'route' => $this->routePrefix . '.store',
             'button' => 'Simpan',
-            'title' => 'Komponen Kegiatan'
+            'title' => 'Komponen Peralatan',
+            "compartment" => Compartment::pluck('name', 'id'),
         ];
 
         return view('admin.' . $this->viewCreate, $data);
@@ -47,7 +51,38 @@ class PeralatanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validasi data
+        $validatedData = $request->validate([
+            'id_compartment' => 'required',
+            'item' => 'required',
+            'description' => 'required',
+            'jumlah' => 'required|numeric',
+        ]);
+
+        try {
+            // Menggunakan transaksi database untuk menangani kemungkinan kesalahan
+            DB::beginTransaction();
+
+            // Buat instance Peralatan dengan data yang valid
+            Peralatan::create([
+                'id_compartment' => $validatedData['id_compartment'],
+                'item' => $validatedData['item'],
+                'description' => $validatedData['description'],
+                'jumlah' => $validatedData['jumlah']
+            ]);
+
+            // Commit transaksi jika tidak ada kesalahan
+            DB::commit();
+
+            // Redirect dengan pesan sukses
+            return redirect()->route('peralatan.index')->with('success', 'Data Berhasil Disimpan');
+        } catch (\Exception $e) {
+            // Rollback transaksi jika terjadi kesalahan
+            DB::rollBack();
+
+            // Redirect dengan pesan kesalahan
+            return redirect()->back()->withInput()->with('error', 'Gagal menyimpan data. Silakan coba lagi.');
+        }
     }
 
     /**
@@ -71,7 +106,17 @@ class PeralatanController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = [
+            'model' => Peralatan::findOrFail($id),
+            'method' => 'PUT',
+            'route' => [$this->routePrefix . '.update', $id],
+            'button' => 'Update',
+            'title' => 'Peralatan',
+            "compartment" => Compartment::pluck('name', 'id'),
+
+        ];
+
+        return view('admin.' . $this->viewedit, $data);
     }
 
     /**
@@ -79,7 +124,16 @@ class PeralatanController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $requesData = $request->validate([
+            'id_compartment' => 'required',
+            'item' => 'required|string|max:255',
+            'description' => 'required|string|max:1000',
+            'jumlah' => 'required|integer|min:1',
+        ]);
+        $users = Peralatan::findOrFail($id);
+        $users->fill($requesData)->save();
+        flash()->addSuccess('Data Perlatan Berhasil Dirubah');
+        return redirect()->route('peralatan.index');
     }
 
     /**
@@ -87,6 +141,9 @@ class PeralatanController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $model = Peralatan::findOrFail($id);
+        $model->delete();
+        flash()->addSuccess('Data Perlatan Berhasil Dihapus');
+        return back();
     }
 }
