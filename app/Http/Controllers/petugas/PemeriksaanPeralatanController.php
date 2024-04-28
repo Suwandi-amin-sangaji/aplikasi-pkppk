@@ -4,13 +4,14 @@ namespace App\Http\Controllers\petugas;
 
 use App\Http\Controllers\Controller;
 use App\Models\PemeriksaanPeralatan;
+use App\Models\Peralatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PemeriksaanPeralatanController extends Controller
 {
-    private $viewIndex = 'peralatan.pemeriksaan_index';
-    private $viewCreate = 'peralatan.pemeriksaan_form';
+    private $viewIndex = 'peralatan.pemeriksaan_peralatan_index';
+    private $viewCreate = 'peralatan.pemeriksaan_peralatan_form';
     // private $viewedit = 'peralatan.kendaraan_form';
     private $viewShow = 'kendaraan.pemeriksaan_show';
     private $routePrefix = 'peralatan';
@@ -22,12 +23,12 @@ class PemeriksaanPeralatanController extends Controller
     {
         // Mengambil ID user yang sedang login
         $userId = Auth::id();
-        $pemeriksaan = PemeriksaanPeralatan::with('kendaraan')
-            ->where('id_user', $userId) // Filter berdasarkan user_id
-            ->latest()
-            ->paginate(10);
+        // $pemeriksaan = PemeriksaanPeralatan::with('peralatan')
+        //     ->where('id_user', $userId) // Filter berdasarkan user_id
+        //     ->latest()
+        //     ->paginate(10);
         return view('petugas.' . $this->viewIndex, [
-            'pemeriksaan' => $pemeriksaan,
+            // 'pemeriksaan' => $pemeriksaan,
             'routePrefix' => $this->routePrefix,
             'title' => 'Pemeriksaan kendaraan'
         ]);
@@ -39,8 +40,20 @@ class PemeriksaanPeralatanController extends Controller
      */
     public function create()
     {
-        //
+        $peralatan = Peralatan::with('compartment')->get()->groupBy('compartment.name');
+
+        $data = [
+            'model' => new PemeriksaanPeralatan(),
+            'method' => 'POST',
+            'route' => $this->routePrefix . '.store',
+            'button' => 'Simpan',
+            'title' => 'Peralatan',
+            'peralatan' => $peralatan,
+        ];
+
+        return view('petugas.' . $this->viewCreate, $data);
     }
+
 
     /**
      * Store a newly created resource in storage.

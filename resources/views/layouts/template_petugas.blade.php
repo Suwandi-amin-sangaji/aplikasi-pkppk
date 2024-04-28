@@ -101,7 +101,7 @@
                                 </g>
                             </svg>
                         </span>
-                        <span class="app-brand-text demo menu-text fw-bolder ms-2">Sneat</span>
+                        <span class="app-brand-text demo menu-text fw-bolder ms-2">PKP-PK</span>
                     </a>
 
                     <a href="javascript:void(0);"
@@ -131,12 +131,12 @@
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item {{ Route::is('pemeriksaan.*') ? 'active' : '' }}">
-                                <a href="{{ route('pemeriksaan.index') }}" class="menu-link">
+                                <a href="{{ route('pemeriksaan-kendaraan.index') }}" class="menu-link">
                                     <div data-i18n="kendaraan">Kendaraan</div>
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a href="pages-misc-under-maintenance.html" class="menu-link">
+                                <a href="{{ route('pemeriksaan-peralatan.index') }}" class="menu-link">
                                     <div data-i18n="peralatan">Peralatan</div>
                                 </a>
                             </li>

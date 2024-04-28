@@ -15,7 +15,13 @@ return new class extends Migration
             $table->ulid('id')->primary();
             $table->ulid('id_user');
             $table->ulid('id_peralatan');
-            
+            $table->string('nama_operator');
+            $table->string('nama_asisten')->nullable();
+            $table->time('waktu');
+            $table->string('tanggal');
+            $table->string('mengetahui')->nullable();
+            $table->string('status')->default('baru');
+            $table->text('catatan')->nullable();
             $table->timestamps();
         });
     }

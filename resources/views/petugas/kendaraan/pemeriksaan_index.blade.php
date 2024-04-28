@@ -7,7 +7,7 @@
                 <h5 class="card-header">Pemeriksaan Kendaraan</h5>
 
                 <div class="card-body">
-                    <a href="{{ route('pemeriksaan.create') }}" class="btn btn-primary btn-sm mb-4">Tambah Data</a>
+                    <a href="{{ route('pemeriksaan-kendaraan.create') }}" class="btn btn-primary btn-sm mb-4">Tambah Data</a>
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
                             <thead>
@@ -34,7 +34,7 @@
                                         @else
                                         @endif
                                         <td>
-                                            <a href="{{ route('pemeriksaan.show', $item->id) }}"
+                                            <a href="{{ route('pemeriksaan-kendaraan.show', $item->id) }}"
                                                 class="btn btn-secondary btn-sm"><i class="fa fa-eye"> </i></a>
                                         </td>
                                     </tr>

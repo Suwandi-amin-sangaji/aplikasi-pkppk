@@ -20,6 +20,6 @@ class Peralatan extends Model
 
     public function compartment()
     {
-        return $this->belongsTo(Compartment::class, 'id_compartment');
+        return $this->belongsTo(Compartment::class, 'id_compartment', 'id');
     }
 }
