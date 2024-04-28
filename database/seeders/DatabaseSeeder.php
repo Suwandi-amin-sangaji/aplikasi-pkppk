@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             KegiatanSeeder::class,
             KendaraanSeeder::class,
             CompartmentSeeder::class,
+            PeralatanSeeder::class
         ]);
     }
 }

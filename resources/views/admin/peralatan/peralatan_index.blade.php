@@ -55,7 +55,7 @@
                         </table>
                     </div>
                     <div class="mt-3 text-right">
-                        {{-- {!! $kegiatan->links() !!} --}}
+                        {!! $peralatan->links() !!}
                     </div>
                 </div>
             </div>
