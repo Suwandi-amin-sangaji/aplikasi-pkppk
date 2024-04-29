@@ -1,13 +1,13 @@
-@extends('layouts.template_petugas')
+@extends('layouts.template_admin')
 
 @section('content')
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <h5 class="card-header">{{$title}}</h5>
+                <h5 class="card-header">Data Pemeriksaan Kendaraan Oleh Petugas</h5>
 
                 <div class="card-body">
-                    <a href="{{ route('pemeriksaan-peralatan.create') }}" class="btn btn-primary btn-sm mb-4">Tambah Data</a>
+                    {{-- buat serach Data --}}
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
                             <thead>
@@ -22,7 +22,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($peralatan as $item)
+                                @foreach ($pemeriksaan as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->nama_operator }}</td>
@@ -34,9 +34,17 @@
                                         @else
                                         @endif
                                         <td>
-                                            <a href="{{ route('pemeriksaan-peralatan.show', $item->id) }}"
+                                            {!! Form::open([
+                                                'route' => ['pemeriksaan-peralatan-admin.destroy', $item->id],
+                                                'method' => 'DELETE',
+                                                'onsubmit' => 'return confirm("Apakah anda yakin ingin menghapus data ini?")',
+                                            ]) !!}
+                                            <a href="{{ route('pemeriksaan-peralatan-admin.show', $item->id) }}"
                                                 class="btn btn-secondary btn-sm"><i class="fa fa-eye"> </i></a>
-                                        </td>
+                                            <a href="{{ route('pemeriksaan-peralatan-admin.edit', $item->id) }}"
+                                                class="btn btn-warning btn-sm"><i class="fa fa-edit"> </i></a>
+                                            <button type="submit" class="btn btn-danger btn-sm"> <i class="fa fa-trash">
+                                                </i></button>
                                     </tr>
                                     @empty($item)
                                         <tr>
@@ -47,7 +55,7 @@
                             </tbody>
                         </table>
                     </div>
-                    {{-- {!! $pemeriksaan->links() !!} --}}
+                    {!! $pemeriksaan->links() !!}
                 </div>
             </div>
         </div>

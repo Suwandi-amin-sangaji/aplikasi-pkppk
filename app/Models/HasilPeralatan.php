@@ -13,6 +13,7 @@ class HasilPeralatan extends Model
     protected $table = 'hasil_peralatans';
 
     protected $fillable = [
+        'id',
         "id_pemeriksaan",
         "id_peralatan",
         "hasil",

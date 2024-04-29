@@ -23,10 +23,15 @@ class PeralatanController extends Controller
     {
         return view('admin.' . $this->viewIndex, [
             'peralatan' => Peralatan::with('compartment')
-                ->latest()->paginate(10),
+                ->join('compartments', 'peralatans.id_compartment', '=', 'compartments.id')
+                ->orderBy('compartments.name')
+                ->select('peralatans.*')
+                ->latest()
+                ->paginate(10),
             'routePrefix' => $this->routePrefix,
             'title' => 'Komponen Peralatan'
         ]);
+
     }
 
     /**

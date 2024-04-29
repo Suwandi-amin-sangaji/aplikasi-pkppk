@@ -124,20 +124,20 @@
                         <span class="menu-header-text">Data Master</span>
                     </li>
 
-                    <li class="menu-item {{ Route::is('pemeriksaan.*') ? 'active' : '' }}">
+                    <li class="menu-item {{ Route::is('pemeriksaan-kendaraan-admin.*') ? 'active' : '' }}">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons  fa fa-list" aria-hidden="true"></i>
                             <div data-i18n="pemeriksaan">Data Pemeriksaan</div>
                         </a>
                         <ul class="menu-sub">
-                            <li class="menu-item {{ Route::is('pemeriksaan.*') ? 'active' : '' }}">
-                                <a href="{{ route('pemeriksaan.index') }}" class="menu-link">
+                            <li class="menu-item {{ Route::is('pemeriksaan-kendaraan-admin.*') ? 'active' : '' }}">
+                                <a href="{{ route('pemeriksaan-kendaraan-admin.index') }}" class="menu-link">
                                     <div data-i18n="pemeriksaan-kendaraan">Kendaraan</div>
                                 </a>
                             </li>
-                            <li class="menu-item">
-                                <a href="pages-misc-under-maintenance.html" class="menu-link">
-                                    <div data-i18n="peralatan">Peralatan</div>
+                            <li class="menu-item {{ Route::is('pemeriksaan-peralatan-admin.*') ? 'active' : '' }}">
+                                <a href="{{ route('pemeriksaan-peralatan-admin.index') }}" class="menu-link">
+                                    <div data-i18n="pemeriksaan-peralatan">Peralatan</div>
                                 </a>
                             </li>
                         </ul>
@@ -168,11 +168,35 @@
                         </a>
                     </li>
 
+                     {{-- STOCK --}}
+                     <li class="menu-item">
+                        <a href="{{ route('kegiatan.index') }}" class="menu-link">
+                            <i class='menu-icon  tf-icons bx bx-box'></i>
+                            <div data-i18n="Analytics">Data Stock barang</div>
+                        </a>
+                    </li>
+
+                      {{-- SOP --}}
+                      <li class="menu-item">
+                        <a href="{{ route('kegiatan.index') }}" class="menu-link">
+                            <i class='menu-icon  tf-icons bx bx-book-content'></i>
+                            <div data-i18n="Analytics">SOP</div>
+                        </a>
+                    </li>
+
+                    {{-- Program Kerja --}}
+                    <li class="menu-item">
+                        <a href="{{ route('kegiatan.index') }}" class="menu-link">
+                            <i class='menu-icon  tf-icons bx bx-book-content'></i>
+                            <div data-i18n="Analytics">Program Kerja</div>
+                        </a>
+                    </li>
+
                     @if (Auth::user()->akses == 'admin')
                         <li class="menu-item {{ Route::is('petugas.*') ? 'active' : '' }}">
                             <a href="{{ route('petugas.index') }}" class="menu-link">
                                 <i class="menu-icon tf-icons bx bx-user"></i>
-                                <div data-i18n="Boxicons">Data Petugas</div>
+                                <div data-i18n="Boxicons">Data Personil</div>
                             </a>
                         </li>
                     @endif

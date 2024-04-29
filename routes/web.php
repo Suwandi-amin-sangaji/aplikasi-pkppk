@@ -4,11 +4,11 @@ use App\Http\Controllers\admin\BerandaAdminController;
 use App\Http\Controllers\admin\KegiatanController;
 use App\Http\Controllers\admin\KendaraanController;
 use App\Http\Controllers\admin\PemeriksaanKendaraanController;
+use App\Http\Controllers\admin\PemeriksaanPeralatanController as AdminPemeriksaanPeralatanController;
 use App\Http\Controllers\admin\PeralatanController;
 use App\Http\Controllers\admin\PetugasController;
 use App\Http\Controllers\petugas\BerandaPetugasController;
 use App\Http\Controllers\petugas\PemeriksaanPeralatanController;
-use App\Http\Controllers\petugas\PemriksaanController;
 use App\Http\Controllers\petugas\PemriksaanKendaraanController;
 use App\Http\Controllers\pimpinan\BerandaPimpinanController;
 use Illuminate\Support\Facades\Auth;
@@ -37,7 +37,8 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
     Route::resource('kendaraan', KendaraanController::class);
     Route::resource('kegiatan', KegiatanController::class);
     Route::resource('peralatan', PeralatanController::class);
-    Route::resource('pemeriksaan', PemeriksaanKendaraanController::class);
+    Route::resource('pemeriksaan-kendaraan-admin', PemeriksaanKendaraanController::class);
+    Route::resource('pemeriksaan-peralatan-admin', AdminPemeriksaanPeralatanController::class);
 });
 
 Route::prefix('pimpinan')->middleware(['auth', 'auth.pimpinan'])->group(function () {

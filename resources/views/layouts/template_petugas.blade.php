@@ -125,23 +125,27 @@
                     </li>
 
                     <li class="menu-item {{ Route::is('pemeriksaan-kendaraan.*') ? 'active' : '' }}">
+                        <a href="{{ route('pemeriksaan-kendaraan.index') }}" class="menu-link">
+                            <i class='menu-icon  tf-icons bx bxs-car'></i>
+                            <div data-i18n="kendaraan">Pemeriksaan Kendaraan</div>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ Route::is('pemeriksaan-peralatan.*') ? 'active' : '' }}">
+                        <a href="{{ route('pemeriksaan-peralatan.index') }}" class="menu-link">
+                            <i class="menu-icon  tf-icons fa fa-cogs" aria-hidden="true"></i>
+                            <div data-i18n="peralatan">Pemeriksaan Peralatan</div>
+                        </a>
+                    </li>
+
+                    {{-- <li class="menu-item {{ Route::is('pemeriksaan-kendaraan.*') ? 'active' : '' }}">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons  fa fa-list" aria-hidden="true"></i>
                             <div data-i18n="pemeriksaan">Pemeriksaan</div>
                         </a>
                         <ul class="menu-sub">
-                            <li class="menu-item {{ Route::is('pemeriksaan-kendaraan.*') ? 'active' : '' }}">
-                                <a href="{{ route('pemeriksaan-kendaraan.index') }}" class="menu-link">
-                                    <div data-i18n="kendaraan">Kendaraan</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="{{ route('pemeriksaan-peralatan.index') }}" class="menu-link">
-                                    <div data-i18n="peralatan">Peralatan</div>
-                                </a>
-                            </li>
+
                         </ul>
-                    </li>
+                    </li> --}}
 
 
                     {{-- <li class="menu-item {{ Route::is('pemeriksaan.*') ? 'active' : '' }}">
@@ -290,7 +294,17 @@
         <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
-
+    <script>
+        function toggleReadOnly(checkbox) {
+            if (checkbox.checked) {
+                checkbox.removeAttribute('disabled');
+                checkbox.setAttribute('readonly', 'readonly');
+            } else {
+                checkbox.setAttribute('disabled', 'disabled');
+                checkbox.removeAttribute('readonly');
+            }
+        }
+    </script>
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="{{ asset('sneat') }}/assets/vendor/libs/jquery/jquery.js"></script>

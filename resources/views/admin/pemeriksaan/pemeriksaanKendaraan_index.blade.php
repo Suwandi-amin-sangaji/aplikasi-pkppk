@@ -35,13 +35,13 @@
                                         @endif
                                         <td>
                                             {!! Form::open([
-                                                'route' => ['pemeriksaan.destroy', $item->id],
+                                                'route' => ['pemeriksaan-kendaraan-admin.destroy', $item->id],
                                                 'method' => 'DELETE',
                                                 'onsubmit' => 'return confirm("Apakah anda yakin ingin menghapus data ini?")',
                                             ]) !!}
-                                            <a href="{{ route('pemeriksaan.show', $item->id) }}"
+                                            <a href="{{ route('pemeriksaan-kendaraan-admin.show', $item->id) }}"
                                                 class="btn btn-secondary btn-sm"><i class="fa fa-eye"> </i></a>
-                                            <a href="{{ route('pemeriksaan.edit', $item->id) }}"
+                                            <a href="{{ route('pemeriksaan-kendaraan-admin.edit', $item->id) }}"
                                                 class="btn btn-warning btn-sm"><i class="fa fa-edit"> </i></a>
                                             <button type="submit" class="btn btn-danger btn-sm"> <i class="fa fa-trash">
                                                 </i></button>

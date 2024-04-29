@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('pemeriksaan_peralatans', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->ulid('id_peralatan');
             $table->ulid('id_user');
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->string('nama_operator');
