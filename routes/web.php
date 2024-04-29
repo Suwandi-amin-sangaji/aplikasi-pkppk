@@ -37,7 +37,7 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
     Route::resource('kendaraan', KendaraanController::class);
     Route::resource('kegiatan', KegiatanController::class);
     Route::resource('peralatan', PeralatanController::class);
-    Route::resource('pemeriksaan-kendaraan', PemeriksaanKendaraanController::class);
+    Route::resource('pemeriksaan', PemeriksaanKendaraanController::class);
 });
 
 Route::prefix('pimpinan')->middleware(['auth', 'auth.pimpinan'])->group(function () {

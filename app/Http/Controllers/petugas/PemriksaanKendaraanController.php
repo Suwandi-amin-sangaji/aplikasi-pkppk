@@ -19,7 +19,7 @@ class PemriksaanKendaraanController extends Controller
     private $viewCreate = 'kendaraan.pemeriksaan_form';
     // private $viewedit = 'kendaraan.kendaraan_form';
     private $viewShow = 'kendaraan.pemeriksaan_show';
-    private $routePrefix = 'pemeriksaan';
+    private $routePrefix = 'pemeriksaan-kendaraan';
     /**
      * Display a listing of the resource.
      */
@@ -122,7 +122,7 @@ class PemriksaanKendaraanController extends Controller
             ]); // Pastikan hasil tidak null
         }
         flash()->addSuccess('Berhasil Menambah Data');
-        return redirect()->route('pemeriksaan.index');
+        return redirect()->route('pemeriksaan-kendaraan.index');
     }
 
 

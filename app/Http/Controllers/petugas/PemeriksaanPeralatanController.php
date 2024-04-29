@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\petugas;
 
 use App\Http\Controllers\Controller;
+use App\Models\HasilPeralatan;
 use App\Models\PemeriksaanPeralatan;
 use App\Models\Peralatan;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ class PemeriksaanPeralatanController extends Controller
     private $viewCreate = 'peralatan.pemeriksaan_peralatan_form';
     // private $viewedit = 'peralatan.kendaraan_form';
     private $viewShow = 'kendaraan.pemeriksaan_show';
-    private $routePrefix = 'peralatan';
+    private $routePrefix = 'pemeriksaan-peralatan';
     /**
      * Display a listing of the resource.
      */
@@ -60,7 +61,43 @@ class PemeriksaanPeralatanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nama_operator' => 'required|string',
+            'nama_asisten' => 'nullable|string',
+            'jenis_peralatan' => 'required|string',
+            'waktu' => 'required|date_format:H:i',
+            'tanggal' => 'required|string',
+            'mengetahui' => 'nullable|string',
+            'catatan' => 'nullable|string',
+            'peralatan.*.id' => 'required', // Validate the presence of peralatan IDs
+            'peralatan.*.hasil' => 'required', // Validate the presence of peralatan hasil
+        ]);
+
+        $validatedData['id_user'] = Auth()->id();
+
+        $pemeriksaan = PemeriksaanPeralatan::create([
+            'jenis_peralatan' => $validatedData['jenis_peralatan'],
+            'id_user' => $validatedData['id_user'],
+            'nama_operator' => $validatedData['nama_operator'],
+            'nama_asisten' => $validatedData['nama_asisten'],
+            'waktu' => $validatedData['waktu'],
+            'tanggal' => $validatedData['tanggal'],
+            'mengetahui' => $validatedData['mengetahui'],
+            'status' => 'baru',
+            'catatan' => $validatedData['catatan'],
+        ]);
+
+        foreach ($request->peralatan as $peralatan) {
+            $hasil = new HasilPeralatan();
+            $hasil->id_pemeriksaan = $pemeriksaan->id;
+            $hasil->id_peralatan = $peralatan['id'];
+            $hasil->hasil = $peralatan['hasil'];
+            $hasil->save();
+        }
+
+        flash()->addSuccess('Berhasil Menyimpan Data');
+
+        return redirect()->route('peralatan.pemeriksaan_peralatan_index');
     }
 
     /**

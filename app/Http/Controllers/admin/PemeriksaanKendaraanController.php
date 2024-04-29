@@ -19,6 +19,8 @@ class PemeriksaanKendaraanController extends Controller
     // private $viewedit = 'pemeriksaan.kendaraanKendaraan_form';
     private $viewShow = 'pemeriksaan.pemeriksaanKendaraan_show';
     private $routePrefix = 'pemeriksaan';
+
+
     public function index()
     {
         $pemeriksaan = PemeriksaanKendaraan::with('kendaraan')
@@ -87,6 +89,9 @@ class PemeriksaanKendaraanController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $model = PemeriksaanKendaraan::findOrFail($id);
+        $model->delete();
+        flash()->addSuccess('Data Perlatan Berhasil Dihapus');
+        return back();
     }
 }

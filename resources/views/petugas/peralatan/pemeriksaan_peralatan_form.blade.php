@@ -65,14 +65,6 @@
 
                     <div class="table-responsive mt-5">
                         <table class="table table-bordered">
-                            {{-- <thead>
-                                    <tr>
-                                        <th>Nama Kegiatan</th>
-                                        <th>Compartment</th>
-                                        <th>Jumlah</th>
-                                        <th>Checklist</th>
-                                    </tr>
-                                </thead> --}}
                             <tbody>
                                 @foreach ($peralatan as $compartment => $items)
                                     <tr>
@@ -101,8 +93,6 @@
                             </tbody>
                         </table>
                     </div>
-
-
 
                     <div class="row mt-3">
                         <div class="col-md-12">

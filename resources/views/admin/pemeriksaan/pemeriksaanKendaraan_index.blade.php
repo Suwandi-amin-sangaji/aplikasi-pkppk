@@ -34,12 +34,17 @@
                                         @else
                                         @endif
                                         <td>
-                                            <a href="{{ route('pemeriksaan-kendaraan.show', $item->id) }}"
+                                            {!! Form::open([
+                                                'route' => ['pemeriksaan.destroy', $item->id],
+                                                'method' => 'DELETE',
+                                                'onsubmit' => 'return confirm("Apakah anda yakin ingin menghapus data ini?")',
+                                            ]) !!}
+                                            <a href="{{ route('pemeriksaan.show', $item->id) }}"
                                                 class="btn btn-secondary btn-sm"><i class="fa fa-eye"> </i></a>
-                                            <a href="{{ route('pemeriksaan-kendaraan.edit', $item->id) }}"
+                                            <a href="{{ route('pemeriksaan.edit', $item->id) }}"
                                                 class="btn btn-warning btn-sm"><i class="fa fa-edit"> </i></a>
-                                            <a href="{{ route('pemeriksaan-kendaraan.destroy', $item->id) }}"
-                                                class="btn btn-danger btn-sm"><i class="fa fa-trash"> </i></a>
+                                            <button type="submit" class="btn btn-danger btn-sm"> <i class="fa fa-trash">
+                                                </i></button>
                                     </tr>
                                     @empty($item)
                                         <tr>

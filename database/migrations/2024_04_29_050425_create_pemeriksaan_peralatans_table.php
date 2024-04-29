@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pemeriksaan_peralatan', function (Blueprint $table) {
+        Schema::create('pemeriksaan_peralatans', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->ulid('id_user');
             $table->ulid('id_peralatan');
+            $table->ulid('id_user');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->string('nama_operator');
             $table->string('nama_asisten')->nullable();
+            $table->string('jenis_peralatan')->nullable();
             $table->time('waktu');
             $table->string('tanggal');
             $table->string('mengetahui')->nullable();
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pemeriksaan_peralatan');
+        Schema::dropIfExists('pemeriksaan_peralatans');
     }
 };

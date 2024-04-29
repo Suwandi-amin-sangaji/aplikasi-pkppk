@@ -16,6 +16,7 @@
                                     <th>Jenis Kendaraan</th>
                                     <th>Plat Nomor</th>
                                     <th>Merek</th>
+                                    <th>Tahun</th>
                                     <th>Jumlah</th>
                                     <th>Action</th>
                                 </tr>
@@ -27,6 +28,7 @@
                                         <td>{{ $item->jenis }}</td>
                                         <td>{{ $item->plat }}</td>
                                         <td>{{ $item->merk }}</td>
+                                        <td>{{ $item->tahun }}</td>
                                         <td>{{ $item->jumlah }}</td>
                                         <td>
                                             {!! Form::open([

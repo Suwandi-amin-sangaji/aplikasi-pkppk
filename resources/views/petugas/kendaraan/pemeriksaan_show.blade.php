@@ -198,7 +198,7 @@
 
                     <div class="row mt-3">
                         <div class="col-md-12">
-                            <a href="{{ route('pemeriksaan.index') }}" class="btn btn-danger">Kembali</a>
+                            <a href="{{ route('pemeriksaan-kendaraan.index') }}" class="btn btn-danger">Kembali</a>
                         </div>
                     </div>
                 </div>

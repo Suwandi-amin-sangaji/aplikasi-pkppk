@@ -130,8 +130,8 @@
                             <div data-i18n="pemeriksaan">Data Pemeriksaan</div>
                         </a>
                         <ul class="menu-sub">
-                            <li class="menu-item {{ Route::is('pemeriksaan-kendaraan.*') ? 'active' : '' }}">
-                                <a href="{{ route('pemeriksaan-kendaraan.index') }}" class="menu-link">
+                            <li class="menu-item {{ Route::is('pemeriksaan.*') ? 'active' : '' }}">
+                                <a href="{{ route('pemeriksaan.index') }}" class="menu-link">
                                     <div data-i18n="pemeriksaan-kendaraan">Kendaraan</div>
                                 </a>
                             </li>

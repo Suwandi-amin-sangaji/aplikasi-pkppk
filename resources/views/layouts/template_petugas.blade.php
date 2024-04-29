@@ -124,13 +124,13 @@
                         <span class="menu-header-text">logbook</span>
                     </li>
 
-                    <li class="menu-item {{ Route::is('pemeriksaan.*') ? 'active' : '' }}">
+                    <li class="menu-item {{ Route::is('pemeriksaan-kendaraan.*') ? 'active' : '' }}">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons  fa fa-list" aria-hidden="true"></i>
                             <div data-i18n="pemeriksaan">Pemeriksaan</div>
                         </a>
                         <ul class="menu-sub">
-                            <li class="menu-item {{ Route::is('pemeriksaan.*') ? 'active' : '' }}">
+                            <li class="menu-item {{ Route::is('pemeriksaan-kendaraan.*') ? 'active' : '' }}">
                                 <a href="{{ route('pemeriksaan-kendaraan.index') }}" class="menu-link">
                                     <div data-i18n="kendaraan">Kendaraan</div>
                                 </a>
