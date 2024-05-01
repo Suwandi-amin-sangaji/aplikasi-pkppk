@@ -5,7 +5,8 @@
         <div class="col-md-12">
             <div class="card">
                 <h5 class="card-header">Data Pemeriksaan Kendaraan Oleh Petugas</h5>
-
+                <a href="export=pdf" class="btn btn-danger ml-3 mb-3">Export
+                    PDF</a>
                 <div class="card-body">
                     {{-- buat serach Data --}}
                     <div class="table-responsive">

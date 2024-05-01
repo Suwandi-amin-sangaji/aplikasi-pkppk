@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PemeriksaanPeralatan extends Model
 {
-    use HasFactory, HasUlids;
+    use HasFactory;
 
     protected $table = 'pemeriksaan_peralatans';
     protected $fillable = [
@@ -33,7 +33,8 @@ class PemeriksaanPeralatan extends Model
         return $this->belongsTo(Compartment::class, 'id_compartment', 'id');
     }
 
-    public function hasilPeralatan(){
+    public function hasilPeralatan()
+    {
         return $this->hasMany(HasilPeralatan::class, 'id_pemeriksaan', 'id');
     }
 }

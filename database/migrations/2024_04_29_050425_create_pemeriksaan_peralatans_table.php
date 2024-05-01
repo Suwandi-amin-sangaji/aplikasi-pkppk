@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pemeriksaan_peralatans', function (Blueprint $table) {
-            $table->ulid('id')->primary();
-            $table->ulid('id_user');
+            $table->id();
+            $table->bigInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->string('nama_operator');
             $table->string('nama_asisten')->nullable();

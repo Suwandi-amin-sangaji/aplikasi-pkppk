@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('hasil_pemeriksaans', function (Blueprint $table) {
-            $table->ulid('id')->primary();
-            $table->ulid('id_kegiatan');
-            $table->ulid('id_pemeriksaan');
+            $table->id();
+            $table->bigInteger('id_kegiatan');
+            $table->bigInteger('id_pemeriksaan');
             $table->enum('hasil', ['Yes', 'No']);
             $table->timestamps();
         });

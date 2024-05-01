@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Peralatan extends Model
 {
-    use HasFactory, HasUlids;
+    use HasFactory;
 
     protected $tabel = 'peralatans';
     protected $fillable = [

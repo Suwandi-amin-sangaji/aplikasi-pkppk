@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        // add below code. Here we insert additional guards named api, which the driver is jwt and the provider is users (the users provider already defined below this code in the original file, pointing to User model)
+        'api' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
+        ],
     ],
 
     /*

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class BaSet1 extends Model
 {
-    use HasFactory, HasUlids;
+    use HasFactory;
     protected $table = 'ba_sets_1';
 
     protected $fillable = [

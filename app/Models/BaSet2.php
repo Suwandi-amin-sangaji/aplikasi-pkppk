@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class BaSet2 extends Model
 {
 
-    use HasFactory, HasUlids;
+    use HasFactory;
     protected $table = 'ba_sets_2';
 
     protected $fillable = [

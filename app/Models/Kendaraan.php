@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 
 class Kendaraan extends Model
 {
-    use HasFactory, HasUlids;
+    use HasFactory;
     protected $guarded = [];
 
     public function pemeriksaan()

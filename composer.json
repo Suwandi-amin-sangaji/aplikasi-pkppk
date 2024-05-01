@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "barryvdh/laravel-dompdf": "^2.1",
         "guzzlehttp/guzzle": "^7.2",
         "laracasts/flash": "^3.2",
         "laravel/framework": "^10.10",
@@ -14,7 +15,8 @@
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.5",
         "laravelcollective/html": "^6.4",
-        "php-flasher/flasher-laravel": "^1.15"
+        "php-flasher/flasher-laravel": "^1.15",
+        "php-open-source-saver/jwt-auth": "^2.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13",

@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pemeriksaan_kendaraans', function (Blueprint $table) {
-            $table->ulid('id')->primary(); // ULID
-            $table->ulid('id_kendaraan')->constrained('kendaraans');
-            $table->ulid('id_user');
+            $table->id(); // ULID
+            $table->bigInteger('id_kendaraan')->constrained('kendaraans');
+            $table->bigInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->string('nama_operator');
             $table->string('nama_asisten')->nullable();
@@ -23,8 +23,8 @@ return new class extends Migration
             $table->string('mengetahui')->nullable();
             $table->string('status')->default('baru');
             $table->text('catatan')->nullable();
-            $table->ulid('id_baset_1'); // ULID
-            $table->ulid('id_baset_2');
+            $table->bigInteger('id_baset_1'); // ULID
+            $table->bigInteger('id_baset_2');
             $table->timestamps();
         });
     }

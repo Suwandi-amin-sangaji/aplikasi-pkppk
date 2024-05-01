@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Compartment extends Model
 {
-    use HasFactory, HasUlids;
+    use HasFactory;
 
     protected $table = "compartments";
     protected $fillable = [

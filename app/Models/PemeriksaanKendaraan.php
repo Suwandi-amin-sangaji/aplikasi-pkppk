@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PemeriksaanKendaraan extends Model
 {
-    use HasFactory, HasUlids;
+    use HasFactory;
 
     protected $table = 'pemeriksaan_kendaraans';
 
