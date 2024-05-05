@@ -22,8 +22,9 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors());
+            return $this->sendError('Validasi gagal', $validator->errors(), 400);
         }
+
 
         $user = User::create([
             'name' => $request->name,
@@ -33,12 +34,16 @@ class AuthController extends Controller
             'phone' => $request->phone
         ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $user->createToken('auth_app_pkppk')->plainTextToken;
 
         return response()->json([
-            'data' => $user,
-            'access_token' => $token,
-            'token_type' => 'Bearer'
+            'error' => false,
+            'message' => 'Berhasil mendaftar',
+            'data' => [
+            'user' => $user,
+            'token' => $token,
+            'type' => 'Bearer'
+            ]
         ]);
     }
 
@@ -51,14 +56,12 @@ class AuthController extends Controller
         }
 
         $user = User::where('email', $request->email)->firstOrFail();
-
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'message' => 'Login success',
-            'access_token' => $token,
-            'token_type' => 'Bearer'
-        ]);
+        $token = $user->createToken('auth_app_pkppk')->plainTextToken;
+        return $this->sendResponse([
+            'user' => $user->name,
+            'token' => $token,
+            'type' => 'Bearer'
+        ], 'login success');
     }
 
     public function logout()
@@ -68,4 +71,5 @@ class AuthController extends Controller
             'message' => 'logout success'
         ]);
     }
+
 }
