@@ -25,6 +25,13 @@ class User extends Authenticatable
         'password',
         'akses',
         'phone',
+        'nip',
+        'status',
+        'pangkat',
+        'tanggal_lahir',
+        'usia',
+        'pengabdian',
+        'pensiun',
         'phone_verified_at'
     ];
 

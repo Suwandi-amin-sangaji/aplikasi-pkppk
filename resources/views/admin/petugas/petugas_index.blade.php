@@ -14,9 +14,15 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
+                                    <th>Nip</th>
+                                    <th>Status</th>
+                                    {{-- <th>Tanggal Lahir</th>
+                                    <th>Usia</th> --}}
                                     <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Akses</th>
+                                    {{-- <th>Phone</th> --}}
+                                    {{-- <th>Pengabdian</th>
+                                    <th>Pensiun</th> --}}
+                                    {{-- <th>Akses</th> --}}
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -25,15 +31,23 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->name }}</td>
+                                        <td>{{ $item->nip }}</td>
+                                        <td>{{ $item->status }}</td>
+                                        {{-- <td>{{ $item->tanggal_lahir }}</td>
+                                        <td>{{ $item->usia }}</td> --}}
                                         <td>{{ $item->email }}</td>
-                                        <td>{{ $item->phone }}</td>
-                                        <td>{{ $item->akses }}</td>
+                                        {{-- <td>{{ $item->phone }}</td> --}}
+                                        {{-- <td>{{ $item->pengabdian }}</td>
+                                        <td>{{ $item->pensiun }}</td> --}}
+                                        {{-- <td>{{ $item->akses }}</td> --}}
                                         <td>
                                             {!! Form::open([
                                                 'route' => ['petugas.destroy', $item->id],
                                                 'method' => 'DELETE',
                                                 'onsubmit' => 'return confirm("Apakah anda yakin ingin menghapus data ini?")',
                                             ]) !!}
+                                             <a href="{{ route('petugas.show', $item->id) }}"
+                                                class="btn btn-secondary btn-sm"><i class="fa fa-eye"> </i></a>
                                             <a href="{{ route('petugas.edit', $item->id) }}"
                                                 class="btn btn-success btn-sm"><i class="fa fa-edit"> </i></a>
                                             {{-- {!! Form::submit('Hapus', ['class' => 'btn btn-danger btn-sm']) !!} --}}

@@ -27,9 +27,15 @@
                                 <label for="id_kendaraan">Jenis Kendaraan</label>
                                 {!! Form::select('id_kendaraan', $kendaraan, null, [
                                     'class' => 'form-control',
+                                    'id' => 'id_kendaraan',
                                 ]) !!}
                                 <span class="text-danger">{{ $errors->first('id_kendaraan') }}</span>
                             </div>
+
+
+
+
+
 
 
                         </div>
@@ -85,8 +91,8 @@
                     </div>
 
                     <!-- Input BA SET 1 -->
-                    <div class="row mt-3">
-                        <label class="form-label" for="basic-default-message">BA SET</label>
+                    <div id="ba_set_1" class="row mt-3" style="display: none;">
+                        <label class="form-label" for="basic-default-message">BA SET 1</label>
                         @foreach (['no_back_plate', 'no_cylinder', 'visual', 'fungsi', 'tekanan', 'operator'] as $field)
                             <div class="col-md-2">
                                 <div class="form-group">
@@ -97,8 +103,10 @@
                             </div>
                         @endforeach
                     </div>
+
                     <!-- Input BA SET 2 -->
-                    <div class="row mt-3">
+                    <div id="ba_set_2" class="row mt-3" style="display: none;">
+                        <label class="form-label" for="basic-default-message">BA SET 2</label>
                         @foreach (['no_back_plate', 'no_cylinder', 'visual', 'fungsi', 'tekanan', 'operator'] as $field)
                             <div class="col-md-2">
                                 <div class="form-group">
@@ -109,6 +117,8 @@
                             </div>
                         @endforeach
                     </div>
+
+
 
                     <div class="row mt-3">
                         <div class="col-md-12">
@@ -121,6 +131,5 @@
                 {!! Form::close() !!}
             </div>
         </div>
-    </div>
     </div>
 @endsection

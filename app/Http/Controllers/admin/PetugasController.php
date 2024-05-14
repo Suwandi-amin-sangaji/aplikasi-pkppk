@@ -23,7 +23,7 @@ class PetugasController extends Controller
     public function index()
     {
         return view('admin.' . $this->viewIndex, [
-            'petugas' => User::latest()->paginate(5),
+            'petugas' => User::orderBy('name')->paginate(5), // Mengurutkan berdasarkan nama
             'routePrefix' => $this->routePrefix,
             'title' => 'Data Petugas'
         ]);
@@ -54,9 +54,17 @@ class PetugasController extends Controller
             'name' => 'required',
             'email' => 'required | unique:users',
             'phone' => 'required | unique:users',
+            'nip' => 'required',
+            'status' => 'required | in:PNS,PPNPN',
+            'pangkat' => 'required',
+            'tanggal_lahir' => 'required',
+            'usia' => 'required',
+            'pengabdian' => 'required',
+            'pensiun' => 'required',
             'akses' => 'required | in:admin,petugas,pimpinan',
             'password' => 'required | min:8',
         ]);
+
         $requesData['password'] = bcrypt($requesData['password']);
         User::create($requesData);
         flash()->addSuccess('Data Petugas Berhasil DiTambahkan');
@@ -69,7 +77,7 @@ class PetugasController extends Controller
     public function show(string $id)
     {
         $model = User::findOrFail($id);
-        // return view('admin.' . $this->viewShow, compact('model'));
+        return view('admin.' . $this->viewShow, compact('model'));
     }
 
     /**
@@ -97,6 +105,13 @@ class PetugasController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users,email,' . $id,
             'phone' => 'required|unique:users,phone,' . $id,
+            'nip' => 'required',
+            'status' => 'required | in:PNS,PPNPN',
+            'pangkat' => 'required',
+            'tanggal_lahir' => 'required',
+            'usia' => 'required',
+            'pengabdian' => 'required',
+            'pensiun' => 'required',
             'akses' => 'required|in:admin,petugas,pimpinan',
             'password' => 'nullable | min:8',
         ]);

@@ -52,7 +52,6 @@ class PemeriksaanPeralatanController extends Controller
      */
     public function show(string $id)
     {
-        // Mengambil data pemeriksaan peralatan berdasarkan ID
         // $model = PemeriksaanPeralatan::findOrFail($id);
         $model = PemeriksaanPeralatan::with('compartment', 'peralatan')->find($id);
         //ngambil hasil pemeriksaan peralatan terkait

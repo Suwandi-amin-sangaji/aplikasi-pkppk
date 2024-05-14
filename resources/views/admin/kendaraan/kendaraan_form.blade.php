@@ -26,6 +26,12 @@
                     </div>
 
                     <div class="form-group mt-3">
+                        <label for="tahun">tahun</label>
+                        {!! Form::text('tahun', null, ['class' => 'form-control']) !!}
+                        <span class="text-danger">{{ $errors->first('tahun') }}</span>
+                    </div>
+
+                    <div class="form-group mt-3">
                         <label for="jumlah">Jumlah</label>
                         {!! Form::text('jumlah', null, ['class' => 'form-control']) !!}
                         <span class="text-danger">{{ $errors->first('jumlah') }}</span>

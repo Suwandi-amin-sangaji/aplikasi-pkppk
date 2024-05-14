@@ -46,6 +46,30 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('sneat') }}/assets/js/config.js"></script>
     <link rel="stylesheet" href="{{ asset('font/css/all.min.css') }}">
+    <style>
+        #reader {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin: auto;
+            display: none;
+            /* Hide the camera container initially */
+        }
+
+        @media (max-width: 768px) {
+            #reader {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #reader {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -293,6 +317,26 @@
         <!-- Overlay -->
         <div class="layout-overlay layout-menu-toggle"></div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#id_kendaraan').change(function() {
+                var selectedValue = $('#id_kendaraan option:selected').text().trim();
+                if (selectedValue ==
+                    'Pemadam Kebakaran') { // Sesuaikan dengan nilai yang sesuai untuk 'Pemadam Kebakaran'
+                    $('#ba_set_1').show();
+                    $('#ba_set_2').show();
+                } else {
+                    $('#ba_set_1').hide();
+                    $('#ba_set_2').hide();
+                }
+            });
+
+            // Trigger change event on page load to handle pre-selected value
+            $('#id_kendaraan').trigger('change');
+        });
+    </script>
     <!-- / Layout wrapper -->
     <script>
         function toggleReadOnly(checkbox) {
@@ -305,8 +349,52 @@
             }
         }
     </script>
-    <!-- Core JS -->
+    <!-- Html 5 QrCode JS -->
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script>
+        function onScanSuccess(decodedText, decodedResult) {
+            // // handle the scanned code as you like, for example:
+            // console.log(`Code matched = ${decodedText}`, decodedResult);
+
+            // // Extract the id_user from the decodedText
+            // var id_user = decodedText; // Assuming the entire decodedText is the id_user
+
+            // // Redirect to the pemeriksaan-kendaraan.create route with the id_user parameter
+            // var createRouteUrl = "{{ route('pemeriksaan-kendaraan.create', ':id_user') }}";
+            // createRouteUrl = createRouteUrl.replace(':id_user', id_user);
+            // window.location.href = createRouteUrl;
+        }
+
+
+        function onScanFailure(error) {
+            // handle scan failure, usually better to ignore and keep scanning.
+            console.warn(`Code scan error = ${error}`);
+        }
+
+        let html5QrcodeScanner;
+        document.getElementById('startScannerBtn').addEventListener('click', function() {
+            alert("scan QR Code Masih Dalam Development");
+            // document.getElementById('reader').style.display = 'block'; // Show the camera container
+            // html5QrcodeScanner = new Html5QrcodeScanner(
+            //     "reader", {
+            //         fps: 10,
+            //         qrbox: {
+            //             width: 250,
+            //             height: 250
+            //         },
+            //         // videoConstraints: {
+            //         //     facingMode: {
+            //         //         exact: "environment"
+            //         //     },
+            //         // },
+            //     },
+            //     /* verbose= */
+            //     false);
+            html5QrcodeScanner.render(onScanSuccess, onScanFailure); // Start the scanner
+        });
+    </script>
     <!-- build:js assets/vendor/js/core.js -->
+
     <script src="{{ asset('sneat') }}/assets/vendor/libs/jquery/jquery.js"></script>
     <script src="{{ asset('sneat') }}/assets/vendor/libs/popper/popper.js"></script>
     <script src="{{ asset('sneat') }}/assets/vendor/js/bootstrap.js"></script>
@@ -326,6 +414,8 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+
 </body>
 
 </html>

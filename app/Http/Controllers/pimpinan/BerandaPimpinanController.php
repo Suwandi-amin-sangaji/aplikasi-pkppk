@@ -9,6 +9,6 @@ class BerandaPimpinanController extends Controller
 {
     public function index()
     {
-        return view("petugas.beranda_index");
+        return view("pimpinan.beranda_index");
     }
 }

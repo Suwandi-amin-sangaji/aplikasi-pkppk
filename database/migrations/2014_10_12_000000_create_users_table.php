@@ -20,6 +20,13 @@ return new class extends Migration
             $table->timestamp('phone_verified_at')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('nip')->nullable();
+            $table->enum('status', ['PNS', 'PPNPN'])->nullable();
+            $table->string('pangkat')->nullable();
+            $table->date('tanggal_lahir')->nullable();
+            $table->integer('usia')->nullable();
+            $table->string('pengabdian')->nullable();
+            $table->string('pensiun')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

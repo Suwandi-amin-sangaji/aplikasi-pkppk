@@ -55,6 +55,7 @@ class KendaraanController extends Controller
             'jenis' => 'required',
             'plat' => 'required',
             'merk' => 'required',
+            'tahun' => 'required',
             'jumlah' => 'required',
         ]);
         Kendaraan::create($requesData);
@@ -97,6 +98,7 @@ class KendaraanController extends Controller
             'jenis' => 'required',
             'plat' => 'required',
             'merk' => 'required',
+            'tahun' => 'required',
             'jumlah' => 'required',
         ]);
         $users = Kendaraan::findOrFail($id);

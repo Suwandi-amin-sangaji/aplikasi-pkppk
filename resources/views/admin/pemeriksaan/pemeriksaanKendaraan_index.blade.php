@@ -5,8 +5,7 @@
         <div class="col-md-12">
             <div class="card">
                 <h5 class="card-header">Data Pemeriksaan Kendaraan Oleh Petugas</h5>
-                <a href="export=pdf" class="btn btn-danger ml-3 mb-3">Export
-                    PDF</a>
+
                 <div class="card-body">
                     {{-- buat serach Data --}}
                     <div class="table-responsive">
@@ -30,10 +29,17 @@
                                         <td>{{ $item->nama_asisten }}</td>
                                         <td>{{ $item->waktu }}</td>
                                         <td>{{ $item->tanggal }}</td>
-                                        @if ($item->status)
-                                            <td><span class="badge bg-label-warning me-1">{{ $item->status }}</span></td>
-                                        @else
-                                        @endif
+                                        <td>
+                                            @if ($item->status == 'baru')
+                                                <span class="badge bg-label-warning me-1">{{ $item->status }}</span>
+                                                {!! Form::open(['route' => ['pemeriksaan-kendaraan-admin.verifikasi', $item->id], 'method' => 'POST', 'style' => 'display:inline']) !!}
+                                                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-check"></i></button>
+                                                {!! Form::close() !!}
+                                            @else
+                                                <span class="badge bg-label-success me-1">{{ $item->status }}</span>
+                                            @endif
+                                        </td>
+
                                         <td>
                                             {!! Form::open([
                                                 'route' => ['pemeriksaan-kendaraan-admin.destroy', $item->id],
@@ -42,8 +48,10 @@
                                             ]) !!}
                                             <a href="{{ route('pemeriksaan-kendaraan-admin.show', $item->id) }}"
                                                 class="btn btn-secondary btn-sm"><i class="fa fa-eye"> </i></a>
-                                            <a href="{{ route('pemeriksaan-kendaraan-admin.edit', $item->id) }}"
-                                                class="btn btn-warning btn-sm"><i class="fa fa-edit"> </i></a>
+
+                                                <a href="{{ route('pemeriksaan-kendaraan-admin.edit', $item->id) }}"
+                                                    class="btn btn-warning btn-sm"><i class="fa fa-edit"> </i></a>
+
                                             <button type="submit" class="btn btn-danger btn-sm"> <i class="fa fa-trash">
                                                 </i></button>
                                     </tr>
