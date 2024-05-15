@@ -32,7 +32,7 @@ jobs:
           echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
 
       - name: Database Migration
-        run: php artisan migrate:fresh --seed
+        run: php artisan migrate
 
       - name: Generate storage link
         run: php artisan storage:link
