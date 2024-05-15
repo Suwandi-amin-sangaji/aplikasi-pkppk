@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pemeriksaan_peralatans', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('id_user');
-            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->string('nama_operator');
             $table->string('nama_asisten')->nullable();
             $table->string('jenis_peralatan')->nullable();

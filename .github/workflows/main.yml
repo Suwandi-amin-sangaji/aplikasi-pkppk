@@ -10,21 +10,40 @@ jobs:
     steps:
       - name: Get the latest code
         uses: actions/checkout@v2.3.2
+
       - uses: actions/setup-node@master
+
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
       - name: Install Dependencies
         run: composer update --ignore-platform-reqs
+
       - name: Generate key
         run: php artisan key:generate
+
+      - name: Set up .env for database
+        run: |
+          echo "DB_CONNECTION=mysql" >> .env
+          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+          echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
+          echo "DB_DATABASE=${{ secrets.DB_DATABASE }}" >> .env
+          echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+
+      - name: Database Migration
+        run: php artisan migrate:fresh --seed
+
       - name: Generate storage link
         run: php artisan storage:link
+
       - name: Directory Permissions
         run: chmod -R 777 storage bootstrap/cache
+
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /
+          server-dir: /public_html/pkppk.deoairport.co.id

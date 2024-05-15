@@ -10,6 +10,7 @@ use App\Models\Kegiatan;
 use App\Models\Kendaraan;
 use App\Models\PemeriksaanKendaraan;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -145,5 +146,26 @@ class PemriksaanKendaraanController extends Controller
             'baSet1' => $model->baSet1,
             'baSet2' => $model->baSet2,
         ]);
+    }
+
+    public function cetakLaporanPetugas($id){
+
+        $model = PemeriksaanKendaraan::with(['baSet1', 'baSet2'])->findOrFail($id);
+        $kendaraan = Kendaraan::pluck('jenis', 'id');
+        $hasilPemeriksaan = $model->hasilPemeriksaan()->get()->keyBy('id_kegiatan');
+
+        $data = [
+            'title' => 'Detail Pemeriksaan Kendaraan',
+            'model' => $model,
+            'kendaraan' => $kendaraan,
+            'hasilPemeriksaan' => $hasilPemeriksaan,
+            'kegiatan' => Kegiatan::all(),
+            'baSet1' => $model->baSet1,
+            'baSet2' => $model->baSet2,
+        ];
+
+        $pdf = Pdf::loadView('petugas.kendaraan.cetak', $data)->setOptions(['defaultFont' => 'sans-serif']);
+        return $pdf->stream('download.pdf');
+
     }
 }

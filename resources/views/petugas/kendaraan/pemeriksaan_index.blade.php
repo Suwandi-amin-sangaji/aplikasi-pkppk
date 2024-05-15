@@ -41,6 +41,9 @@
                                         <td>
                                             <a href="{{ route('pemeriksaan-kendaraan.show', $item->id) }}"
                                                 class="btn btn-secondary btn-sm"><i class="fa fa-eye"> </i></a>
+
+                                                <a href="{{ route('cetak-laporan-petugas.cetak', $item->id) }}"
+                                                    class="btn btn-danger btn-sm"><i class="fa fa-print"> </i></a>
                                         </td>
                                     </tr>
                                     @empty($item)

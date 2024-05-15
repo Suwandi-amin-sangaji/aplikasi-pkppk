@@ -58,6 +58,7 @@ Route::prefix('petugas')->middleware(['auth', 'auth.petugas'])->group(function (
     Route::resource('pemeriksaan-kendaraan', PemriksaanKendaraanController::class);
     Route::resource('pemeriksaan-peralatan', PemeriksaanPeralatanController::class);
     // Route::get('pemeriksaan-kendaraan/create/{id_user}', [PemriksaanKendaraanController::class, 'create'])->name('pemeriksaan-kendaraan.create');
+    Route::get('/cetak-laporan-petugas/{id}', [PemriksaanKendaraanController::class, 'cetakLaporanPetugas'])->name('cetak-laporan-petugas.cetak');
 
 });
 

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id(); // ULID
             $table->bigInteger('id_kendaraan')->constrained('kendaraans');
             $table->bigInteger('id_user');
-            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->string('nama_operator');
             $table->string('nama_asisten')->nullable();
             $table->time('waktu');
