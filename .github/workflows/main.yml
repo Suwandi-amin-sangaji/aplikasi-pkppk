@@ -31,6 +31,14 @@ jobs:
           echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
           echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
 
+      - name: Print .env (for debugging purposes)
+        run: cat .env
+
+      - name: Test Database Connection (for debugging purposes)
+        run: |
+          sudo apt-get install -y mysql-client
+          mysql -h ${{ secrets.DB_HOST }} -P ${{ secrets.DB_PORT }} -u ${{ secrets.DB_USERNAME }} -p${{ secrets.DB_PASSWORD }} -e "USE ${{ secrets.DB_DATABASE }};"
+
       - name: Database Migration
         run: php artisan migrate
 
