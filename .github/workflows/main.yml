@@ -39,8 +39,8 @@ jobs:
       #     sudo apt-get install -y mysql-client
       #     mysql -h ${{ secrets.DB_HOST }} -P ${{ secrets.DB_PORT }} -u ${{ secrets.DB_USERNAME }} -p${{ secrets.DB_PASSWORD }} -e "USE ${{ secrets.DB_DATABASE }};"
 
-      - name: Database Migration
-        run: php artisan migrate
+      # - name: Database Migration
+      #   run: php artisan migrate
 
       - name: Generate storage link
         run: php artisan storage:link
