@@ -33,6 +33,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
+// Admin
 Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
     Route::get('beranda', [BerandaAdminController::class, 'index'])->name('admin.beranda');
     Route::resource('petugas', PetugasController::class);
@@ -46,6 +48,7 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
 
 });
 
+// Pimpinan
 Route::prefix('pimpinan')->middleware(['auth', 'auth.pimpinan'])->group(function () {
     Route::get('beranda', [BerandaPimpinanController::class, 'index'])->name('pimpinan.beranda');
     Route::resource('pemeriksaan-kendaraan-pimpinan', PemeriksaanKendaraanPimpinanController::class);
@@ -53,6 +56,7 @@ Route::prefix('pimpinan')->middleware(['auth', 'auth.pimpinan'])->group(function
     Route::post('pemeriksaan-kendaraan-pimpinan/verifikasi/{id}', [PemeriksaanKendaraanPimpinanController::class, 'verifikasi'])->name('pemeriksaan-kendaraan-pimpinan.verifikasi');
 });
 
+// Petugas
 Route::prefix('petugas')->middleware(['auth', 'auth.petugas'])->group(function () {
     Route::get('beranda', [BerandaPetugasController::class, 'index'])->name('petugas.beranda');
     Route::resource('pemeriksaan-kendaraan', PemriksaanKendaraanController::class);

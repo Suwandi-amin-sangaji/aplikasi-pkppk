@@ -1,61 +1,39 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Invoice</title>
-    <link rel="stylesheet" href="{{ asset('pdf.css') }}" type="text/css">
+	<title>Membuat Laporan PDF Dengan DOMPDF Laravel</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-    <table class="w-full">
-        <tr>
-            <td class="w-half">
-                <img src="{{ asset('laraveldaily.png') }}" alt="laravel daily" width="200" />
-            </td>
-            <td class="w-half">
-                <h2>Invoice ID: 834847473</h2>
-            </td>
-        </tr>
-    </table>
+	<style type="text/css">
+		table tr td,
+		table tr th{
+			font-size: 9pt;
+		}
+	</style>
+	<center>
+		<h5>Membuat Laporan PDF Dengan DOMPDF Laravel</h4>
+		<h6><a target="_blank" href="https://www.malasngoding.com/membuat-laporan-…n-dompdf-laravel/">www.malasngoding.com</a></h5>
+	</center>
 
-    <div class="margin-top">
-        <table class="w-full">
+	<table class='table table-bordered'>
+		<thead>
+			<tr>
+				<th>No</th>
+				<th>Nama</th>
+				<th>Email</th>
+				<th>Alamat</th>
+				<th>Telepon</th>
+				<th>Pekerjaan</th>
+			</tr>
+		</thead>
+		<tbody>
             <tr>
-                <td class="w-half">
-                    <div><h4>To:</h4></div>
-                    <div>John Doe</div>
-                    <div>123 Acme Str.</div>
-                </td>
-                <td class="w-half">
-                    <div><h4>From:</h4></div>
-                    <div>Laravel Daily</div>
-                    <div>London</div>
-                </td>
+                <td>1</td>
+                <td>2</td>
             </tr>
-        </table>
-    </div>
+		</tbody>
+	</table>
 
-    <div class="margin-top">
-        <table class="products">
-            <tr>
-                <th>Qty</th>
-                <th>Description</th>
-                <th>Price</th>
-            </tr>
-            <tr class="items">
-
-            </tr>
-        </table>
-    </div>
-
-    <div class="total">
-        Total: $129.00 USD
-    </div>
-
-    <div class="footer margin-top">
-        <div>Thank you</div>
-        <div>&copy; Laravel Daily</div>
-    </div>
 </body>
 </html>

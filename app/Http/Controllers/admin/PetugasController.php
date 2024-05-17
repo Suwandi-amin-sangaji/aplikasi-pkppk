@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PetugasController extends Controller
 {
@@ -63,7 +64,12 @@ class PetugasController extends Controller
             'pensiun' => 'required',
             'akses' => 'required | in:admin,petugas,pimpinan',
             'password' => 'required | min:8',
+            'photo' => 'nullable',
         ]);
+
+        if ($request->hasFile('photo')) {
+            $requesData['photo'] = $request->file('photo')->store('photos', 'public');
+        }
 
         $requesData['password'] = bcrypt($requesData['password']);
         User::create($requesData);
@@ -114,14 +120,23 @@ class PetugasController extends Controller
             'pensiun' => 'required',
             'akses' => 'required|in:admin,petugas,pimpinan',
             'password' => 'nullable | min:8',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:800',
         ]);
-        $users = User::findOrFail($id);
+        $user = User::findOrFail($id);
+
+        if ($request->hasFile('photo')) {
+            // Delete the old photo if exists
+            if ($user->photo) {
+                Storage::disk('public')->delete($user->photo);
+            }
+            $requesData['photo'] = $request->file('photo')->store('photos', 'public');
+        }
         if (isset($requesData['password']) == "") {
             unset($requesData['password']);
         } else {
             $requesData['password'] = bcrypt($requesData['password']);
         }
-        $users->fill($requesData)->save();
+        $user->fill($requesData)->save();
         flash()->addSuccess('Data Petugas Berhasil Dirubah');
         return redirect()->route('petugas.index');
     }

@@ -7,7 +7,7 @@
                 <h5 class="card-header">Tambah Personil</h5>
 
                 <div class="card-body">
-                    {!! Form::model($model, ['route' => $route, 'method' => $method]) !!}
+                    {!! Form::model($model, ['route' => $route, 'method' => $method, 'enctype' => 'multipart/form-data']) !!}
                     <div class="form-group">
                         <label for="name">Name</label>
                         {!! Form::text('name', null, ['class' => 'form-control', 'autofocus']) !!}
@@ -94,6 +94,26 @@
                             ['class' => 'form-control'],
                         ) !!}
                         <span class="text-danger">{{ $errors->first('akses') }}</span>
+                    </div>
+
+                    {{-- <div class="form-group mt-3">
+                        <label for="photo">Photo</label>
+                        {!! Form::file('photo', ['class' => 'form-control']) !!}
+                        <span class="text-danger">{{ $errors->first('photo') }}</span>
+                    </div> --}}
+
+
+                    <div class="card-body">
+                        <div class="d-flex align-items-start align-items-sm-center gap-4">
+                            {{-- <img class="mb-3" src="images/{{ Session::get('image') }}" style="width: 250px;"> --}}
+                            <img src="{{ $model->photo ? asset('storage/' . $model->photo) : 'https://surgassociates.com/wp-content/uploads/610-6104451_image-placeholder-png-user-profile-placeholder-image-png-1-286x300.jpg' }}"
+                                alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
+                            <div class="button-wrapper">
+                                {!! Form::file('photo', ['class' => 'form-control']) !!}
+                                    <span class="text-danger">{{ $errors->first('photo') }}</span>
+                                <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+                            </div>
+                        </div>
                     </div>
 
                     {!! Form::submit($button, ['class' => 'btn btn-primary mt-3']) !!}

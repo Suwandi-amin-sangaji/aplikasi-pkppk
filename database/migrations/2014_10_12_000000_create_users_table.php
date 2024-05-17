@@ -27,6 +27,7 @@ return new class extends Migration
             $table->integer('usia')->nullable();
             $table->string('pengabdian')->nullable();
             $table->string('pensiun')->nullable();
+            $table->string('photo')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

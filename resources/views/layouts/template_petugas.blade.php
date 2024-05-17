@@ -228,8 +228,9 @@
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                     data-bs-toggle="dropdown">
                                     <div class="avatar avatar-online">
-                                        <img src="{{ asset('sneat') }}/assets/img/avatars/1.png" alt
-                                            class="w-px-40 h-auto rounded-circle" />
+                                        <img src="{{ Auth::user()->photo ? asset('storage/' . Auth::user()->photo) : 'https://surgassociates.com/wp-content/uploads/610-6104451_image-placeholder-png-user-profile-placeholder-image-png-1-286x300.jpg' }}"
+                                        alt="user-avatar" class="d-block rounded" height="80" width="80" id="uploadedAvatar"/>
+
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
@@ -238,8 +239,8 @@
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
-                                                        <img src="{{ asset('sneat') }}/assets/img/avatars/1.png" alt
-                                                            class="w-px-40 h-auto rounded-circle" />
+                                                        <img src="{{ Auth::user()->photo ? asset('storage/' . Auth::user()->photo) : 'https://surgassociates.com/wp-content/uploads/610-6104451_image-placeholder-png-user-profile-placeholder-image-png-1-286x300.jpg' }}"
+                                                        alt="user-avatar" class="d-block rounded" height="80" width="80" id="uploadedAvatar"/>
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">

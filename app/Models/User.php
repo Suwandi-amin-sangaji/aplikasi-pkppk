@@ -32,7 +32,8 @@ class User extends Authenticatable
         'usia',
         'pengabdian',
         'pensiun',
-        'phone_verified_at'
+        'phone_verified_at',
+        'photo'
     ];
 
     /**
