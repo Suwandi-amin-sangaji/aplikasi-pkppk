@@ -170,7 +170,7 @@
 
                      {{-- STOCK --}}
                      <li class="menu-item">
-                        <a href="{{ route('kegiatan.index') }}" class="menu-link">
+                        <a href="#" class="menu-link">
                             <i class='menu-icon  tf-icons bx bx-box'></i>
                             <div data-i18n="Analytics">Data Stock barang</div>
                         </a>
@@ -178,7 +178,7 @@
 
                       {{-- SOP --}}
                       <li class="menu-item">
-                        <a href="{{ route('kegiatan.index') }}" class="menu-link">
+                        <a href="#" class="menu-link">
                             <i class='menu-icon  tf-icons bx bx-book-content'></i>
                             <div data-i18n="Analytics">SOP</div>
                         </a>
@@ -186,7 +186,7 @@
 
                     {{-- Program Kerja --}}
                     <li class="menu-item">
-                        <a href="{{ route('kegiatan.index') }}" class="menu-link">
+                        <a href="#" class="menu-link">
                             <i class='menu-icon  tf-icons bx bx-book-content'></i>
                             <div data-i18n="Analytics">Program Kerja</div>
                         </a>
@@ -310,6 +310,7 @@
                         @include('flash::message')
                         @yield('content')
                     </div>
+
                     <!-- / Content -->
 
                     <!-- Footer -->
