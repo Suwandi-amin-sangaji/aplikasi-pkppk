@@ -27,17 +27,11 @@
                                 <label for="id_kendaraan">Jenis Kendaraan</label>
                                 {!! Form::select('id_kendaraan', $kendaraan, null, [
                                     'class' => 'form-control',
+                                    'placeholder' => 'Pilih kendaraan',
                                     'id' => 'id_kendaraan',
                                 ]) !!}
                                 <span class="text-danger">{{ $errors->first('id_kendaraan') }}</span>
                             </div>
-
-
-
-
-
-
-
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
@@ -70,23 +64,29 @@
                                     <th>Checklist</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="kegiatan-table-body">
+                                <!-- Dynamically populated rows go here -->
                                 @foreach ($kegiatan as $kg)
                                     <tr>
                                         <td>{{ $kg->nama }}</td>
                                         <td>
                                             <div class="form-check form-check-inline">
-                                                {{ Form::checkbox($kg->id, 'Yes', false, ['class' => 'form-check-input']) }}
-                                                {{ Form::label($kg->id . '_yes', 'Yes', ['class' => 'form-check-label yes-label']) }}
+                                                <input type="radio" name="kegiatan[{{ $kg->id }}]" value="Yes"
+                                                    class="form-check-input" id="kegiatan_{{ $kg->id }}_yes">
+                                                <label class="form-check-label yes-label"
+                                                    for="kegiatan_{{ $kg->id }}_yes">Yes</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                {{ Form::checkbox($kg->id, 'No', false, ['class' => 'form-check-input']) }}
-                                                {{ Form::label($kg->id . '_no', 'No', ['class' => 'form-check-label no-label']) }}
+                                                <input type="radio" name="kegiatan[{{ $kg->id }}]" value="No"
+                                                    class="form-check-input" id="kegiatan_{{ $kg->id }}_no">
+                                                <label class="form-check-label no-label"
+                                                    for="kegiatan_{{ $kg->id }}_no">No</label>
                                             </div>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
+
                         </table>
                     </div>
 
@@ -117,8 +117,6 @@
                             </div>
                         @endforeach
                     </div>
-
-
 
                     <div class="row mt-3">
                         <div class="col-md-12">

@@ -1,39 +1,37 @@
+<!-- resources/views/pdf/patient_detail.blade.php -->
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Membuat Laporan PDF Dengan DOMPDF Laravel</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Detail</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-	<style type="text/css">
-		table tr td,
-		table tr th{
-			font-size: 9pt;
-		}
-	</style>
-	<center>
-		<h5>Membuat Laporan PDF Dengan DOMPDF Laravel</h4>
-		<h6><a target="_blank" href="https://www.malasngoding.com/membuat-laporan-…n-dompdf-laravel/">www.malasngoding.com</a></h5>
-	</center>
+    <div class="container">
+        <h1 class="title text-center mb-3">Hasil</h1><hr>
+        <div class="d-flex justify-content-between">
+            {{-- <div class="left float-start mb-5" style="width: 45%">
+                <p><strong>Nama             :</strong> {{ $data_pasien->nama }}</p>
+                <p><strong>Jenis Kelamin    :</strong> {{ $data_pasien->jenis_kelamin }}</p>
+                <p><strong>No Rm            :</strong> {{ $data_pasien->no_rm }}</p>
+            </div>
+            <div class="left float-end mb-5" style="width: 45%">
+                <p><strong>No telpon        :</strong> {{ $data_pasien->no_telpon }}</p>
+                <p><strong>Alamat           :</strong> {{ $data_pasien->alamat }}</p>
+                <p><strong>Tanggal Periksa  :</strong> {{ date("d F Y", strtotime($data_pasien->created_at)) }}</p>
+                <br>
+            </div> --}}
+        </div>
 
-	<table class='table table-bordered'>
-		<thead>
-			<tr>
-				<th>No</th>
-				<th>Nama</th>
-				<th>Email</th>
-				<th>Alamat</th>
-				<th>Telepon</th>
-				<th>Pekerjaan</th>
-			</tr>
-		</thead>
-		<tbody>
-            <tr>
-                <td>1</td>
-                <td>2</td>
-            </tr>
-		</tbody>
-	</table>
+        <h2 style="font-weight: bold">Pemeriksaan :</h2><hr>
+        <table class="table table-bordered">
 
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

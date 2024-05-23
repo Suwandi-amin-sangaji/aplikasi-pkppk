@@ -13,6 +13,12 @@ class Kegiatan extends Model
 
     protected $fillable = [
         "nama",
+        "id_kendaraan",
         "description"
     ];
+
+    public function kendaraan()
+    {
+        return $this->belongsTo(Kendaraan::class, 'id_kendaraan', 'id');
+    }
 }

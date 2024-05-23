@@ -14,6 +14,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Komponen Kegiatan</th>
+                                    <th>Jenis Kendaraan</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -22,6 +23,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->nama }}</td>
+                                        <td>{{ $item->kendaraan->plat .' '. $item->kendaraan->jenis }}</td>
                                         <td>
                                             {!! Form::open([
                                                 'route' => ['kegiatan.destroy', $item->id],

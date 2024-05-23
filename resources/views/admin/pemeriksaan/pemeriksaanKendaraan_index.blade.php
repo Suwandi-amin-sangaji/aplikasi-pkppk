@@ -16,7 +16,7 @@
                                     <th>Nama Operator</th>
                                     <th>Asisten</th>
                                     <th>Waktu</th>
-                                    <th>Tanggal</th>
+                                    <th>Hari/Tanggal</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>

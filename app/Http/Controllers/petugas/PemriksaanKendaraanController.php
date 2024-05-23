@@ -46,19 +46,57 @@ class PemriksaanKendaraanController extends Controller
      */
     public function create()
     {
+        $kendaraan = Kendaraan::all()->mapWithKeys(function ($item) {
+            return [$item->id => $item->plat];
+        });
+
         $data = [
             'model' => new PemeriksaanKendaraan(),
             'method' => 'POST',
             'route' => $this->routePrefix . '.store',
             'button' => 'Simpan',
             'title' => 'Kendaraan',
-            'kendaraan' => Kendaraan::pluck('jenis', 'id'),
-            'beset' => BaSet1::first(),
+            'kendaraan' => $kendaraan,
             'kegiatan' => Kegiatan::all(),
+            'beset' => BaSet1::first(),
         ];
 
         return view('petugas.' . $this->viewCreate, $data);
     }
+
+    public function getKegiatanByKendaraan($id_kendaraan)
+    {
+        $kegiatan = Kegiatan::where('id_kendaraan', $id_kendaraan)->get();
+        return response()->json($kegiatan);
+    }
+
+
+
+    public function scanKegiatanByKendaraan($id_kendaraan)
+    {
+        // Fetch all vehicles and map them to key-value pairs of ID and plate number
+        $kendaraan = Kendaraan::all()->mapWithKeys(function ($item) {
+            return [$item->id => $item->plat];
+        });
+
+        // Fetch activities based on the provided $id_kendaraan
+        $kegiatan = Kegiatan::where('id_kendaraan', $id_kendaraan)->get();
+
+        // Pass the filtered activities to the view
+        $data = [
+            'model' => new PemeriksaanKendaraan(),
+            'method' => 'POST',
+            'route' => $this->routePrefix . '.store',
+            'button' => 'Simpan',
+            'title' => 'Kendaraan',
+            'kendaraan' => $kendaraan,
+            'beset' => BaSet1::first(),
+            'kegiatan' => $kegiatan,
+        ];
+
+        return view('petugas.' . $this->viewCreate, $data);
+    }
+
 
     public function store(Request $request)
     {
@@ -114,14 +152,17 @@ class PemriksaanKendaraanController extends Controller
             'id_baset_2' => $baSet2->id,
         ]);
 
-        // Simpan hasil pemeriksaan ke dalam tabel hasil_pemeriksaan
-        foreach ($request->except('_token', 'nama_operator', 'nama_asisten', 'id_kendaraan', 'waktu', 'tanggal', 'mengetahui', 'status', 'catatan', 'no_back_plate', 'no_cylinder', 'visual', 'fungsi', 'tekanan', 'operator', 'no_back_plate', 'no_cylinder', 'visual', 'fungsi', 'tekanan', 'operator') as $kegiatan_id => $hasil) {
+        // Save HasilPemeriksaan
+        foreach ($request->kegiatan as $kegiatan_id => $hasil) {
             HasilPemeriksaan::create([
                 'id_pemeriksaan' => $pemeriksaan->id,
                 'id_kegiatan' => $kegiatan_id,
-                'hasil' => $hasil
-            ]); // Pastikan hasil tidak null
+                'hasil' => $hasil,
+            ]);
         }
+
+
+
         flash()->addSuccess('Berhasil Menambah Data');
         return redirect()->route('pemeriksaan-kendaraan.index');
     }
@@ -133,22 +174,32 @@ class PemriksaanKendaraanController extends Controller
      */
     public function show(string $id)
     {
+        // Fetch the PemeriksaanKendaraan model with related data
         $model = PemeriksaanKendaraan::with(['baSet1', 'baSet2'])->findOrFail($id);
+
+        // Get the jenis kendaraan
         $kendaraan = Kendaraan::pluck('jenis', 'id');
+
+        // Fetch the related hasilPemeriksaan records keyed by id_kegiatan
         $hasilPemeriksaan = $model->hasilPemeriksaan()->get()->keyBy('id_kegiatan');
+
+        // Fetch kegiatan related to the specific kendaraan type
+        $kegiatan = Kegiatan::where('id_kendaraan', $model->id_kendaraan)->get();
 
         return view('petugas.' . $this->viewShow, [
             'title' => 'Detail Pemeriksaan Kendaraan',
             'model' => $model,
             'kendaraan' => $kendaraan,
             'hasilPemeriksaan' => $hasilPemeriksaan,
-            'kegiatan' => Kegiatan::all(),
+            'kegiatan' => $kegiatan,
             'baSet1' => $model->baSet1,
             'baSet2' => $model->baSet2,
         ]);
     }
 
-    public function cetakLaporanPetugas($id){
+
+    public function cetakLaporanPetugas($id)
+    {
 
         $model = PemeriksaanKendaraan::with(['baSet1', 'baSet2'])->findOrFail($id);
         $kendaraan = Kendaraan::pluck('jenis', 'id');
@@ -164,8 +215,7 @@ class PemriksaanKendaraanController extends Controller
             'baSet2' => $model->baSet2,
         ];
 
-        $pdf = Pdf::loadView('petugas.kendaraan.cetak', $data)->setOptions(['defaultFont' => 'sans-serif']);
+        $pdf = PDF::loadView('petugas.kendaraan.cetak', $data);
         return $pdf->stream('download.pdf');
-
     }
 }

@@ -44,7 +44,7 @@ class PeralatanController extends Controller
             'method' => 'POST',
             'route' => $this->routePrefix . '.store',
             'button' => 'Simpan',
-            'title' => 'Komponen Peralatan',
+            'title' => 'Tambah Komponen Peralatan',
             "compartment" => Compartment::pluck('name', 'id'),
         ];
 
@@ -116,7 +116,7 @@ class PeralatanController extends Controller
             'method' => 'PUT',
             'route' => [$this->routePrefix . '.update', $id],
             'button' => 'Update',
-            'title' => 'Peralatan',
+            'title' => 'Edit Komponan Peralatan',
             "compartment" => Compartment::pluck('name', 'id'),
 
         ];

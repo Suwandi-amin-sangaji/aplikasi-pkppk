@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kegiatan;
+use App\Models\Kendaraan;
 use Illuminate\Http\Request;
 
 class KegiatanController extends Controller
@@ -19,10 +20,14 @@ class KegiatanController extends Controller
      */
     public function index()
     {
+        // Mengambil data kegiatan beserta relasi kendaraan
+        $kegiatan = Kegiatan::with('kendaraan')->paginate(10);
+
         return view('admin.' . $this->viewIndex, [
-            'kegiatan' => Kegiatan::latest()->paginate(10),
+            'kegiatan' => $kegiatan,
             'routePrefix' => $this->routePrefix,
-            'title' => 'Komponen Kegiatan'
+            'title' => 'Komponen Kegiatan',
+            // 'kendaraan' => $kendaraan
         ]);
     }
 
@@ -31,16 +36,23 @@ class KegiatanController extends Controller
      */
     public function create()
     {
+        $kendaraan = Kendaraan::all()->mapWithKeys(function ($item) {
+            return [$item->id => $item->plat . ' - ' . $item->jenis];
+        });
+
+
         $data = [
             'model' => new Kegiatan(),
             'method' => 'POST',
             'route' => $this->routePrefix . '.store',
             'button' => 'Simpan',
-            'title' => 'Komponen Kegiatan'
+            'title' => 'Komponen Kegiatan',
+            'kendaraan' => $kendaraan
         ];
 
         return view('admin.' . $this->viewCreate, $data);
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -48,7 +60,8 @@ class KegiatanController extends Controller
     public function store(Request $request)
     {
         $requesData = $request->validate([
-            'nama' => 'required'
+            'nama' => 'required',
+            'id_kendaraan' => 'required'
         ]);
         Kegiatan::create($requesData);
         flash()->addSuccess('Data Komponen Kegiatan Berhasil DiTambahkan');
@@ -68,12 +81,18 @@ class KegiatanController extends Controller
      */
     public function edit(string $id)
     {
+        $kendaraan = Kendaraan::all()->mapWithKeys(function ($item) {
+            return [$item->id => $item->plat . ' - ' . $item->jenis];
+        });
+
+
         $data = [
             'model' => Kegiatan::findOrFail($id),
             'method' => 'PUT',
             'route' => [$this->routePrefix . '.update', $id],
             'button' => 'Update',
-            'title' => 'Komponen Kegiatan'
+            'title' => 'Komponen Kegiatan',
+            'kendaraan' => $kendaraan
 
         ];
 
@@ -87,6 +106,7 @@ class KegiatanController extends Controller
     {
         $requesData = $request->validate([
             'nama' => 'required',
+            'id_kendaraan' => 'required'
         ]);
         $users = Kegiatan::findOrFail($id);
         $users->fill($requesData)->save();

@@ -19,7 +19,8 @@
         "laravelcollective/html": "^6.4",
         "mpdf/mpdf": "^8.2",
         "php-flasher/flasher-laravel": "^1.15",
-        "php-open-source-saver/jwt-auth": "^2.2"
+        "php-open-source-saver/jwt-auth": "^2.2",
+        "smalot/pdfparser": "^2.10"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13",

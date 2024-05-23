@@ -229,7 +229,8 @@
                                     data-bs-toggle="dropdown">
                                     <div class="avatar avatar-online">
                                         <img src="{{ Auth::user()->photo ? asset('storage/' . Auth::user()->photo) : 'https://surgassociates.com/wp-content/uploads/610-6104451_image-placeholder-png-user-profile-placeholder-image-png-1-286x300.jpg' }}"
-                                        alt="user-avatar" class="d-block rounded" height="80" width="80" id="uploadedAvatar"/>
+                                            alt="user-avatar" class="d-block rounded" height="80" width="80"
+                                            id="uploadedAvatar" />
 
                                     </div>
                                 </a>
@@ -240,7 +241,8 @@
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
                                                         <img src="{{ Auth::user()->photo ? asset('storage/' . Auth::user()->photo) : 'https://surgassociates.com/wp-content/uploads/610-6104451_image-placeholder-png-user-profile-placeholder-image-png-1-286x300.jpg' }}"
-                                                        alt="user-avatar" class="d-block rounded" height="80" width="80" id="uploadedAvatar"/>
+                                                            alt="user-avatar" class="d-block rounded" height="80"
+                                                            width="80" id="uploadedAvatar" />
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
@@ -322,24 +324,53 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
+            // Show/hide additional fields based on selected vehicle
             $('#id_kendaraan').change(function() {
                 var selectedValue = $('#id_kendaraan option:selected').text().trim();
-                if (selectedValue ==
-                    'Pemadam Kebakaran') { // Sesuaikan dengan nilai yang sesuai untuk 'Pemadam Kebakaran'
+                if (['FI', 'FII', 'FIII'].includes(selectedValue)) {
                     $('#ba_set_1').show();
                     $('#ba_set_2').show();
                 } else {
                     $('#ba_set_1').hide();
                     $('#ba_set_2').hide();
                 }
+
+                // Fetch and display activities based on selected vehicle
+                var id_kendaraan = $(this).val();
+                fetchKegiatan(id_kendaraan);
             });
 
             // Trigger change event on page load to handle pre-selected value
             $('#id_kendaraan').trigger('change');
         });
-    </script>
-    <!-- / Layout wrapper -->
-    <script>
+
+        function fetchKegiatan(id_kendaraan) {
+            fetch(`/petugas/pemeriksaan-kendaraan/create/${id_kendaraan}`)
+                .then(response => response.json())
+                .then(data => {
+                    const tbody = document.getElementById('kegiatan-table-body');
+                    tbody.innerHTML = '';
+                    data.forEach(kg => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                    <td>${kg.nama}</td>
+                    <td>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" name="kegiatan[${kg.id}]" value="Yes" class="form-check-input" id="kegiatan_${kg.id}_yes">
+                            <label class="form-check-label yes-label" for="kegiatan_${kg.id}_yes">Yes</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" name="kegiatan[${kg.id}]" value="No" class="form-check-input" id="kegiatan_${kg.id}_no">
+                            <label class="form-check-label no-label" for="kegiatan_${kg.id}_no">No</label>
+                        </div>
+                    </td>
+                `;
+                        tbody.appendChild(row);
+                    });
+                });
+        }
+
+
         function toggleReadOnly(checkbox) {
             if (checkbox.checked) {
                 checkbox.removeAttribute('disabled');
@@ -350,50 +381,48 @@
             }
         }
     </script>
+
     <!-- Html 5 QrCode JS -->
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
     <script>
         function onScanSuccess(decodedText, decodedResult) {
-            // // handle the scanned code as you like, for example:
-            // console.log(`Code matched = ${decodedText}`, decodedResult);
+            // Handle the scanned code as you like, for example:
+            console.log(`Code matched = ${decodedText}`, decodedResult);
 
-            // // Extract the id_user from the decodedText
-            // var id_user = decodedText; // Assuming the entire decodedText is the id_user
+            // Extract the id_kendaraan from the decodedText
+            var id_kendaraan = decodedText; // Assuming the entire decodedText is the id_kendaraan
 
-            // // Redirect to the pemeriksaan-kendaraan.create route with the id_user parameter
-            // var createRouteUrl = "{{ route('pemeriksaan-kendaraan.create', ':id_user') }}";
-            // createRouteUrl = createRouteUrl.replace(':id_user', id_user);
-            // window.location.href = createRouteUrl;
+            // Redirect to the pemeriksaan-kendaraan.create route with the id_kendaraan parameter
+            var createRouteUrl = `{{ url('/petugas/pemeriksaan-kendaraan/scan') }}/${id_kendaraan}`;
+            window.location.href = createRouteUrl;
+
+            // Stop the scanner
+            html5QrcodeScanner.clear().catch(error => {
+                console.error('Failed to clear QR code scanner.', error);
+            });
         }
 
-
         function onScanFailure(error) {
-            // handle scan failure, usually better to ignore and keep scanning.
+            // Handle scan failure, usually better to ignore and keep scanning.
             console.warn(`Code scan error = ${error}`);
         }
 
         let html5QrcodeScanner;
         document.getElementById('startScannerBtn').addEventListener('click', function() {
-            alert("scan QR Code Masih Dalam Development");
-            // document.getElementById('reader').style.display = 'block'; // Show the camera container
-            // html5QrcodeScanner = new Html5QrcodeScanner(
-            //     "reader", {
-            //         fps: 10,
-            //         qrbox: {
-            //             width: 250,
-            //             height: 250
-            //         },
-            //         // videoConstraints: {
-            //         //     facingMode: {
-            //         //         exact: "environment"
-            //         //     },
-            //         // },
-            //     },
-            //     /* verbose= */
-            //     false);
+            document.getElementById('reader').style.display = 'block'; // Show the camera container
+            html5QrcodeScanner = new Html5QrcodeScanner(
+                "reader", {
+                    fps: 10,
+                    qrbox: {
+                        width: 250,
+                        height: 250
+                    }
+                },
+                false);
             html5QrcodeScanner.render(onScanSuccess, onScanFailure); // Start the scanner
         });
     </script>
+
     <!-- build:js assets/vendor/js/core.js -->
 
     <script src="{{ asset('sneat') }}/assets/vendor/libs/jquery/jquery.js"></script>

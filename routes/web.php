@@ -15,6 +15,7 @@ use App\Http\Controllers\petugas\PemeriksaanPeralatanController;
 use App\Http\Controllers\pimpinan\PemeriksaanKendaraanPimpinanController;
 use App\Http\Controllers\pimpinan\PemeriksaanPeralatanPimpinanController;
 use App\Http\Controllers\admin\PemeriksaanPeralatanController as AdminPemeriksaanPeralatanController;
+use App\Http\Controllers\admin\SopController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,7 +45,8 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
     Route::resource('pemeriksaan-kendaraan-admin', PemeriksaanKendaraanController::class);
     Route::resource('pemeriksaan-peralatan-admin', AdminPemeriksaanPeralatanController::class);
     Route::post('pemeriksaan-kendaraan-admin/verifikasi/{id}', [PemeriksaanKendaraanController::class, 'verifikasi'])->name('pemeriksaan-kendaraan-admin.verifikasi');
-    Route::get('/generate-pdf', [PemeriksaanKendaraanController::class, 'generatePDF']);
+    Route::get('generate-pdf', [PemeriksaanKendaraanController::class, 'generatePDF']);
+    Route::resource('sop', SopController::class);
 
 });
 
@@ -60,9 +62,16 @@ Route::prefix('pimpinan')->middleware(['auth', 'auth.pimpinan'])->group(function
 Route::prefix('petugas')->middleware(['auth', 'auth.petugas'])->group(function () {
     Route::get('beranda', [BerandaPetugasController::class, 'index'])->name('petugas.beranda');
     Route::resource('pemeriksaan-kendaraan', PemriksaanKendaraanController::class);
+    Route::get('pemeriksaan-kendaraan/scan/{id_kendaraan}', [PemriksaanKendaraanController::class, 'scanKegiatanByKendaraan'])->name('pemeriksaan.scanKegiatanByKendaraan');
+    Route::get('pemeriksaan-kendaraan/create/{id_kendaraan}', [PemriksaanKendaraanController::class, 'getKegiatanByKendaraan']);
+
+
     Route::resource('pemeriksaan-peralatan', PemeriksaanPeralatanController::class);
     // Route::get('pemeriksaan-kendaraan/create/{id_user}', [PemriksaanKendaraanController::class, 'create'])->name('pemeriksaan-kendaraan.create');
     Route::get('/cetak-laporan-petugas/{id}', [PemriksaanKendaraanController::class, 'cetakLaporanPetugas'])->name('cetak-laporan-petugas.cetak');
+
+    // Route::get('pemeriksaan-kendaraan/create/{id_kendaraan}', [PemriksaanKendaraanController::class, 'create'])->name('pemeriksaan.create');
+
 
 });
 

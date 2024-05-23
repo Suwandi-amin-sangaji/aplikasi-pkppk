@@ -21,6 +21,7 @@
                                     <th>Asisten</th>
                                     <th>Waktu</th>
                                     <th>Tanggal</th>
+                                    <th>Kendaraan</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -33,6 +34,7 @@
                                         <td>{{ $item->nama_asisten }}</td>
                                         <td>{{ $item->waktu }}</td>
                                         <td>{{ $item->tanggal }}</td>
+                                        <td>{{ $item->kendaraan->jenis }}</td>
                                         @if ($item->status == 'baru')
                                             <td><span class="badge bg-label-warning me-1">{{ $item->status }}</span></td>
                                         @else

@@ -53,7 +53,9 @@
                             </tbody>
                         </table>
                     </div>
-                    {!! $kendaraan->links() !!}
+                    <div class="mt-3 text-right">
+                        {!! $kendaraan->links() !!}
+                    </div>
                 </div>
             </div>
         </div>
