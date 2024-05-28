@@ -71,6 +71,31 @@ class PemeriksaanKendaraanController extends Controller
         ]);
     }
 
+    // public function show(string $id)
+    // {
+    //     // Fetch the PemeriksaanKendaraan model with related data
+    //     $model = PemeriksaanKendaraan::with(['baSet1', 'baSet2'])->findOrFail($id);
+
+    //     // Get the jenis kendaraan
+    //     $kendaraan = Kendaraan::pluck('jenis', 'id');
+
+    //     // Fetch the related hasilPemeriksaan records keyed by id_kegiatan
+    //     $hasilPemeriksaan = $model->hasilPemeriksaan()->get()->keyBy('id_kegiatan');
+
+    //     // Fetch kegiatan related to the specific kendaraan type
+    //     $kegiatan = Kegiatan::where('id_kendaraan', $model->id_kendaraan)->get();
+
+    //     return view('admin.' . $this->viewShow, [
+    //         'title' => 'Detail Pemeriksaan Kendaraan',
+    //         'model' => $model,
+    //         'kendaraan' => $kendaraan,
+    //         'hasilPemeriksaan' => $hasilPemeriksaan,
+    //         'kegiatan' => $kegiatan,
+    //         'baSet1' => $model->baSet1,
+    //         'baSet2' => $model->baSet2,
+    //     ]);
+    // }
+
     /**
      * Show the form for editing the specified resource.
      */

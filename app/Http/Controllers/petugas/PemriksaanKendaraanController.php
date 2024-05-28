@@ -46,10 +46,10 @@ class PemriksaanKendaraanController extends Controller
      */
     public function create()
     {
-        $kendaraan = Kendaraan::all()->mapWithKeys(function ($item) {
-            return [$item->id => $item->plat];
-        });
+        // Fetch only the necessary columns
+        $kendaraan = Kendaraan::select('id', 'plat')->get();
 
+        // Prepare the data for the view
         $data = [
             'model' => new PemeriksaanKendaraan(),
             'method' => 'POST',
@@ -64,25 +64,23 @@ class PemriksaanKendaraanController extends Controller
         return view('petugas.' . $this->viewCreate, $data);
     }
 
-    public function getKegiatanByKendaraan($id_kendaraan)
+    public function getKegiatanByKendaraan($id)
     {
-        $kegiatan = Kegiatan::where('id_kendaraan', $id_kendaraan)->get();
+        // Fetch only the necessary columns
+        $kegiatan = Kegiatan::where('id_kendaraan', $id)->select('id', 'nama')->get();
+
         return response()->json($kegiatan);
     }
 
-
-
     public function scanKegiatanByKendaraan($id_kendaraan)
     {
-        // Fetch all vehicles and map them to key-value pairs of ID and plate number
-        $kendaraan = Kendaraan::all()->mapWithKeys(function ($item) {
-            return [$item->id => $item->plat];
-        });
+        // Fetch only the necessary columns
+        $kendaraan = Kendaraan::select('id', 'plat')->get();
 
-        // Fetch activities based on the provided $id_kendaraan
-        $kegiatan = Kegiatan::where('id_kendaraan', $id_kendaraan)->get();
+        // Fetch activities based on the provided $id_kendaraan and select only necessary columns
+        $kegiatan = Kegiatan::where('id_kendaraan', $id_kendaraan)->select('id', 'nama')->get();
 
-        // Pass the filtered activities to the view
+        // Prepare the data for the view
         $data = [
             'model' => new PemeriksaanKendaraan(),
             'method' => 'POST',

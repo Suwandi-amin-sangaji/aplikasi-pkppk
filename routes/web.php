@@ -16,6 +16,7 @@ use App\Http\Controllers\pimpinan\PemeriksaanKendaraanPimpinanController;
 use App\Http\Controllers\pimpinan\PemeriksaanPeralatanPimpinanController;
 use App\Http\Controllers\admin\PemeriksaanPeralatanController as AdminPemeriksaanPeralatanController;
 use App\Http\Controllers\admin\SopController;
+use App\Http\Controllers\petugas\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +48,6 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
     Route::post('pemeriksaan-kendaraan-admin/verifikasi/{id}', [PemeriksaanKendaraanController::class, 'verifikasi'])->name('pemeriksaan-kendaraan-admin.verifikasi');
     Route::get('generate-pdf', [PemeriksaanKendaraanController::class, 'generatePDF']);
     Route::resource('sop', SopController::class);
-
 });
 
 // Pimpinan
@@ -60,6 +60,9 @@ Route::prefix('pimpinan')->middleware(['auth', 'auth.pimpinan'])->group(function
 
 // Petugas
 Route::prefix('petugas')->middleware(['auth', 'auth.petugas'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'index'])->name('user.profile');
+
+    Route::post('/profile', [ProfileController::class, 'store'])->name('user.profile.store');
     Route::get('beranda', [BerandaPetugasController::class, 'index'])->name('petugas.beranda');
     Route::resource('pemeriksaan-kendaraan', PemriksaanKendaraanController::class);
     Route::get('pemeriksaan-kendaraan/scan/{id_kendaraan}', [PemriksaanKendaraanController::class, 'scanKegiatanByKendaraan'])->name('pemeriksaan.scanKegiatanByKendaraan');

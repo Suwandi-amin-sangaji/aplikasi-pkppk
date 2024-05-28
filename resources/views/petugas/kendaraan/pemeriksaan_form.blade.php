@@ -25,13 +25,14 @@
 
                             <div class="form-group mt-3">
                                 <label for="id_kendaraan">Jenis Kendaraan</label>
-                                {!! Form::select('id_kendaraan', $kendaraan, null, [
-                                    'class' => 'form-control',
-                                    'placeholder' => 'Pilih kendaraan',
-                                    'id' => 'id_kendaraan',
-                                ]) !!}
+                                <select id="id_kendaraan" name="id_kendaraan" class="form-control">
+                                    @foreach ($kendaraan as $k)
+                                        <option value="{{ $k->id }}" {{ $k->id == old('id_kendaraan') ? 'selected' : '' }}>{{ $k->plat }}</option>
+                                    @endforeach
+                                </select>
                                 <span class="text-danger">{{ $errors->first('id_kendaraan') }}</span>
                             </div>
+
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">

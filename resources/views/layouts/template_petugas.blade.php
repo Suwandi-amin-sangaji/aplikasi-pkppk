@@ -256,7 +256,7 @@
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="{{ route('user.profile') }}">
                                             <i class="bx bx-user me-2"></i>
                                             <span class="align-middle">My Profile</span>
                                         </a>
@@ -344,6 +344,7 @@
             $('#id_kendaraan').trigger('change');
         });
 
+
         function fetchKegiatan(id_kendaraan) {
             fetch(`/petugas/pemeriksaan-kendaraan/create/${id_kendaraan}`)
                 .then(response => response.json())
@@ -380,36 +381,109 @@
                 checkbox.removeAttribute('readonly');
             }
         }
+
+
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     var selectElement = document.getElementById('id_kendaraan');
+
+        //     selectElement.addEventListener('change', function() {
+        //         var selectedOptionId = this.value;
+        //         var options = selectElement.querySelectorAll('option');
+
+        //         options.forEach(function(option) {
+        //             if (option.value === selectedOptionId) {
+        //                 option.disabled = false;
+        //             } else {
+        //                 option.disabled = true;
+        //             }
+        //         });
+        //     });
+        // });
     </script>
 
-    <!-- Html 5 QrCode JS -->
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
     <script>
+        const predefinedLat = -0.8900868;
+        const predefinedLng = 131.2887651;
+        const maxDistance = 10; // Jarak maksimum dalam meter
+
         function onScanSuccess(decodedText, decodedResult) {
-            // Handle the scanned code as you like, for example:
-            console.log(`Code matched = ${decodedText}`, decodedResult);
+            navigator.geolocation.getCurrentPosition(position => {
+                const userLat = position.coords.latitude;
+                const userLng = position.coords.longitude;
+                const distance = calculateDistance(predefinedLat, predefinedLng, userLat, userLng);
 
-            // Extract the id_kendaraan from the decodedText
-            var id_kendaraan = decodedText; // Assuming the entire decodedText is the id_kendaraan
+                // Log posisi pengguna dan jarak yang dihitung
+                console.log(`Posisi pengguna: Latitude = ${userLat}, Longitude = ${userLng}`);
+                console.log(`Jarak yang dihitung: ${distance} meter`);
 
-            // Redirect to the pemeriksaan-kendaraan.create route with the id_kendaraan parameter
-            var createRouteUrl = `{{ url('/petugas/pemeriksaan-kendaraan/scan') }}/${id_kendaraan}`;
-            window.location.href = createRouteUrl;
+                if (distance <= maxDistance) {
+                    // Tangani kode yang dipindai
+                    console.log(`Kode cocok = ${decodedText}`, decodedResult);
 
-            // Stop the scanner
-            html5QrcodeScanner.clear().catch(error => {
-                console.error('Failed to clear QR code scanner.', error);
+                    // Ekstrak id_kendaraan dari decodedText
+                    var id_kendaraan = decodedText.trim(); // Asumsikan seluruh decodedText adalah id_kendaraan
+
+                    // Perbarui dropdown
+                    updateDropdown(id_kendaraan);
+
+                    // Arahkan ke rute pemeriksaan-kendaraan.create dengan parameter id_kendaraan setelah delay
+                    setTimeout(() => {
+                        var createRouteUrl = `{{ url('/petugas/pemeriksaan-kendaraan/scan') }}/${id_kendaraan}`;
+                        window.location.href = createRouteUrl;
+                    }, 1000); // Tunggu 1 detik untuk memastikan dropdown diperbarui
+
+                    // Hentikan pemindai
+                    html5QrcodeScanner.clear().catch(error => {
+                        console.error('Gagal membersihkan pemindai QR code.', error);
+                    });
+                } else {
+                    alert('Anda berada di luar area yang diizinkan untuk pemindaian. Silakan mendekat ke lokasi yang ditentukan.');
+                    html5QrcodeScanner.clear().catch(error => {
+                        console.error('Gagal membersihkan pemindai QR code.', error);
+                    });
+                }
+            }, error => {
+                console.error('Kesalahan mendapatkan lokasi', error);
+                alert('Tidak dapat mengambil lokasi Anda. Periksa pengaturan lokasi Anda dan coba lagi.');
             });
         }
 
         function onScanFailure(error) {
-            // Handle scan failure, usually better to ignore and keep scanning.
-            console.warn(`Code scan error = ${error}`);
+            // Tangani kegagalan pemindaian, biasanya lebih baik diabaikan dan terus memindai.
+            console.warn(`Kesalahan pemindaian kode = ${error}`);
+        }
+
+        function updateDropdown(vehicleId) {
+            const dropdown = document.getElementById('id_kendaraan');
+            console.log(dropdown);
+            if (dropdown) {
+                dropdown.value = vehicleId;
+                $(dropdown).trigger('change');
+            } else {
+                console.error('Dropdown dengan ID "id_kendaraan" tidak ditemukan.');
+            }
+        }
+
+        function calculateDistance(lat1, lng1, lat2, lng2) {
+            const R = 6371e3; // Jari-jari bumi dalam meter
+            const φ1 = lat1 * Math.PI / 180; // φ, λ dalam radian
+            const φ2 = lat2 * Math.PI / 180;
+            const Δφ = (lat2 - lat1) * Math.PI / 180;
+            const Δλ = (lng2 - lng1) * Math.PI / 180;
+
+            const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+                Math.cos(φ1) * Math.cos(φ2) *
+                Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+            const distance = R * c; // dalam meter
+            return distance;
         }
 
         let html5QrcodeScanner;
         document.getElementById('startScannerBtn').addEventListener('click', function() {
-            document.getElementById('reader').style.display = 'block'; // Show the camera container
+            document.getElementById('reader').style.display = 'block'; // Tampilkan kontainer kamera
             html5QrcodeScanner = new Html5QrcodeScanner(
                 "reader", {
                     fps: 10,
@@ -419,9 +493,12 @@
                     }
                 },
                 false);
-            html5QrcodeScanner.render(onScanSuccess, onScanFailure); // Start the scanner
+            html5QrcodeScanner.render(onScanSuccess, onScanFailure); // Mulai pemindai
         });
     </script>
+
+
+
 
     <!-- build:js assets/vendor/js/core.js -->
 

@@ -14,6 +14,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>title</th>
+                                    <th>File</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -22,6 +23,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->title }}</td>
+                                        <td><a href="{{$item->file}}" target="_blank">Lihat</a></td>
                                         <td>
                                             {!! Form::open([
                                                 'route' => ['sop.destroy', $item->id],
@@ -29,9 +31,9 @@
                                                 'onsubmit' => 'return confirm("Apakah anda yakin ingin menghapus data ini?")',
                                             ]) !!}
 
-                                            <a href="{{ route('sop.show', $item->id) }}" class="btn btn-secondary btn-sm"
+                                            {{-- <a href="{{ route('sop.show', $item->id) }}" class="btn btn-secondary btn-sm"
                                                 data-bs-toggle="modal" data-bs-target="#exLargeModal"><i class="fa fa-eye">
-                                                </i></a>
+                                                </i></a> --}}
                                             <a href="{{ route('sop.edit', $item->id) }}" class="btn btn-success btn-sm"><i
                                                     class="fa fa-edit"> </i></a>
                                             {{-- {!! Form::submit('Hapus', ['class' => 'btn btn-danger btn-sm']) !!} --}}
@@ -56,7 +58,7 @@
             </div>
 
 
-            <div class="modal fade" id="exLargeModal" tabindex="-1" aria-hidden="true">
+            {{-- <div class="modal fade" id="exLargeModal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-xl" role="document">
                     <div class="modal-content">
                         <div class="modal-body">
@@ -76,7 +78,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div> --}}
         </div>
     </div>
 @endsection
