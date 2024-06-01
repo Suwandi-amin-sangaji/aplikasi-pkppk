@@ -213,7 +213,7 @@ class PemriksaanKendaraanController extends Controller
             'baSet2' => $model->baSet2,
         ];
 
-        $pdf = PDF::loadView('petugas.kendaraan.cetak', $data);
-        return $pdf->stream('download.pdf');
+        $pdf = Pdf::loadView('petugas.kendaraan.cetak', $data);
+        return $pdf->stream('kendaraan.pdf');
     }
 }

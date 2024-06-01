@@ -31,20 +31,47 @@ class PemeriksaanKendaraanPimpinanController extends Controller
 
     public function show(string $id)
     {
+        // Fetch the PemeriksaanKendaraan model with related data
         $model = PemeriksaanKendaraan::with(['baSet1', 'baSet2'])->findOrFail($id);
+
+        // Get the jenis kendaraan
         $kendaraan = Kendaraan::pluck('jenis', 'id');
+
+        // Fetch the related hasilPemeriksaan records keyed by id_kegiatan
         $hasilPemeriksaan = $model->hasilPemeriksaan()->get()->keyBy('id_kegiatan');
+
+        // Fetch kegiatan related to the specific kendaraan type
+        $kegiatan = Kegiatan::where('id_kendaraan', $model->id_kendaraan)->get();
 
         return view('pimpinan.' . $this->viewShow, [
             'title' => 'Detail Pemeriksaan Kendaraan',
             'model' => $model,
             'kendaraan' => $kendaraan,
             'hasilPemeriksaan' => $hasilPemeriksaan,
-            'kegiatan' => Kegiatan::all(),
+            'kegiatan' => $kegiatan,
             'baSet1' => $model->baSet1,
             'baSet2' => $model->baSet2,
         ]);
     }
+
+    public function sign(Request $request, $id)
+    {
+        $request->validate([
+            'signature' => 'required|mimes:jpg,jpeg,png|max:5048',
+        ]);
+
+        $pemeriksaan = PemeriksaanKendaraan::with('kendaraan')->findOrFail($id);
+
+        if ($request->hasFile('signature')) {
+            $signaturePath = $request->file('signature')->store('signatures', 'public');
+            $pemeriksaan->signature = $signaturePath;
+            $pemeriksaan->status = 'ditandatangani';
+            $pemeriksaan->save();
+        }
+
+        return redirect()->route('pemeriksaan-kendaraan-pimpinan.index')->with('success', 'Tanda tangan berhasil disimpan.');
+    }
+
 
 
     public function verifikasi($id)

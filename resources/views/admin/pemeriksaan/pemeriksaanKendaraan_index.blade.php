@@ -7,7 +7,15 @@
                 <h5 class="card-header">Data Pemeriksaan Kendaraan Oleh Petugas</h5>
 
                 <div class="card-body">
-                    {{-- buat serach Data --}}
+                    <div class="d-flex justify-content-between mb-4">
+                        <a href="{{ route('cetak-laporan-kendaraan') }}" class="btn btn-danger">CETAK PDF</a>
+                        {!! Form::open(['method' => 'GET', 'class' => 'd-flex']) !!}
+                            {!! Form::text('search', request('search'), ['class' => 'form-control mr-2', 'placeholder' => 'Search...']) !!}
+                            <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                        {!! Form::close() !!}
+                    </div>
+
+
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
                             <thead>
@@ -17,6 +25,7 @@
                                     <th>Asisten</th>
                                     <th>Waktu</th>
                                     <th>Hari/Tanggal</th>
+                                    <th>Jenis Kendaraan</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -29,11 +38,17 @@
                                         <td>{{ $item->nama_asisten }}</td>
                                         <td>{{ $item->waktu }}</td>
                                         <td>{{ $item->tanggal }}</td>
+                                        <td>{{ $item->kendaraan->jenis }}</td>
                                         <td>
                                             @if ($item->status == 'baru')
                                                 <span class="badge bg-label-warning me-1">{{ $item->status }}</span>
-                                                {!! Form::open(['route' => ['pemeriksaan-kendaraan-admin.verifikasi', $item->id], 'method' => 'POST', 'style' => 'display:inline']) !!}
-                                                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-check"></i></button>
+                                                {!! Form::open([
+                                                    'route' => ['pemeriksaan-kendaraan-admin.verifikasi', $item->id],
+                                                    'method' => 'POST',
+                                                    'style' => 'display:inline',
+                                                ]) !!}
+                                                <button type="submit" class="btn btn-primary btn-sm"><i
+                                                        class="fa fa-check"></i></button>
                                                 {!! Form::close() !!}
                                             @else
                                                 <span class="badge bg-label-success me-1">{{ $item->status }}</span>
@@ -49,8 +64,8 @@
                                             <a href="{{ route('pemeriksaan-kendaraan-admin.show', $item->id) }}"
                                                 class="btn btn-secondary btn-sm"><i class="fa fa-eye"> </i></a>
 
-                                                <a href="{{ route('pemeriksaan-kendaraan-admin.edit', $item->id) }}"
-                                                    class="btn btn-warning btn-sm"><i class="fa fa-edit"> </i></a>
+                                            <a href="{{ route('pemeriksaan-kendaraan-admin.edit', $item->id) }}"
+                                                class="btn btn-warning btn-sm"><i class="fa fa-edit"> </i></a>
 
                                             <button type="submit" class="btn btn-danger btn-sm"> <i class="fa fa-trash">
                                                 </i></button>

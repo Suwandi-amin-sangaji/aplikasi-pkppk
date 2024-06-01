@@ -23,11 +23,13 @@ class PemeriksaanKendaraanController extends Controller
     private $routePrefix = 'pemeriksaan';
 
 
-    public function index()
+    public function index(Request $request)
     {
-        $pemeriksaan = PemeriksaanKendaraan::with('kendaraan')
-            ->latest()
-            ->paginate(10);
+        $search = $request->input('search');
+
+        $pemeriksaan = PemeriksaanKendaraan::with('kendaraan')->where('nama_operator', 'like', "%$search%")
+        ->latest()
+        ->paginate(10);
         return view('admin.' . $this->viewIndex, [
             'pemeriksaan' => $pemeriksaan,
             'routePrefix' => $this->routePrefix,
@@ -56,16 +58,24 @@ class PemeriksaanKendaraanController extends Controller
      */
     public function show(string $id)
     {
+        // Fetch the PemeriksaanKendaraan model with related data
         $model = PemeriksaanKendaraan::with(['baSet1', 'baSet2'])->findOrFail($id);
+
+        // Get the jenis kendaraan
         $kendaraan = Kendaraan::pluck('jenis', 'id');
+
+        // Fetch the related hasilPemeriksaan records keyed by id_kegiatan
         $hasilPemeriksaan = $model->hasilPemeriksaan()->get()->keyBy('id_kegiatan');
 
-        return view('admin.' . $this->viewedit, [
+        // Fetch kegiatan related to the specific kendaraan type
+        $kegiatan = Kegiatan::where('id_kendaraan', $model->id_kendaraan)->get();
+
+        return view('admin.' . $this->viewShow, [
             'title' => 'Detail Pemeriksaan Kendaraan',
             'model' => $model,
             'kendaraan' => $kendaraan,
             'hasilPemeriksaan' => $hasilPemeriksaan,
-            'kegiatan' => Kegiatan::all(),
+            'kegiatan' => $kegiatan,
             'baSet1' => $model->baSet1,
             'baSet2' => $model->baSet2,
         ]);
@@ -151,10 +161,10 @@ class PemeriksaanKendaraanController extends Controller
     }
 
 
-    // public function generatePDF()
-    // {
-    //     $data = ['title' => 'domPDF Sample', 'date' => date('m/d/Y')];
-    //     $pdf = Pdf::loadView('admin.laporan.pdf.document', $data)->setOptions(['defaultFont' => 'sans-serif']);
-    //     return $pdf->download('document.pdf');
-    // }
+    public function laporanAllKendaraan()
+    {
+        $kendaraan = PemeriksaanKendaraan::with('kendaraan')->get();
+        $pdf = Pdf::loadView('admin.laporan.cetakLaporanKendaraan', ['kendaraan' => $kendaraan]);
+        return $pdf->stream('kendaraan.pdf');
+    }
 }

@@ -9,7 +9,7 @@
                 <div class="card-body">
                     <a href="{{ route('kegiatan.create') }}" class="btn btn-primary btn-sm mb-4">Tambah Data</a>
                     <div class="table-responsive">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered" id="myTable">
                             <thead>
                                 <tr>
                                     <th>No</th>

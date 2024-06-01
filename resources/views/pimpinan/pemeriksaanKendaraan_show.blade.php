@@ -38,7 +38,7 @@
                             </div>
                             <div class="form-group mt-3">
                                 <label for="tanggal">Tanggal</label>
-                                {!! Form::date('tanggal', $model->tanggal, ['class' => 'form-control', 'disabled']) !!}
+                                {!! Form::text('tanggal', $model->tanggal, ['class' => 'form-control', 'disabled']) !!}
                                 <span class="text-danger">{{ $errors->first('tanggal') }}</span>
                             </div>
 

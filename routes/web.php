@@ -46,7 +46,7 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
     Route::resource('pemeriksaan-kendaraan-admin', PemeriksaanKendaraanController::class);
     Route::resource('pemeriksaan-peralatan-admin', AdminPemeriksaanPeralatanController::class);
     Route::post('pemeriksaan-kendaraan-admin/verifikasi/{id}', [PemeriksaanKendaraanController::class, 'verifikasi'])->name('pemeriksaan-kendaraan-admin.verifikasi');
-    Route::get('generate-pdf', [PemeriksaanKendaraanController::class, 'generatePDF']);
+    Route::get('cetak-laporan-kendaraan', [PemeriksaanKendaraanController::class, 'laporanAllKendaraan'])->name('cetak-laporan-kendaraan');
     Route::resource('sop', SopController::class);
 });
 
@@ -55,7 +55,10 @@ Route::prefix('pimpinan')->middleware(['auth', 'auth.pimpinan'])->group(function
     Route::get('beranda', [BerandaPimpinanController::class, 'index'])->name('pimpinan.beranda');
     Route::resource('pemeriksaan-kendaraan-pimpinan', PemeriksaanKendaraanPimpinanController::class);
     Route::resource('pemeriksaan-peralatan-pimpinan', PemeriksaanPeralatanPimpinanController::class);
-    Route::post('pemeriksaan-kendaraan-pimpinan/verifikasi/{id}', [PemeriksaanKendaraanPimpinanController::class, 'verifikasi'])->name('pemeriksaan-kendaraan-pimpinan.verifikasi');
+    Route::post('/pemeriksaan-kendaraan-pimpinan/sign/{id}', [PemeriksaanKendaraanPimpinanController::class, 'sign'])->name('pemeriksaan-kendaraan-pimpinan.sign');
+    Route::post('/pemeriksaan-kendaraan-pimpinan/verifikasi/{id}', [PemeriksaanKendaraanPimpinanController::class, 'verifikasi'])->name('pemeriksaan-kendaraan-pimpinan.verifikasi');
+
+    // Route::post('pemeriksaan-kendaraan-pimpinan/verifikasi/{id}', [PemeriksaanKendaraanPimpinanController::class, 'verifikasi'])->name('pemeriksaan-kendaraan-pimpinan.verifikasi');
 });
 
 // Petugas

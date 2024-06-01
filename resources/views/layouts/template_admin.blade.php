@@ -37,7 +37,6 @@
 
     <link rel="stylesheet" href="{{ asset('sneat') }}/assets/vendor/libs/apex-charts/apex-charts.css" />
 
-    <!-- Page CSS -->
 
     <!-- Helpers -->
     <script src="{{ asset('sneat') }}/assets/vendor/js/helpers.js"></script>
@@ -168,16 +167,16 @@
                         </a>
                     </li>
 
-                     {{-- STOCK --}}
-                     <li class="menu-item">
+                    {{-- STOCK --}}
+                    <li class="menu-item">
                         <a href="#" class="menu-link">
                             <i class='menu-icon  tf-icons bx bx-box'></i>
                             <div data-i18n="Analytics">Data Stock barang</div>
                         </a>
                     </li>
 
-                      {{-- SOP --}}
-                      <li class="menu-item {{ Route::is('sop.*') ? 'active' : '' }}">
+                    {{-- SOP --}}
+                    <li class="menu-item {{ Route::is('sop.*') ? 'active' : '' }}">
                         <a href="{{ route('sop.index') }}" class="menu-link">
                             <i class='menu-icon  tf-icons bx bx-book-content'></i>
                             <div data-i18n="Analytics">SOP</div>
@@ -345,6 +344,8 @@
     <!-- / Layout wrapper -->
 
     <!-- Core JS -->
+
+
     <!-- build:js assets/vendor/js/core.js -->
     <script src="{{ asset('sneat') }}/assets/vendor/libs/jquery/jquery.js"></script>
     <script src="{{ asset('sneat') }}/assets/vendor/libs/popper/popper.js"></script>

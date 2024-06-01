@@ -1,37 +1,46 @@
-<!-- resources/views/pdf/patient_detail.blade.php -->
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patient Detail</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Kendaraan</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
 </head>
 <body>
     <div class="container">
-        <h1 class="title text-center mb-3">Hasil</h1><hr>
-        <div class="d-flex justify-content-between">
-            {{-- <div class="left float-start mb-5" style="width: 45%">
-                <p><strong>Nama             :</strong> {{ $data_pasien->nama }}</p>
-                <p><strong>Jenis Kelamin    :</strong> {{ $data_pasien->jenis_kelamin }}</p>
-                <p><strong>No Rm            :</strong> {{ $data_pasien->no_rm }}</p>
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="text-center">Testing PDF</div>
+                <table class="table table-bordered">
+                   <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Operator</th>
+                        <th>Asisten</th>
+                        <th>Waktu</th>
+                        <th>Hari/Tanggal</th>
+                        <th>Jenis Kendaraan</th>
+                        <th>Status</th>
+                    </tr>
+                   </thead>
+                   <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Operator 1</td>
+                        <td>Asisten 1</td>
+                        <td>12:00</td>
+                        <td>Senin, 20 Januari 2022</td>
+                        <td>Mobil</td>
+                        <td>
+                            <span class="badge bg-label-warning me-1">baru</span>
+                        </td>
+                    </tr>
+                   </tbody>
+                </table>
             </div>
-            <div class="left float-end mb-5" style="width: 45%">
-                <p><strong>No telpon        :</strong> {{ $data_pasien->no_telpon }}</p>
-                <p><strong>Alamat           :</strong> {{ $data_pasien->alamat }}</p>
-                <p><strong>Tanggal Periksa  :</strong> {{ date("d F Y", strtotime($data_pasien->created_at)) }}</p>
-                <br>
-            </div> --}}
         </div>
-
-        <h2 style="font-weight: bold">Pemeriksaan :</h2><hr>
-        <table class="table table-bordered">
-
-        </table>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

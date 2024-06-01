@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('tanggal');
             $table->string('mengetahui')->nullable();
             $table->string('status')->default('baru');
+            $table->string('signature')->nullable();
             $table->text('catatan')->nullable();
             $table->bigInteger('id_baset_1'); // ULID
             $table->bigInteger('id_baset_2');
