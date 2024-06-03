@@ -19,32 +19,20 @@ class PeralatanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $query = Peralatan::with('compartment')
-            ->join('compartments', 'peralatans.id_compartment', '=', 'compartments.id')
-            ->orderBy('compartments.name')
-            ->select('peralatans.*');
-
-        // Apply search filter if search query exists
-        if ($request->has('search') && $request->search != '') {
-            $search = $request->search;
-            $query->where(function ($q) use ($search) {
-                $q->where('peralatans.item', 'like', "%$search%")
-                    ->orWhere('compartments.name', 'like', "%$search%");
-            });
-        }
-
-        // Paginate the results
-        $peralatan = $query->latest()->paginate(10);
-
         return view('admin.' . $this->viewIndex, [
-            'peralatan' => $peralatan,
+            'peralatan' => Peralatan::with('compartment')
+                ->join('compartments', 'peralatans.id_compartment', '=', 'compartments.id')
+                ->orderBy('compartments.name')
+                ->select('peralatans.*')
+                ->latest()
+                ->paginate(10),
             'routePrefix' => $this->routePrefix,
             'title' => 'Komponen Peralatan'
         ]);
-    }
 
+    }
 
     /**
      * Show the form for creating a new resource.

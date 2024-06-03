@@ -4,6 +4,7 @@ namespace App\Http\Controllers\petugas;
 
 use App\Http\Controllers\Controller;
 use App\Models\HasilPeralatan;
+use App\Models\Kendaraan;
 use App\Models\PemeriksaanPeralatan;
 use App\Models\Peralatan;
 use Carbon\Carbon;
@@ -44,12 +45,14 @@ class PemeriksaanPeralatanController extends Controller
     {
         $peralatan = Peralatan::with('compartment')->get()->groupBy('compartment.name');
 
+        $kendaraan = Kendaraan::select('id', 'plat')->get();
         $data = [
             'model' => new PemeriksaanPeralatan(),
             'method' => 'POST',
             'route' => $this->routePrefix . '.store',
             'button' => 'Simpan',
             'title' => 'Peralatan',
+            'kendaraan' => $kendaraan,
             'peralatan' => $peralatan,
         ];
 

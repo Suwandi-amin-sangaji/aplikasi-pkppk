@@ -7,7 +7,14 @@
                 <h5 class="card-header">{{ $title }}</h5>
 
                 <div class="card-body">
-                    <a href="{{ route('kegiatan.create') }}" class="btn btn-primary btn-sm mb-4">Tambah Data</a>
+
+                    <div class="d-flex justify-content-between mb-4">
+                        <a href="{{ route('kegiatan.create') }}" class="btn btn-primary">Tambah Data</a>
+                        {!! Form::open(['method' => 'GET', 'class' => 'd-flex']) !!}
+                            {!! Form::text('search', request('search'), ['class' => 'form-control mr-2', 'placeholder' => 'Search...']) !!}
+                            <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                        {!! Form::close() !!}
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-bordered" id="myTable">
                             <thead>

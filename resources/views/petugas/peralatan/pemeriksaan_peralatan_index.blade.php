@@ -7,7 +7,17 @@
                 <h5 class="card-header">{{$title}}</h5>
 
                 <div class="card-body">
-                    <a href="{{ route('pemeriksaan-peralatan.create') }}" class="btn btn-primary btn-sm mb-4">Tambah Data</a>
+
+                    <div class="d-flex justify-content-between mb-3">
+                        <div class="d-flex align-items-start">
+                            <button class="btn btn-primary btn-sm mx-2" id="startScannerBtn">Scanner QrCode</button>
+                            <a href="{{ route('pemeriksaan-peralatan.create') }}" class="btn btn-primary btn-sm">Pemeriskaan Peralatan</a>
+                        </div>
+                        {!! Form::open(['method' => 'GET', 'class' => 'd-flex']) !!}
+                        {!! Form::text('search', request('search'), ['class' => 'form-control', 'placeholder' => 'Search...']) !!}
+                        <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                        {!! Form::close() !!}
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
                             <thead>

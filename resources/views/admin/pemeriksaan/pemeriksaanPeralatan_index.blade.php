@@ -7,6 +7,13 @@
                 <h5 class="card-header">Data Pemeriksaan Kendaraan Oleh Petugas</h5>
 
                 <div class="card-body">
+                    <div class="d-flex justify-content-between mb-4">
+
+                        {!! Form::open(['method' => 'GET', 'class' => 'd-flex']) !!}
+                            {!! Form::text('search', request('search'), ['class' => 'form-control mr-2', 'placeholder' => 'Search...']) !!}
+                            <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                        {!! Form::close() !!}
+                    </div>
                     {{-- buat serach Data --}}
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">

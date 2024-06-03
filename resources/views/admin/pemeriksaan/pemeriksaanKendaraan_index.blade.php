@@ -8,11 +8,18 @@
 
                 <div class="card-body">
                     <div class="d-flex justify-content-between mb-4">
-                        <a href="{{ route('cetak-laporan-kendaraan') }}" class="btn btn-danger">CETAK PDF</a>
                         {!! Form::open(['method' => 'GET', 'class' => 'd-flex']) !!}
-                            {!! Form::text('search', request('search'), ['class' => 'form-control mr-2', 'placeholder' => 'Search...']) !!}
-                            <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                        {!! Form::text('search', request('search'), ['class' => 'form-control mr-2', 'placeholder' => 'Search...']) !!}
+                        {!! Form::date('start_date', request('start_date'), ['class' => 'form-control mr-2']) !!}
+                        {!! Form::date('end_date', request('end_date'), ['class' => 'form-control mr-2']) !!}
+                        <button type="submit" class="btn btn-primary btn-sm mr-2">Search</button>
                         {!! Form::close() !!}
+                        <div>
+                            <a href="{{ route($routeCetakKendaraan, array_merge(request()->all(), ['format' => 'pdf'])) }}"
+                                class="btn btn-danger btn-sm mr-2">Print PDF</a>
+                            <a href="{{ route($routeCetakKendaraan, array_merge(request()->all(), ['format' => 'excel'])) }}"
+                                class="btn btn-success btn-sm">Print Excel</a>
+                        </div>
                     </div>
 
 

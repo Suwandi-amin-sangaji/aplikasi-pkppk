@@ -9,6 +9,7 @@ use App\Models\Kendaraan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\PemeriksaanKendaraan;
+use Carbon\Carbon;
 
 class PemeriksaanKendaraanController extends Controller
 {
@@ -21,21 +22,43 @@ class PemeriksaanKendaraanController extends Controller
     private $viewedit = 'pemeriksaan.pemeriksaanKendaraan_form';
     private $viewShow = 'pemeriksaan.pemeriksaanKendaraan_show';
     private $routePrefix = 'pemeriksaan';
+    private $routeCetakKendaraan = 'cetak-laporan-kendaraan';
 
 
     public function index(Request $request)
     {
         $search = $request->input('search');
 
-        $pemeriksaan = PemeriksaanKendaraan::with('kendaraan')->where('nama_operator', 'like', "%$search%")
-        ->latest()
-        ->paginate(10);
+        $query = PemeriksaanKendaraan::with('kendaraan')->where('nama_operator', 'like', "%$search%");
+
+        if ($request->has('start_date') && $request->has('end_date')) {
+            $startDate = Carbon::parse($request->start_date)->startOfDay();
+            $endDate = Carbon::parse($request->end_date)->endOfDay();
+            $query->whereBetween('created_at', [$startDate, $endDate]);
+        }
+
+        $format = $request->input('format');
+        if ($format == 'pdf') {
+            $data = $query->get();
+            $pdf = PDF::loadView('admin.your_pdf_view', compact('data'));
+            return $pdf->download('pemeriksaan_kendaraan.pdf');
+        } elseif ($format == 'excel') {
+            // return Excel::download(new PemeriksaanKendaraanExport($query->get()), 'pemeriksaan_kendaraan.xlsx');
+        }
+
+        $pemeriksaan = $query->latest()->paginate(10);
+
+        if ($request->ajax()) {
+            return view('admin.partials.results', compact('pemeriksaan'))->render();
+        }
+
         return view('admin.' . $this->viewIndex, [
             'pemeriksaan' => $pemeriksaan,
-            'routePrefix' => $this->routePrefix,
-            'title' => 'Pemeriksaan kendaraan Oleh Putugas'
+            'routeCetakKendaraan' => $this->routeCetakKendaraan,
+            'title' => 'Pemeriksaan kendaraan Oleh Petugas'
         ]);
     }
+
 
     /**
      * Show the form for creating a new resource.

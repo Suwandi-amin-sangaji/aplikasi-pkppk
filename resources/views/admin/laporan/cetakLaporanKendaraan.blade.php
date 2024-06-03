@@ -18,8 +18,8 @@
             <tr>
                 <th>ID</th>
                 <th>Nama Kendaraan</th>
-                <th>Pemeriksaan</th>
-                <th>Tanggal</th>
+                <th>Hari/Tanggal</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
@@ -27,8 +27,8 @@
                 <tr>
                     <td>{{ $item->id }}</td>
                     <td>{{ $item->kendaraan->jenis }}</td>
-                    <td>{{ $item->pemeriksaan }}</td>
-                    <td>{{ $item->created_at }}</td>
+                    <td>{{ $item->tanggal }}</td>
+                    <td>{{ $item->status }}</td>
                 </tr>
             @endforeach
         </tbody>

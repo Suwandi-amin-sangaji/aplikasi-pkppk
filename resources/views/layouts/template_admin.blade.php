@@ -191,6 +191,8 @@
                         </a>
                     </li>
 
+
+
                     @if (Auth::user()->akses == 'admin')
                         <li class="menu-item {{ Route::is('petugas.*') ? 'active' : '' }}">
                             <a href="{{ route('petugas.index') }}" class="menu-link">
@@ -200,6 +202,25 @@
                         </li>
                     @endif
 
+                    <li class="menu-item {{ Route::is('pemeriksaan-kendaraan-admin.*') ? 'active' : '' }}">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons  fa fa-list" aria-hidden="true"></i>
+                            <div data-i18n="pemeriksaan">Laporan</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item {{ Route::is('pemeriksaan-kendaraan-admin.*') ? 'active' : '' }}">
+                                <a href="{{ route('pemeriksaan-kendaraan-admin.index') }}" class="menu-link">
+                                    <div data-i18n="pemeriksaan-kendaraan">Kendaraan</div>
+                                </a>
+                            </li>
+                            <li class="menu-item {{ Route::is('pemeriksaan-peralatan-admin.*') ? 'active' : '' }}">
+                                <a href="{{ route('pemeriksaan-peralatan-admin.index') }}" class="menu-link">
+                                    <div data-i18n="pemeriksaan-peralatan">Peralatan</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
                     <!-- Layouts -->
                     <li class="menu-item">
                         <a href="{{ route('logout') }}" class="menu-link">
@@ -207,6 +228,7 @@
                             <div data-i18n="Boxicons">Logout</div>
                         </a>
                     </li>
+
 
 
                 </ul>

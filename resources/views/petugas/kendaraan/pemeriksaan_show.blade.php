@@ -84,6 +84,7 @@
                             </tbody>
                         </table>
                     </div>
+                    {{-- @if (!$model->kendaraan->jenis == 'Foam Tender type II' && !$model->kendaraan->id == '2') --}}
 
                     <div class="row mt-3">
                         <label class="form-label" for="basic-default-message">BA SET</label>
@@ -194,6 +195,7 @@
                             <textarea id="catatan" name="catatan" class="form-control" rows="10" disabled>{{ $model->catatan }}</textarea>
                         </div>
                     </div>
+                    {{-- @endif --}}
 
 
                     <div class="row mt-3">
