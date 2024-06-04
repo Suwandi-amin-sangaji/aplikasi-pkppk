@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Exports\PemeriksaanKendaraanExport;
 use App\Models\Kegiatan;
 // use Barryvdh\DomPDF\PDF;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\PemeriksaanKendaraan;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PemeriksaanKendaraanController extends Controller
 {
@@ -189,5 +191,9 @@ class PemeriksaanKendaraanController extends Controller
         $kendaraan = PemeriksaanKendaraan::with('kendaraan')->get();
         $pdf = Pdf::loadView('admin.laporan.cetakLaporanKendaraan', ['kendaraan' => $kendaraan]);
         return $pdf->stream('kendaraan.pdf');
+    }
+
+    public function exportLaporanKendaraan(){
+        return Excel::download(new PemeriksaanKendaraanExport, 'laporan-pemeriksaan-kendaraan.xlsx');
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\AdminProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\PetugasController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\petugas\PemeriksaanPeralatanController;
 use App\Http\Controllers\pimpinan\PemeriksaanKendaraanPimpinanController;
 use App\Http\Controllers\pimpinan\PemeriksaanPeralatanPimpinanController;
 use App\Http\Controllers\admin\PemeriksaanPeralatanController as AdminPemeriksaanPeralatanController;
+
 use App\Http\Controllers\admin\SopController;
 use App\Http\Controllers\petugas\ProfileController;
 
@@ -39,6 +41,8 @@ Auth::routes();
 // Admin
 Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
     Route::get('beranda', [BerandaAdminController::class, 'index'])->name('admin.beranda');
+    Route::get('/profile', [AdminProfileController::class, 'index'])->name('admin.profile');
+    Route::post('/profile', [AdminProfileController::class, 'store'])->name('admin.profile.store');
     Route::resource('petugas', PetugasController::class);
     Route::resource('kendaraan', KendaraanController::class);
     Route::resource('kegiatan', KegiatanController::class);
@@ -47,6 +51,7 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
     Route::resource('pemeriksaan-peralatan-admin', AdminPemeriksaanPeralatanController::class);
     Route::post('pemeriksaan-kendaraan-admin/verifikasi/{id}', [PemeriksaanKendaraanController::class, 'verifikasi'])->name('pemeriksaan-kendaraan-admin.verifikasi');
     Route::get('cetak-laporan-kendaraan', [PemeriksaanKendaraanController::class, 'laporanAllKendaraan'])->name('cetak-laporan-kendaraan');
+    Route::get('export-pemeriksaan-kendaraan',[PemeriksaanKendaraanController::class, 'exportLaporanKendaraan'])->name('export-pemeriksaan-kendaraan');
     Route::resource('sop', SopController::class);
 });
 

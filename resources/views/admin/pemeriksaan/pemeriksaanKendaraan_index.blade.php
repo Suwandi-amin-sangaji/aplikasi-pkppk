@@ -17,7 +17,7 @@
                         <div>
                             <a href="{{ route($routeCetakKendaraan, array_merge(request()->all(), ['format' => 'pdf'])) }}"
                                 class="btn btn-danger btn-sm mr-2">Print PDF</a>
-                            <a href="{{ route($routeCetakKendaraan, array_merge(request()->all(), ['format' => 'excel'])) }}"
+                            <a href="{{ route('export-pemeriksaan-kendaraan', array_merge(request()->all(), ['format' => 'excel'])) }}"
                                 class="btn btn-success btn-sm">Print Excel</a>
                         </div>
                     </div>

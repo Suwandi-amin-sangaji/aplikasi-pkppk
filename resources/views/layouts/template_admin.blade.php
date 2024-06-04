@@ -202,7 +202,7 @@
                         </li>
                     @endif
 
-                    <li class="menu-item {{ Route::is('pemeriksaan-kendaraan-admin.*') ? 'active' : '' }}">
+                    {{-- <li class="menu-item {{ Route::is('pemeriksaan-kendaraan-admin.*') ? 'active' : '' }}">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons  fa fa-list" aria-hidden="true"></i>
                             <div data-i18n="pemeriksaan">Laporan</div>
@@ -219,7 +219,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
 
                     <!-- Layouts -->
                     <li class="menu-item">
@@ -298,7 +298,7 @@
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="{{route('admin.profile')}}">
                                             <i class="bx bx-user me-2"></i>
                                             <span class="align-middle">My Profile</span>
                                         </a>
